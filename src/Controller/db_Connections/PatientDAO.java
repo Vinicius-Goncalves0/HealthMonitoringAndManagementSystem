@@ -85,8 +85,6 @@ public class PatientDAO {
                 patient.setId(rs.getInt("id"));
             }
 
-            System.out.println("Medication added successfully!");
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new SQLException("Error finding patient: " + e.getMessage());

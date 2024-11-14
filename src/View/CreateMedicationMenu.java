@@ -30,9 +30,7 @@ public class CreateMedicationMenu {
         // Creating a database connection object
         PatientDAO patientDAO = new PatientDAO();
 
-        try {
-            // Recupera o paciente pelo nome
-            Patient patient = patientDAO.findPatientByName(patientName);
+        try { Patient patient = patientDAO.findPatientByName(patientName);
 
             if (patient != null) {
                 // Usa o paciente recuperado para criar o registro do medicamento

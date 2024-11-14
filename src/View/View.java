@@ -3,15 +3,19 @@ package View;
 import java.util.Scanner;
 
 public class View {
+    public void loginMenu() {
+
+    }
+
     public void displayMainMenu() {
         Scanner scan = new Scanner(System.in);
-        CreatePatientMenu createPatientMenu = new CreatePatientMenu();
-        CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
-        
+        PatientView patientView = new PatientView();
+        DoctorView doctorView = new DoctorView();
+
         while (true) {
-            System.out.println("Main Menu:");
-            System.out.println("1. Create Patient");
-            System.out.println("2. Add Medication");
+            System.out.println("\nMain Menu:");
+            System.out.println("1. Patient Menu");
+            System.out.println("2. Doctor Menu");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             int choice = scan.nextInt();
@@ -19,10 +23,10 @@ public class View {
 
             switch (choice) {
                 case 1:
-                    createPatientMenu.createPatientMenu();
+                    patientView.displayPatientMenu();
                     break;
                 case 2:
-                    createMedicationMenu.createMedicationMenu();
+                    doctorView.displayDoctorMenu();
                     break;
                 case 3:
                     System.out.println("Exiting...");
