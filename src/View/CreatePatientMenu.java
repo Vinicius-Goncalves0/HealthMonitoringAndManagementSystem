@@ -9,7 +9,7 @@ public class CreatePatientMenu {
     Scanner scan = new Scanner(System.in);
 
     public void createPatientMenu() {
-        System.out.println("Enter patient's name: ");
+        System.out.println("\nEnter patient's name: ");
         String name = scan.nextLine();
         System.out.println("Enter patient's CPF: ");
         String cpf = scan.nextLine();

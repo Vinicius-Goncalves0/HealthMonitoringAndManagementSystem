@@ -12,7 +12,7 @@ public class CreateMedicationMenu {
     Scanner scan = new Scanner(System.in);
 
     public void createMedicationMenu(String patientName) {
-        System.out.println("Enter medication name: ");
+        System.out.println("\nEnter medication name: ");
         String medicationName = scan.nextLine();
         System.out.println("Enter medication dosage: ");
         String dosage = scan.nextLine();
