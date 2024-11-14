@@ -1,14 +1,14 @@
 package Model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Patient {
 
+    private int id;
     private String name;
     private String CPF;
-    private LocalDate birthDate;
+    private String birthDate;
     private String address;
     private String phone;
     private String email;
@@ -20,7 +20,7 @@ public class Patient {
     private List<Device> devices;
 
 
-    public Patient(String name, String CPF, LocalDate birthDate, String address, String phone, String email) {
+    public Patient(String name, String CPF, String birthDate, String address, String phone, String email) {
         this.name = name;
         this.CPF = CPF;
         this.birthDate = birthDate;
@@ -30,6 +30,13 @@ public class Patient {
         this.histories = new ArrayList<>(); // Inicializa a lista de históricos
         this.medications = new ArrayList<>(); // Inicializa a lista de medicamentos
         this.devices = new ArrayList<>(); // Inicializa a lista de dispositivos
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,10 +53,10 @@ public class Patient {
         this.CPF = CPF;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

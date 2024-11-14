@@ -1,22 +1,28 @@
 package Model;
 
-import java.time.LocalDate;
-
 public class Medication {
+    private int id;
     private String name;
     private int dosage;
     private int frequency;
     private String description;
     private String doctor;
-    private LocalDate prescriptionDate;
+    private String prescriptionDate;
 
-    public Medication(String name, int dosage, int frequency, String description, String doctor, LocalDate prescriptionDate) {
+    public Medication(String name, int dosage, int frequency, String description, String doctor, String prescriptionDate) {
         this.name = name;
         this.dosage = dosage;
         this.frequency = frequency;
         this.description = description;
         this.doctor = doctor;
         this.prescriptionDate = prescriptionDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -59,11 +65,11 @@ public class Medication {
         this.doctor = doctor;
     }
 
-    public LocalDate getPrescriptionDate() {
+    public String getPrescriptionDate() {
         return prescriptionDate;
     }
 
-    public void setPrescriptionDate(LocalDate prescriptionDate) {
+    public void setPrescriptionDate(String prescriptionDate) {
         this.prescriptionDate = prescriptionDate;
     }
 }
