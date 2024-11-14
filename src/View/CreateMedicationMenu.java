@@ -11,9 +11,7 @@ import Controller.db_Connections.PatientDAO;
 public class CreateMedicationMenu {
     Scanner scan = new Scanner(System.in);
 
-    public void createMedicationMenu() {
-        System.out.println("Enter patient name: ");
-        String patientName = scan.nextLine();
+    public void createMedicationMenu(String patientName) {
         System.out.println("Enter medication name: ");
         String medicationName = scan.nextLine();
         System.out.println("Enter medication dosage: ");
@@ -30,7 +28,8 @@ public class CreateMedicationMenu {
         // Creating a database connection object
         PatientDAO patientDAO = new PatientDAO();
 
-        try { Patient patient = patientDAO.findPatientByName(patientName);
+        try {
+            Patient patient = patientDAO.findPatientByName(patientName);
 
             if (patient != null) {
                 // Usa o paciente recuperado para criar o registro do medicamento

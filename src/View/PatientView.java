@@ -30,7 +30,7 @@ public class PatientView {
                     try {
                         Patient patient = patientDAO.findPatientByName(patientName);
                         if (patient != null) {
-                            patientAccessed(patient);
+                            patientAccessed(patient, patientName);
                         } else {
                             System.out.println("\n--- Paciente " + patientName +" não encontrado ---\n");
                         }
@@ -51,7 +51,7 @@ public class PatientView {
         }
     }
 
-    public void patientAccessed(Patient patient) {
+    public void patientAccessed(Patient patient, String patientName) {
         Scanner scan = new Scanner(System.in);
         CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
 
@@ -85,7 +85,7 @@ public class PatientView {
                     System.out.println("Making an appointment...");
                     break;
                 case 5:
-                    createMedicationMenu.createMedicationMenu();
+                    createMedicationMenu.createMedicationMenu(patientName);
                     System.out.println("Adding medication...");
                     System.out.println("Medication added successfully!");
                     break;
