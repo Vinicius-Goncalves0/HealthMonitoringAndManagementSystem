@@ -24,7 +24,7 @@ public class MedicationDAO {
 
             // Salva o medicamento
             try (PreparedStatement medicationStmt = conn.prepareStatement(medicationSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                medicationStmt.setString(1, medication.getName());
+                medicationStmt.setString(1, medication.getMedicationName());
                 medicationStmt.setInt(2, medication.getDosage());
                 medicationStmt.setInt(3, medication.getFrequency());
                 medicationStmt.setString(4, medication.getDescription());
@@ -87,7 +87,7 @@ public class MedicationDAO {
     //     String sql = "INSERT INTO medication (name, dosage, frequency, description, doctor, prescription_date) VALUES (?, ?, ?, ?, ?, ?)";
     //     try (Connection conn = db_Connection.getConnection();
     //             PreparedStatement stmt = conn.prepareStatement(sql)) {
-    //         stmt.setString(1, medication.getName());
+    //         stmt.setString(1, medication.getMedicationName());
     //         stmt.setInt(2, medication.getDosage());
     //         stmt.setInt(3, medication.getFrequency());
     //         stmt.setString(4, medication.getDescription());
@@ -126,7 +126,7 @@ public class MedicationDAO {
     //     String sql = "DELETE FROM medications WHERE name = ?";
     //     try (Connection conn = db_Connection.getConnection();
     //          PreparedStatement stmt = conn.prepareStatement(sql)) {
-    //         stmt.setString(1, medication.getName());
+    //         stmt.setString(1, medication.getMedicationName());
     //         stmt.execute();
     //     } catch (SQLException e) {
     //         e.printStackTrace();
