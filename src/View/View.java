@@ -33,14 +33,4 @@ public class View {
             }
         }
     }
-
-    // private void createMedicationMenu(Scanner scan) {
-    //     System.out.println("Enter medication name: ");
-    //     String name = scan.nextLine();
-    //     System.out.println("Enter medication dosage: ");
-    //     String dosage = scan.nextLine();
-    //     System.out.println("Enter medication manufacturer: ");
-    //     String manufacturer = scan.nextLine();
-    //     System.out.println("Medication created successfully.");
-    // }
 }

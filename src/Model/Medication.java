@@ -4,13 +4,13 @@ public class Medication {
     private int id;
     private String patientName;
     private String medicationName;
-    private int dosage;
-    private int frequency;
+    private String dosage;
+    private String frequency;
     private String description;
     private String doctor;
     private String prescriptionDate;
 
-    public Medication(String medicationName, int dosage, int frequency, String description, String doctor, String prescriptionDate) {
+    public Medication(String medicationName, String dosage, String frequency, String description, String doctor, String prescriptionDate) {
         this.medicationName = medicationName;
         this.dosage = dosage;
         this.frequency = frequency;
@@ -19,7 +19,7 @@ public class Medication {
         this.prescriptionDate = prescriptionDate;
     }
     
-    public Medication(String patientName, String medicationName, int dosage, int frequency, String description, String doctor, String prescriptionDate) {
+    public Medication(String patientName, String medicationName, String dosage, String frequency, String description, String doctor, String prescriptionDate) {
         this.patientName = patientName;
         this.medicationName = medicationName;
         this.dosage = dosage;
@@ -50,17 +50,17 @@ public class Medication {
         this.medicationName = medicationName;
     }
 
-    public int getDosage() {
+    public String getDosage() {
         return dosage;
     }
-    public void setDosage(int dosage) {
+    public void setDosage(String dosage) {
         this.dosage = dosage;
     }
 
-    public int getFrequency() {
+    public String getFrequency() {
         return frequency;
     }
-    public void setFrequency(int frequency) {
+    public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 

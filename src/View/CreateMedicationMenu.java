@@ -17,10 +17,9 @@ public class CreateMedicationMenu {
         System.out.println("Enter medication name: ");
         String medicationName = scan.nextLine();
         System.out.println("Enter medication dosage: ");
-        int dosage = scan.nextInt();
+        String dosage = scan.nextLine();
         System.out.println("Enter medication frequency: ");
-        int frequency = scan.nextInt();
-        scan.nextLine(); // Consume newline
+        String frequency = scan.nextLine();
         System.out.println("Enter medication description: ");
         String description = scan.nextLine();
         System.out.println("Enter doctor name: ");
