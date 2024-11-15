@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.Patient;
 
@@ -19,7 +21,7 @@ public class PatientDAO {
             // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
+            // Establish the connection with UTF-8 encoding
             conn = db_Connection.getConnection();
 
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -90,6 +92,59 @@ public class PatientDAO {
         }
     }
 
+    // Method to list patient data by name
+    public List<Patient> listPatientsByName(String name) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Patient> patients = new ArrayList<>();
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM patients WHERE name LIKE ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + name + "%");
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Iterate through the result set and create Patient objects
+            while (rs.next()) {
+                Patient patient = new Patient(
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("birth_date"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getString("email"));
+                patient.setId(rs.getInt("id"));
+                patients.add(patient);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error listing patients: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return patients;
+    }
+
     // Method to find a patient by name
     public Patient findPatientByName(String name) throws SQLException {
         Connection conn = null;
@@ -115,13 +170,12 @@ public class PatientDAO {
             // Checks if it has found a patient
             if (rs.next()) {
                 patient = new Patient(
-                    rs.getString("name"),
-                    rs.getString("cpf"),
-                    rs.getString("birth_date"),
-                    rs.getString("address"),
-                    rs.getString("phone"),
-                    rs.getString("email")
-                );
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("birth_date"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getString("email"));
                 patient.setId(rs.getInt("id"));
             }
 

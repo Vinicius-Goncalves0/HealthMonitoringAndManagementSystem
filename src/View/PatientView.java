@@ -1,8 +1,10 @@
 package View;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
+import Controller.PatientController;
 import Controller.db_Connections.PatientDAO;
 import Model.Patient;
 
@@ -59,20 +61,22 @@ public class PatientView {
     public void patientAccessed(Patient patient, String patientName, Scanner scan) {
         CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
         UpdatePatientMenu updatePatientMenu = new UpdatePatientMenu();
+        ListDataPatientMenu listDataPatientMenu = new ListDataPatientMenu();
+        PatientController patientController = new PatientController();
     
         while (true) {
             System.out.println("\nPatient: " + patient.getName());
             System.out.println("1. Consult The History");
-            System.out.println("2. Update Data");
+            System.out.println("2. Update Data"); // Done 
             System.out.println("3. Consult Data");
             System.out.println("4. Make an appointment");
-            System.out.println("5. Add Medication");
-            System.out.println("6. Exit");
+            System.out.println("5. Add Medication"); // Done
+            System.out.println("6. Exit"); // Done
             System.out.print("Enter your choice: ");
     
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consumir o '\n'
+                scan.nextLine(); // Consume '\n'
     
                 switch (choice) {
                     case 1:
@@ -84,6 +88,14 @@ public class PatientView {
                         break;
                     case 3:
                         System.out.println("Consulting data...");
+                        System.out.println("\nEnter the name to search:");
+                        String name = scan.nextLine();
+                        try {
+                            List<Patient> patients = patientController.listPatientsByName(name);
+                            listDataPatientMenu.displayPatients(patients);
+                        } catch (SQLException e) {
+                            System.out.println("\n--- Erro ao listar pacientes: " + e.getMessage() + " ---\n");
+                        }
                         break;
                     case 4:
                         System.out.println("Making an appointment...");
@@ -100,7 +112,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consumir entrada inválida
+                scan.nextLine(); // Consume invalid input
             }
         }
     }

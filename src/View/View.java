@@ -13,9 +13,10 @@ public class View {
         DoctorView doctorView = new DoctorView();
 
         while (true) {
-            System.out.println("\nMain Menu:");
+            System.out.println("\nMain Menu: ");
             System.out.println("1. Patient Menu");
             System.out.println("2. Doctor Menu");
+            System.out.println("3. List all");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             int choice = scan.nextInt();
@@ -29,6 +30,9 @@ public class View {
                     doctorView.displayDoctorMenu();
                     break;
                 case 3:
+                    // Entra na página de listagem e permite escolher entre listar pacientes ou médicos
+                    break;
+                case 4:
                     System.out.println("Exiting...");
                     scan.close();
                     return;
