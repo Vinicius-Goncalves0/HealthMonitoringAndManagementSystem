@@ -38,10 +38,10 @@ public class CreateMedicationMenu {
                 Medication medication = new Medication(patient.getName(), medicationName, dosage, frequency, description, doctor, prescriptionDate);
                 medicationController.addMedicationToPatient(medication, patient);
             } else {
-                System.out.println("Paciente não encontrado.");
+                System.out.println("Patient not found.");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error adding medication patient: " + e.getMessage());
         }
     }
 }

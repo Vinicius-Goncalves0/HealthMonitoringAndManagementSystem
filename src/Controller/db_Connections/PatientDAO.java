@@ -77,8 +77,6 @@ public class PatientDAO {
             // Execute the query
             stmt.executeUpdate();
 
-            System.out.println("Patient updated successfully!");
-
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new SQLException("Error updating patient: " + e.getMessage());

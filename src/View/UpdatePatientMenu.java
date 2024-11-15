@@ -7,6 +7,7 @@ import Controller.PatientController;
 import Model.Patient;
 
 public class UpdatePatientMenu {
+    Scanner scan = new Scanner(System.in);
     private PatientController patientController;
 
     public UpdatePatientMenu() {
@@ -14,7 +15,6 @@ public class UpdatePatientMenu {
     }
 
     public void updatePatientMenu(String patientName) {
-        Scanner scan = new Scanner(System.in);
         System.out.println("\nEnter patient's new name: ");
         String name = scan.nextLine();
         System.out.println("Enter patient's new CPF: ");
@@ -29,7 +29,7 @@ public class UpdatePatientMenu {
         String email = scan.nextLine();
 
         try {
-            System.out.println("Searching for patient: " + patientName);
+            System.out.println("\nSearching for patient: " + patientName);
             Patient patient = patientController.findPatientByName(patientName);
 
             if (patient != null) {
@@ -43,13 +43,12 @@ public class UpdatePatientMenu {
 
                 System.out.println("Updating patient: " + patient.getName());
                 patientController.updatePatient(patient);
-                System.out.println("Patient updated successfully.");
+                System.out.println("\nPatient updated successfully!");
             } else {
                 System.out.println("Patient not found.");
             }
         } catch (SQLException e) {
             System.out.println("Error updating patient: " + e.getMessage());
         }
-        scan.close();
     }
 }

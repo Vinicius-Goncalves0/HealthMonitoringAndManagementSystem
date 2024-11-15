@@ -59,7 +59,7 @@ public class PatientView {
     public void patientAccessed(Patient patient, String patientName, Scanner scan) {
         CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
         UpdatePatientMenu updatePatientMenu = new UpdatePatientMenu();
-
+    
         while (true) {
             System.out.println("\nPatient: " + patient.getName());
             System.out.println("1. Consult The History");
@@ -69,32 +69,28 @@ public class PatientView {
             System.out.println("5. Add Medication");
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
-            
+    
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume newline
-
+                scan.nextLine(); // Consumir o '\n'
+    
                 switch (choice) {
                     case 1:
-                        // Code to consult the history
                         System.out.println("Consulting the history...");
                         break;
                     case 2:
-                        updatePatientMenu.updatePatientMenu(patientName);
                         System.out.println("Updating data...");
+                        updatePatientMenu.updatePatientMenu(patientName);
                         break;
                     case 3:
-                        // Code to consult data
                         System.out.println("Consulting data...");
                         break;
                     case 4:
-                        // Code to make an appointment
                         System.out.println("Making an appointment...");
                         break;
                     case 5:
-                        createMedicationMenu.createMedicationMenu(patientName);
                         System.out.println("Adding medication...");
-                        System.out.println("Medication added successfully!");
+                        createMedicationMenu.createMedicationMenu(patientName);
                         break;
                     case 6:
                         System.out.println("Exiting...");
@@ -104,7 +100,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.next(); // Consume the invalid input
+                scan.nextLine(); // Consumir entrada inválida
             }
         }
     }
