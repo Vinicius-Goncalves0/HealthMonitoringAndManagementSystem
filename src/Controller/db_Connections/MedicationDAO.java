@@ -60,7 +60,7 @@ public class MedicationDAO {
     // List all medications from a patient
     public List<Medication> listMedicationsByPatientName(String patientName) throws SQLException {
         List<Medication> medications = new ArrayList<>();
-        String sql = "SELECT m.name AS medication_name, m.dosage, m.frequency, m.description, m.doctor, m.prescription_date " +
+        String sql = "SELECT m.id, m.name AS medication_name, m.dosage, m.frequency, m.description, m.doctor, m.prescription_date " +
                      "FROM hospital_system.patients p " +
                      "JOIN hospital_system.patient_medications pm ON p.id = pm.patient_id " +
                      "JOIN hospital_system.medications m ON pm.medication_id = m.id " +
@@ -72,6 +72,7 @@ public class MedicationDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Medication medication = new Medication(
+                        rs.getInt("id"),
                         rs.getString("medication_name"),
                         rs.getString("dosage"),
                         rs.getString("frequency"),

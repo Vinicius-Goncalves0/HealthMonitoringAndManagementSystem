@@ -71,8 +71,8 @@ public class PatientView {
             System.out.println("4. Make an appointment");
             System.out.println("5. Consult scheduled appointments");
             System.out.println("6. Add Medication"); // Done
-            System.out.println("7. Consult Medication");
-            System.out.println("8. Delete Medication");
+            System.out.println("7. Consult Medication"); // Done
+            System.out.println("8. Delete Medication"); // Done
             System.out.println("9. Exit"); // Done
             System.out.print("Enter your choice: ");
 
@@ -85,6 +85,8 @@ public class PatientView {
                     case 1:
                         System.out.println("Consulting the history...");
                         System.out.println("Histories: " + patient.getHistories());
+                        System.out.println("Press Enter to continue...");
+                        scan.nextLine();
                         break;
                     case 2:
                         System.out.println("Updating data...");

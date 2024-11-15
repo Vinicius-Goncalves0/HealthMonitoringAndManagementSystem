@@ -35,8 +35,9 @@ public class CreateMedicationMenu {
             Patient patient = patientController.findPatientByName(patientName);
 
             if (patient != null) {
-                Medication medication = new Medication(patient.getName(), medicationName, dosage, frequency, description, doctor, prescriptionDate);
+                Medication medication = new Medication(medicationName, dosage, frequency, description, doctor, prescriptionDate);
                 medicationController.addMedicationToPatient(medication, patient);
+                System.out.println("Medication added successfully.");
             } else {
                 System.out.println("Patient not found.");
             }

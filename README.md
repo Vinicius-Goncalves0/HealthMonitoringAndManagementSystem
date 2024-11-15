@@ -41,3 +41,7 @@ JOIN
 JOIN 
     hospital_system.medications m ON pm.medication_id = m.id
 LIMIT 0, 1000;
+
+---- código query para deletar da tabela por id ----
+DELETE FROM hospital_system.patients WHERE id = 19;
+SELECT * FROM hospital_system.patients;
