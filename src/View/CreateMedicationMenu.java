@@ -2,14 +2,20 @@ package View;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import Controller.db_Connections.MedicationDAO;
+import Controller.MedicationController;
+import Controller.PatientController;
 import Model.Medication;
 import Model.Patient;
-import Controller.db_Connections.PatientDAO;
 
 public class CreateMedicationMenu {
     Scanner scan = new Scanner(System.in);
+    private MedicationController medicationController;
+    private PatientController patientController;
+
+    public CreateMedicationMenu() {
+        this.medicationController = new MedicationController();
+        this.patientController = new PatientController();
+    }
 
     public void createMedicationMenu(String patientName) {
         System.out.println("\nEnter medication name: ");
@@ -25,19 +31,13 @@ public class CreateMedicationMenu {
         System.out.println("Enter prescription date: ");
         String prescriptionDate = scan.nextLine();
 
-        // Creating a database connection object
-        PatientDAO patientDAO = new PatientDAO();
-
         try {
-            Patient patient = patientDAO.findPatientByName(patientName);
+            Patient patient = patientController.findPatientByName(patientName);
 
             if (patient != null) {
-                // Usa o paciente recuperado para criar o registro do medicamento
                 Medication medication = new Medication(patient.getName(), medicationName, dosage, frequency, description, doctor, prescriptionDate);
-                MedicationDAO medicationDAO = new MedicationDAO();
-                medicationDAO.addMedicationToPatient(medication, patient);
+                medicationController.addMedicationToPatient(medication, patient);
             } else {
-                // Lida com o caso em que o paciente não foi encontrado
                 System.out.println("Paciente não encontrado.");
             }
         } catch (SQLException e) {

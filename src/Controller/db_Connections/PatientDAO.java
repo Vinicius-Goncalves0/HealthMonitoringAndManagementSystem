@@ -11,6 +11,7 @@ public class PatientDAO {
 
     // add a patient to the database
     public void addPatient(Patient patient) throws SQLException {
+
         String sql = "INSERT INTO patients (name, cpf, birth_date, address, phone, email) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -40,6 +41,47 @@ public class PatientDAO {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new SQLException("Error adding patient: " + e.getMessage());
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    // Method to update a patient
+    public void updatePatient(Patient patient) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "UPDATE patients SET name = ?, cpf = ?, birth_date = ?, address = ?, phone = ?, email = ? WHERE id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patient.getName());
+            stmt.setString(2, patient.getCPF());
+            stmt.setString(3, patient.getBirthDate());
+            stmt.setString(4, patient.getAddress());
+            stmt.setString(5, patient.getPhone());
+            stmt.setString(6, patient.getEmail());
+            stmt.setInt(7, patient.getId());
+
+            // Execute the query
+            stmt.executeUpdate();
+
+            System.out.println("Patient updated successfully!");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error updating patient: " + e.getMessage());
         } finally {
             if (stmt != null) {
                 stmt.close();
