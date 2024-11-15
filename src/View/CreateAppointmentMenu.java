@@ -11,6 +11,7 @@ public class CreateAppointmentMenu {
     Scanner scan = new Scanner(System.in);
     private AppointmentController appointmentController;
     private PatientController patientController;
+    CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
 
     public CreateAppointmentMenu() {
         this.appointmentController = new AppointmentController();
@@ -32,6 +33,8 @@ public class CreateAppointmentMenu {
                 Appointment appointment = new Appointment(appointmentDataTime, appointmentDoctorName, diagnosis);
                 appointmentController.addAppointmentToPatient(appointment, patient);
                 System.out.println("Appointment registered successfully.");
+                System.out.println("\nAdding medication...");
+                createMedicationMenu.createMedicationMenu(patientName);
             } else {
                 System.out.println("Patient not found.");
             }
