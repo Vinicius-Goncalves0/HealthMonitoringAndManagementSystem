@@ -2,13 +2,13 @@ package Model;
 
 public class Appointment {
 
-    private int appointmentID;
+    private int id;
     private String appointmentDateTime;
     private String doctor;
     private String diagnosis;
 
-    public Appointment(int appointmentID, String appointmentDateTime, String doctor, String diagnosis) {
-        this.appointmentID = appointmentID;
+    public Appointment(int id, String appointmentDateTime, String doctor, String diagnosis) {
+        this.id = id;
         this.appointmentDateTime = appointmentDateTime;
         this.doctor = doctor;
         this.diagnosis = diagnosis;
@@ -20,11 +20,11 @@ public class Appointment {
         this.diagnosis = diagnosis;
     }
 
-    public int getAppointmentID() {
-        return appointmentID;
+    public int getId() {
+        return id;
     }
-    public void setAppointmentID(int appointmentID) {
-        this.appointmentID = appointmentID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAppointmentDateTime() {

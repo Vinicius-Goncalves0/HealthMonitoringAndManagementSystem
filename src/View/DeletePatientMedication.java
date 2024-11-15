@@ -17,7 +17,7 @@ public class DeletePatientMedication {
         try {
             medicationController.deletePatientMedicationByName(patientName, medicationId);
         } catch (SQLException e) {
-            System.out.println("\n--- Erro ao deletar medicamento: " + e.getMessage() + " ---\n");
+            System.out.println("\n--- Error deleting medicine: " + e.getMessage() + " ---\n");
         }
     }
 }

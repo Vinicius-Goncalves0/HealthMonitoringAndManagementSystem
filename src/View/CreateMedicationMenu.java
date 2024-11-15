@@ -27,7 +27,7 @@ public class CreateMedicationMenu {
         System.out.println("Enter medication description: ");
         String description = scan.nextLine();
         System.out.println("Enter doctor name: ");
-        String doctor = scan.nextLine();
+        String medicationDoctorName = scan.nextLine();
         System.out.println("Enter prescription date: ");
         String prescriptionDate = scan.nextLine();
 
@@ -35,7 +35,7 @@ public class CreateMedicationMenu {
             Patient patient = patientController.findPatientByName(patientName);
 
             if (patient != null) {
-                Medication medication = new Medication(medicationName, dosage, frequency, description, doctor, prescriptionDate);
+                Medication medication = new Medication(medicationName, dosage, frequency, description, medicationDoctorName, prescriptionDate);
                 medicationController.addMedicationToPatient(medication, patient);
                 System.out.println("Medication added successfully.");
             } else {

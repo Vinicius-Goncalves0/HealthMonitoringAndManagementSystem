@@ -62,14 +62,16 @@ public class PatientView {
         ListDataPatientMenu listDataPatientMenu = new ListDataPatientMenu();
         ListPatientMedicationMenu listPatientMedicationMenu = new ListPatientMedicationMenu();
         DeletePatientMedication deletePatientMedication = new DeletePatientMedication();
+        CreateAppointmentMenu createAppointmentMenu = new CreateAppointmentMenu();
+        ListPatientAppointmentMenu listPatientAppointmentMenu = new ListPatientAppointmentMenu();
 
         while (true) {
             System.out.println("\nPatient: " + patient.getName());
             System.out.println("1. Consult The History"); // Done
             System.out.println("2. Update Data"); // Done
             System.out.println("3. Consult Data"); // Done
-            System.out.println("4. Make an appointment");
-            System.out.println("5. Consult scheduled appointments");
+            System.out.println("4. Make an appointment"); // Done
+            System.out.println("5. Consult appointments"); // Done
             System.out.println("6. Add Medication"); // Done // Passar esse código para dentro da consulta
             System.out.println("7. Consult Medication"); // Done // Passar esse código para dentro da consulta
             System.out.println("8. Delete Medication"); // Done // Passar esse código para dentro da consulta
@@ -98,9 +100,11 @@ public class PatientView {
                         break;
                     case 4:
                         System.out.println("Making an appointment...");
+                        createAppointmentMenu.createAppointmentMenu(patientName);
                         break;
                     case 5:
-                        System.out.println("Viewing scheduled appointments...");
+                        System.out.println("Viewing appointments...");
+                        listPatientAppointmentMenu.listAppointmentsByPatientName(patientName);
                         break;
                     case 6:
                         System.out.println("Adding medication...");
