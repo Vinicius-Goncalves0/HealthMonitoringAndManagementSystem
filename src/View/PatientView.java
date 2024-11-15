@@ -70,9 +70,9 @@ public class PatientView {
             System.out.println("3. Consult Data"); // Done
             System.out.println("4. Make an appointment");
             System.out.println("5. Consult scheduled appointments");
-            System.out.println("6. Add Medication"); // Done
-            System.out.println("7. Consult Medication"); // Done
-            System.out.println("8. Delete Medication"); // Done
+            System.out.println("6. Add Medication"); // Done // Passar esse código para dentro da consulta
+            System.out.println("7. Consult Medication"); // Done // Passar esse código para dentro da consulta
+            System.out.println("8. Delete Medication"); // Done // Passar esse código para dentro da consulta
             System.out.println("9. Exit"); // Done
             System.out.print("Enter your choice: ");
 
