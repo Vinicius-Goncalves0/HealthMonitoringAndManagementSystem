@@ -1,10 +1,7 @@
 package View;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
-
-import Controller.PatientController;
 import Controller.db_Connections.PatientDAO;
 import Model.Patient;
 
@@ -62,8 +59,7 @@ public class PatientView {
         CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
         UpdatePatientMenu updatePatientMenu = new UpdatePatientMenu();
         ListDataPatientMenu listDataPatientMenu = new ListDataPatientMenu();
-        PatientController patientController = new PatientController();
-    
+        
         while (true) {
             System.out.println("\nPatient: " + patient.getName());
             System.out.println("1. Consult The History");
@@ -77,10 +73,12 @@ public class PatientView {
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
                 scan.nextLine(); // Consume '\n'
-    
+                
+                System.out.print("\n");
                 switch (choice) {
                     case 1:
                         System.out.println("Consulting the history...");
+                        System.out.println("Histories: " + patient.getHistories());
                         break;
                     case 2:
                         System.out.println("Updating data...");
@@ -88,14 +86,7 @@ public class PatientView {
                         break;
                     case 3:
                         System.out.println("Consulting data...");
-                        System.out.println("\nEnter the name to search:");
-                        String name = scan.nextLine();
-                        try {
-                            List<Patient> patients = patientController.listPatientsByName(name);
-                            listDataPatientMenu.displayPatients(patients);
-                        } catch (SQLException e) {
-                            System.out.println("\n--- Erro ao listar pacientes: " + e.getMessage() + " ---\n");
-                        }
+                        listDataPatientMenu.listPatientsByName(patientName);
                         break;
                     case 4:
                         System.out.println("Making an appointment...");

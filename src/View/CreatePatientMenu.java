@@ -15,6 +15,8 @@ public class CreatePatientMenu {
         String cpf = scan.nextLine();
         System.out.println("Enter patient's birth date: ");
         String birthDate = scan.nextLine();
+        System.out.println("Enter patient's medical history: ");
+        String histories = scan.nextLine();
         System.out.println("Enter patient's address: ");
         String address = scan.nextLine();
         System.out.println("Enter patient's phone: ");
@@ -23,7 +25,7 @@ public class CreatePatientMenu {
         String email = scan.nextLine();
 
         // Create a new Patient object
-        Patient patient = new Patient(name, cpf, birthDate, address, phone, email);
+        Patient patient = new Patient(name, cpf, birthDate, address, phone, email, histories);
 
         // Add the patient to the database
         PatientDAO patientDAO = new PatientDAO();
