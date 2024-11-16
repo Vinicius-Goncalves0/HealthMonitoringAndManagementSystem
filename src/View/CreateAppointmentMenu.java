@@ -34,7 +34,14 @@ public class CreateAppointmentMenu {
                 appointmentController.addAppointmentToPatient(appointment, patient);
                 System.out.println("Appointment registered successfully.");
                 System.out.println("\nAdding medication...");
-                createMedicationMenu.createMedicationMenu(patientName);
+                
+                System.out.println("Do you want to continue? (Y/N)");
+                String answer = scan.nextLine();
+                if (answer.equalsIgnoreCase("Y")) {
+                    createMedicationMenu.createMedicationMenu(patientName);
+                } else {
+                    System.out.println("Returning to main menu...");
+                }
             } else {
                 System.out.println("Patient not found.");
             }
