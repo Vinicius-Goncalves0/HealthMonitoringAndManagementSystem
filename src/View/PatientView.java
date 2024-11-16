@@ -26,7 +26,6 @@ public class PatientView {
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
-                        scan.close();
                         return;
                     case 1:
                         System.out.println("\nPatient's Name:");
@@ -75,7 +74,6 @@ public class PatientView {
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
-                        scan.close();
                         return;
                     case 1:
                         System.out.println("Patient Data Menu...");
@@ -120,7 +118,6 @@ public class PatientView {
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
-                        scan.close();
                         return;
                     case 1:
                         System.out.println("Making an appointment...");
@@ -165,7 +162,6 @@ public class PatientView {
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
-                        scan.close();
                         return;
                     case 1:
                         System.out.println("Adding medication...");
@@ -209,7 +205,6 @@ public class PatientView {
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
-                        scan.close();
                         return;
                     case 1:
                         System.out.println("Consulting the history...");
