@@ -11,6 +11,8 @@ public class ListPatientAppointmentMenu {
     Scanner scan = new Scanner(System.in);
 
     public void displayAppointments(List<Appointment> appointments) {
+        ListDataDoctorMenu listDataDoctorMenu = new ListDataDoctorMenu();
+
         if (appointments.isEmpty()) {
             System.out.println("No appointments found for the given patient.");
         } else {
@@ -20,6 +22,12 @@ public class ListPatientAppointmentMenu {
                 System.out.println("Doctor responsible: " + appointment.getDoctor());
                 System.out.println("Diagnosis: " + appointment.getDiagnosis());
                 System.out.println("-----------------------------");
+                System.out.println("\n Would you like to see the doctor in charge? (Y/N)");
+                String choice = scan.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    listDataDoctorMenu.listDoctorsByName(appointment.getDoctor());
+                }
             }
         }
     }
@@ -31,8 +39,6 @@ public class ListPatientAppointmentMenu {
         try {
             List<Appointment> appointments = appointmentController.listAppointmentsByPatientName(patientName);
             listPatientAppointmentMenu.displayAppointments(appointments);
-            System.out.println("Press enter to continue...");
-            scan.nextLine();
         } catch (SQLException e) {
             System.out.println("\n--- Error when listing appointments: " + e.getMessage() + " ---\n");
         }

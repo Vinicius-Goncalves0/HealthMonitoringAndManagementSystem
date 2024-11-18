@@ -33,7 +33,7 @@ public class ListDataDoctorMenu {
         try {
             List<Doctor> doctors = doctorController.listDoctorsByName(doctorName);
             listDataDoctorMenu.displayDoctors(doctors);
-            System.out.println("Press enter to continue...");
+            System.out.println("\n Press enter to continue...");
             scan.nextLine();
         } catch (SQLException e) {
             System.out.println("\n--- Error when listing patients: " + e.getMessage() + " ---\n");
