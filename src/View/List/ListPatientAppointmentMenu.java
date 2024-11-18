@@ -10,6 +10,34 @@ import Model.Appointment;
 public class ListPatientAppointmentMenu {
     Scanner scan = new Scanner(System.in);
 
+    public void displayShortAppointments(List<Appointment> appointments) {
+
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found for the given patient.");
+        } else {
+            for (Appointment appointment : appointments) {
+                System.out.println("\nAppointment ID: " + appointment.getId());
+                System.out.println("Appointment Data and Time: " + appointment.getAppointmentDateTime());
+                System.out.println("Doctor responsible: " + appointment.getDoctor());
+                System.out.println("-----------------------------");
+            }
+        }
+    }
+
+    public void listShortAppointmentsByPatientName(String patientName) {
+        ListPatientAppointmentMenu listPatientAppointmentMenu = new ListPatientAppointmentMenu();
+        AppointmentController appointmentController = new AppointmentController();
+
+        try {
+            List<Appointment> appointments = appointmentController.listAppointmentsByPatientName(patientName);
+            listPatientAppointmentMenu.displayShortAppointments(appointments);
+        } catch (SQLException e) {
+            System.out.println("\n--- Error when listing appointments: " + e.getMessage() + " ---\n");
+        }
+    }
+
+    // _____________________________________________________________
+
     public void displayAppointments(List<Appointment> appointments) {
         ListDataDoctorMenu listDataDoctorMenu = new ListDataDoctorMenu();
 

@@ -15,15 +15,23 @@ public class AppointmentController {
         this.appointmentDAO = new AppointmentDAO();
     }
     
+    // Add appointment to patient
     public void addAppointmentToPatient(Appointment appointment, Patient patient) throws SQLException {
         appointmentDAO.addAppointmentToPatient(appointment, patient);
     }
 
+    // Find a appointment by ID
+    public Appointment findAppointmentByID(int appointmentId) throws SQLException {
+        return appointmentDAO.findAppointmentByID(appointmentId);
+    }
+
+    // List all appointments
     public List<Appointment> listAppointmentsByPatientName(String patientName) throws SQLException {
         return appointmentDAO.listAppointmentByPatientName(patientName);
     }
 
-    public void deletePatientAppointmentByName(String patientName, int appointmentId) throws SQLException {
+    // Delete appointment by ID
+    public void deletePatientAppointmentByID(String patientName, int appointmentId) throws SQLException {
         appointmentDAO.deletePatientAppointmentByName(patientName, appointmentId);
     }
 

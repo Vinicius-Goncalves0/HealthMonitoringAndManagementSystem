@@ -15,7 +15,7 @@ public class DeletePatientAppointment {
         int appointmentId = scan.nextInt();
 
         try {
-            appointmentController.deletePatientAppointmentByName(patientName, appointmentId);
+            appointmentController.deletePatientAppointmentByID(patientName, appointmentId);
         } catch (SQLException e) {
             System.out.println("\n--- Error deleting appointment: " + e.getMessage() + " ---\n");
         }

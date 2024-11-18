@@ -139,4 +139,53 @@ public class AppointmentDAO {
         }
     }
 
+    // Find appointment by ID
+    public Appointment findAppointmentByID(int appointmentId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Appointment appointment = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM appointments WHERE id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, appointmentId);
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Checks if it has found a patient
+            if (rs.next()) {
+                appointment = new Appointment(
+                    rs.getString("appointment_date_time"),
+                    rs.getString("doctor"),
+                    rs.getString("diagnosis")
+                );
+                appointment.setId(rs.getInt("id"));
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error finding appointment: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return appointment;
+    }
 }

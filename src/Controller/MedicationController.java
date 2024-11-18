@@ -3,6 +3,7 @@ package Controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import Model.Appointment;
 import Model.Medication;
 import Model.Patient;
 import Controller.db_Connections.MedicationDAO;
@@ -16,6 +17,10 @@ public class MedicationController {
 
     public void addMedicationToPatient(Medication medication, Patient patient) throws SQLException {
         medicationDAO.addMedicationToPatient(medication, patient);
+    }
+
+    public void addMedicationToAppointment(Medication medication, Appointment appointment) throws SQLException {
+        medicationDAO.addMedicationToAppointment(medication, appointment);
     }
 
     public List<Medication> listMedicationsByPatientName(String patientName) throws SQLException {
