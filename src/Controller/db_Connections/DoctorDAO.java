@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Doctor;
+import Model.Patient;
 
 public class DoctorDAO {
 
@@ -195,6 +196,56 @@ public class DoctorDAO {
     }
 
     // Method to list all doctors
+    public List<Doctor> listAllDoctors() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Doctor> doctors = new ArrayList<>();
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM doctors";
+            stmt = conn.prepareStatement(sql);
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Iterate through the result set and create Patient objects
+            while (rs.next()) {
+                Doctor doctor = new Doctor(
+                    rs.getString("name"),
+                    rs.getString("specialty"),
+                    rs.getString("crm"),
+                    rs.getString("email"),
+                    rs.getString("phone")
+                );
+                doctor.setId(rs.getInt("id"));
+                doctors.add(doctor);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error listing doctors: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return doctors;
+    }
 
     // Method to delete a doctor
 }

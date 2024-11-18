@@ -33,4 +33,9 @@ public class PatientController {
         return patientDAO.listPatientsByName(name);
     }
 
+    // List all patients
+    public List<Patient> listAllPatients() throws SQLException {
+        return patientDAO.listAllPatients();
+    }
+
 }

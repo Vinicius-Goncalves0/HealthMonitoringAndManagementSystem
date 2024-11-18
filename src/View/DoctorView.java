@@ -8,18 +8,22 @@ import Model.Doctor;
 import View.Create.CreateDoctorMenu;
 import View.Update.UpdateDoctorMenu;
 import View.List.ListDataDoctorMenu;
+import View.List.ListDoctor;
+import View.List.ListPatients;
 
 public class DoctorView {
 
     public void displayDoctorMenu() {
         Scanner scan = new Scanner(System.in);
         CreateDoctorMenu createDoctorMenu = new CreateDoctorMenu();
+        ListDoctor listDoctor = new ListDoctor();
         DoctorDAO doctorDAO = new DoctorDAO();
 
         while (true) {
             System.out.println("\nDoctor Menu:");
             System.out.println("1. Access Doctor");
-            System.out.println("2. Create Doctor");
+            System.out.println("2. List Doctors");
+            System.out.println("3. Create Doctor");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -43,10 +47,15 @@ public class DoctorView {
                                 System.out.println("\n--- Doctor " + doctorName + " not found ---");
                             }
                         } catch (SQLException e) {
-                            System.out.println("\n--- Error accessing the doctor: " + doctorName + " " + e.getMessage() + " ---\n");
+                            System.out.println("\n--- Error accessing the doctor: " + doctorName + " " + e.getMessage()
+                                    + " ---\n");
                         }
                         break;
                     case 2:
+                        System.out.println("\nListing doctors...");
+                        listDoctor.listAllDoctors();
+                        break;
+                    case 3:
                         createDoctorMenu.createDoctorMenu();
                         break;
                     default:
@@ -61,7 +70,7 @@ public class DoctorView {
 
     public void doctorAccessed(Doctor doctor, String doctorName, Scanner scan) {
 
-        while(true) {
+        while (true) {
             System.out.println("\nDoctor: " + doctor.getName());
             System.out.println("1. Doctor Data Menu");
             System.out.println("0. Exit");

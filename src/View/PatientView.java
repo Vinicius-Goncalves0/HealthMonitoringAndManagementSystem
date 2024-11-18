@@ -12,6 +12,7 @@ import View.Delete.DeletePatientMedication;
 import View.List.ListDataPatientMenu;
 import View.List.ListPatientAppointmentMenu;
 import View.List.ListPatientMedicationMenu;
+import View.List.ListPatients;
 import View.Update.UpdatePatientMenu;
 
 public class PatientView {
@@ -19,12 +20,14 @@ public class PatientView {
     public void displayPatientMenu() {
         Scanner scan = new Scanner(System.in);
         CreatePatientMenu createPatientMenu = new CreatePatientMenu();
+        ListPatients listPatients = new ListPatients();
         PatientDAO patientDAO = new PatientDAO();
 
         while (true) {
             System.out.println("\nPatient Menu:");
             System.out.println("1. Access Patient");
-            System.out.println("2. Create Patient");
+            System.out.println("2. List Patients");
+            System.out.println("3. Create Patient");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -53,6 +56,10 @@ public class PatientView {
                         }
                         break;
                     case 2:
+                        System.out.println("\nListing patients...");
+                        listPatients.listAllPatients();
+                        break;
+                    case 3:
                         createPatientMenu.createPatientMenu();
                         break;
                     default:

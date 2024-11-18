@@ -204,6 +204,59 @@ public class PatientDAO {
     }
 
     // Method to list all patients
+    public List<Patient> listAllPatients() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Patient> patients = new ArrayList<>();
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM patients";
+            stmt = conn.prepareStatement(sql);
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Iterate through the result set and create Patient objects
+            while (rs.next()) {
+                Patient patient = new Patient(
+                    rs.getString("name"),
+                    rs.getString("cpf"),
+                    rs.getString("birth_date"),
+                    rs.getString("address"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("histories")
+                );
+                patient.setId(rs.getInt("id"));
+                patients.add(patient);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error listing patients: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return patients;
+    }
 
     // Method to delete a patient
+    
 }
