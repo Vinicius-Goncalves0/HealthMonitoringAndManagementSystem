@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import Controller.AppointmentController;
 import Model.Appointment;
-import Model.Medication;
 
 public class ListPatientAppointmentMenu {
     Scanner scan = new Scanner(System.in);
