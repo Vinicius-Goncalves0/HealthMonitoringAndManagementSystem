@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Controller.AppointmentController;
 import Model.Appointment;
+import Model.Medication;
 
 public class ListPatientAppointmentMenu {
     Scanner scan = new Scanner(System.in);
@@ -40,6 +41,7 @@ public class ListPatientAppointmentMenu {
 
     public void displayAppointments(List<Appointment> appointments) {
         ListDataDoctorMenu listDataDoctorMenu = new ListDataDoctorMenu();
+        ListPatientMedicationMenu listMedicationsByAppointmentID = new ListPatientMedicationMenu();
 
         if (appointments.isEmpty()) {
             System.out.println("No appointments found for the given patient.");
@@ -50,10 +52,17 @@ public class ListPatientAppointmentMenu {
                 System.out.println("Doctor responsible: " + appointment.getDoctor());
                 System.out.println("Diagnosis: " + appointment.getDiagnosis());
                 System.out.println("-----------------------------");
-                System.out.println("\n Would you like to see the doctor in charge? (Y/N)");
-                String choice = scan.nextLine();
 
-                if (choice.equalsIgnoreCase("Y")) {
+                System.out.println("\n Would like to see the doctor's prescription for this consultation? (Y/N)");
+                String choiceP = scan.nextLine();
+                if (choiceP.equalsIgnoreCase("Y")) {
+                    listMedicationsByAppointmentID.listMedicationsByAppointmentID(appointment.getId());
+                    
+                }
+
+                System.out.println("\n Would you like to see the doctor in charge? (Y/N)");
+                String choiceD = scan.nextLine();
+                if (choiceD.equalsIgnoreCase("Y")) {
                     listDataDoctorMenu.listDoctorsByName(appointment.getDoctor());
                 }
             }

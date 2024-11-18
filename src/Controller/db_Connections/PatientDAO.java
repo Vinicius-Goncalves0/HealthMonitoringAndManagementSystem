@@ -202,4 +202,8 @@ public class PatientDAO {
 
         return patient;
     }
+
+    // Method to list all patients
+
+    // Method to delete a patient
 }

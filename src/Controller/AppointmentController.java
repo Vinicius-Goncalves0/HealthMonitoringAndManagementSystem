@@ -32,7 +32,7 @@ public class AppointmentController {
 
     // Delete appointment by ID
     public void deletePatientAppointmentByID(String patientName, int appointmentId) throws SQLException {
-        appointmentDAO.deletePatientAppointmentByName(patientName, appointmentId);
+        appointmentDAO.deletePatientAppointmentById(patientName, appointmentId);
     }
 
 }

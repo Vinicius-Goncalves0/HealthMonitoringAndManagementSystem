@@ -193,4 +193,8 @@ public class DoctorDAO {
 
         return doctor;
     }
+
+    // Method to list all doctors
+
+    // Method to delete a doctor
 }

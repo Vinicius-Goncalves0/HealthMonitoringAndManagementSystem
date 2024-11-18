@@ -23,6 +23,10 @@ public class MedicationController {
         return medicationDAO.listMedicationsByPatientName(patientName);
     }
 
+    public List<Medication> listMedicationsByAppointmentId(int appointmentId) throws SQLException {
+        return medicationDAO.listMedicationsByAppointmentId(appointmentId);
+    }
+
     public void deletePatientMedicationByName(String patientName, int medicationId) throws SQLException {
         medicationDAO.deletePatientMedicationByName(patientName, medicationId);
     }

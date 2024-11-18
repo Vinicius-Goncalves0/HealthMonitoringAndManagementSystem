@@ -45,7 +45,7 @@ public class CreateAppointmentMenu {
                         String answer = scan.nextLine();
                         if (answer.equalsIgnoreCase("Y")) {
                             System.out.println("\nAdding medication...");
-                            createMedicationMenu.createMedicationMenu(patientName);
+                            createMedicationMenu.createMedicationMenuForAppointment(patientName, appointment.getId());
                         } else {
                             System.out.println("Returning to main menu...");
                         }

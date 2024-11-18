@@ -75,4 +75,47 @@ public class CreateMedicationMenu {
                     + " ---\n");
         }
     }
+
+    public void createMedicationMenuForAppointment(String patientName, int appointmentID) {
+        System.out.println("Enter medication name: ");
+        String medicationName = scan.nextLine();
+        System.out.println("Enter medication dosage: ");
+        String dosage = scan.nextLine();
+        System.out.println("Enter medication frequency: ");
+        String frequency = scan.nextLine();
+        System.out.println("Enter medication description: ");
+        String description = scan.nextLine();
+        System.out.println("Enter doctor name: ");
+        String medicationDoctorName = scan.nextLine();
+        System.out.println("Enter prescription date: ");
+        String prescriptionDate = scan.nextLine();
+
+        try {
+            Doctor doctor = doctorDAO.findDoctorByName(medicationDoctorName);
+            if (doctor != null) {
+
+                try {
+                    Patient patient = patientController.findPatientByName(patientName);
+                    Appointment appointment = appointmentController.findAppointmentByID(appointmentID);
+
+                    if (patient != null) {
+                        Medication medication = new Medication(medicationName, dosage, frequency, description, medicationDoctorName, prescriptionDate);
+                        medicationController.addMedicationToAppointmentAndPatient(medication, appointment, patient);
+
+                        System.out.println("Medication added successfully.");
+                    } else {
+                        System.out.println("Patient not found.");
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error adding medication patient: " + e.getMessage());
+                }
+
+            } else {
+                System.out.println("\n--- Doctor " + medicationDoctorName + " not found in system ---\n");
+            }
+        } catch (SQLException e) {
+            System.out.println("\n--- Error accessing the doctor: " + medicationDoctorName + " " + e.getMessage()
+                    + " ---\n");
+        }
+    }
 }

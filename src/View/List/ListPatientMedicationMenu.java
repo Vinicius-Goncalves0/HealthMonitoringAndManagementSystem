@@ -10,6 +10,27 @@ import Model.Medication;
 public class ListPatientMedicationMenu {
     Scanner scan = new Scanner(System.in);
 
+    public void listMedicationsByAppointmentID(int appointmentId) {
+        MedicationController medicationController = new MedicationController();
+
+        try {
+            List<Medication> medications = medicationController.listMedicationsByAppointmentId(appointmentId);
+            if (medications.isEmpty()) {
+                System.out.println("\nNo medications found for the given appointment.");
+            }
+
+            System.out.println("\nPrescription:");
+            for (Medication medication : medications) {
+                System.out.println("Medication Name: " + medication.getMedicationName());
+                System.out.println("Dosage: " + medication.getDosage());
+                System.out.println("Frequency: " + medication.getFrequency());
+                System.out.println();
+            }
+        } catch (SQLException e) {
+            System.out.println("\n--- Error listing medications: " + e.getMessage() + " ---\n");
+        }
+    }
+
     public void displayMedications(List<Medication> medications) {
         if (medications.isEmpty()) {
             System.out.println("No medications found for the given patient.");
