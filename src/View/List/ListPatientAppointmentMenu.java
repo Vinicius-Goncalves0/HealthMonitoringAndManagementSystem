@@ -17,7 +17,7 @@ public class ListPatientAppointmentMenu {
             System.out.println("No appointments found for the given patient.");
         } else {
             for (Appointment appointment : appointments) {
-                System.out.println("Appointment ID: " + appointment.getId());
+                System.out.println("\nAppointment ID: " + appointment.getId());
                 System.out.println("Appointment Data and Time: " + appointment.getAppointmentDateTime());
                 System.out.println("Doctor responsible: " + appointment.getDoctor());
                 System.out.println("Diagnosis: " + appointment.getDiagnosis());

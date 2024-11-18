@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import Controller.MedicationController;
 import Controller.PatientController;
+import Controller.db_Connections.DoctorDAO;
+import Model.Doctor;
 import Model.Medication;
 import Model.Patient;
 
@@ -11,6 +13,7 @@ public class CreateMedicationMenu {
     Scanner scan = new Scanner(System.in);
     private MedicationController medicationController;
     private PatientController patientController;
+    DoctorDAO doctorDAO = new DoctorDAO();
 
     public CreateMedicationMenu() {
         this.medicationController = new MedicationController();
@@ -32,17 +35,30 @@ public class CreateMedicationMenu {
         String prescriptionDate = scan.nextLine();
 
         try {
-            Patient patient = patientController.findPatientByName(patientName);
+            Doctor doctor = doctorDAO.findDoctorByName(medicationDoctorName);
+            if (doctor != null) {
 
-            if (patient != null) {
-                Medication medication = new Medication(medicationName, dosage, frequency, description, medicationDoctorName, prescriptionDate);
-                medicationController.addMedicationToPatient(medication, patient);
-                System.out.println("Medication added successfully.");
+                try {
+                    Patient patient = patientController.findPatientByName(patientName);
+
+                    if (patient != null) {
+                        Medication medication = new Medication(medicationName, dosage, frequency, description,
+                                medicationDoctorName, prescriptionDate);
+                        medicationController.addMedicationToPatient(medication, patient);
+                        System.out.println("Medication added successfully.");
+                    } else {
+                        System.out.println("Patient not found.");
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error adding medication patient: " + e.getMessage());
+                }
+
             } else {
-                System.out.println("Patient not found.");
+                System.out.println("\n--- Doctor " + medicationDoctorName + " not found in system ---\n");
             }
         } catch (SQLException e) {
-            System.out.println("Error adding medication patient: " + e.getMessage());
+            System.out.println("\n--- Error accessing the doctor: " + medicationDoctorName + " " + e.getMessage()
+                    + " ---\n");
         }
     }
 }

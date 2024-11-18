@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import Controller.AppointmentController;
 import Controller.PatientController;
+import Controller.db_Connections.DoctorDAO;
+import Model.Doctor;
 import Model.Appointment;
 import Model.Patient;
 
@@ -12,6 +14,7 @@ public class CreateAppointmentMenu {
     private AppointmentController appointmentController;
     private PatientController patientController;
     CreateMedicationMenu createMedicationMenu = new CreateMedicationMenu();
+    DoctorDAO doctorDAO = new DoctorDAO();
 
     public CreateAppointmentMenu() {
         this.appointmentController = new AppointmentController();
@@ -27,26 +30,38 @@ public class CreateAppointmentMenu {
         String diagnosis = scan.nextLine();
 
         try {
-            Patient patient = patientController.findPatientByName(patientName);
+            Doctor doctor = doctorDAO.findDoctorByName(appointmentDoctorName);
+            if (doctor != null) {
 
-            if (patient != null) {
-                Appointment appointment = new Appointment(appointmentDataTime, appointmentDoctorName, diagnosis);
-                appointmentController.addAppointmentToPatient(appointment, patient);
-                System.out.println("Appointment registered successfully.");
-                System.out.println("\nAdding medication...");
-                
-                System.out.println("Do you want to continue? (Y/N)");
-                String answer = scan.nextLine();
-                if (answer.equalsIgnoreCase("Y")) {
-                    createMedicationMenu.createMedicationMenu(patientName);
-                } else {
-                    System.out.println("Returning to main menu...");
+                try {
+                    Patient patient = patientController.findPatientByName(patientName);
+        
+                    if (patient != null) {
+                        Appointment appointment = new Appointment(appointmentDataTime, appointmentDoctorName, diagnosis);
+                        appointmentController.addAppointmentToPatient(appointment, patient);
+                        System.out.println("\nAppointment registered successfully.");
+                        
+                        System.out.println("Do you want to add a medical prescription? (Y/N)");
+                        String answer = scan.nextLine();
+                        if (answer.equalsIgnoreCase("Y")) {
+                            System.out.println("\nAdding medication...");
+                            createMedicationMenu.createMedicationMenu(patientName);
+                        } else {
+                            System.out.println("Returning to main menu...");
+                        }
+                    } else {
+                        System.out.println("Patient not found.");
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error registering appointment patient: " + e.getMessage());
                 }
+
             } else {
-                System.out.println("Patient not found.");
+                System.out.println("\n--- Doctor " + appointmentDoctorName + " not found in system ---\n");
             }
         } catch (SQLException e) {
-            System.out.println("Error registering appointment patient: " + e.getMessage());
+            System.out.println("\n--- Error accessing the doctor: " + appointmentDoctorName + " " + e.getMessage()
+                    + " ---\n");
         }
     }
 
