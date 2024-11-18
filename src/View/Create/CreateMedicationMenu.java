@@ -57,8 +57,7 @@ public class CreateMedicationMenu {
 
                     if (patient != null) {
                         Medication medication = new Medication(medicationName, dosage, frequency, description, medicationDoctorName, prescriptionDate);
-                        medicationController.addMedicationToPatient(medication, patient);
-                        medicationController.addMedicationToAppointment(medication, appointment);
+                        medicationController.addMedicationToAppointmentAndPatient(medication, appointment, patient);
 
                         System.out.println("Medication added successfully.");
                     } else {

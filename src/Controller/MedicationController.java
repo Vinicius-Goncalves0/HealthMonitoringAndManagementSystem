@@ -15,12 +15,8 @@ public class MedicationController {
         this.medicationDAO = new MedicationDAO();
     }
 
-    public void addMedicationToPatient(Medication medication, Patient patient) throws SQLException {
-        medicationDAO.addMedicationToPatient(medication, patient);
-    }
-
-    public void addMedicationToAppointment(Medication medication, Appointment appointment) throws SQLException {
-        medicationDAO.addMedicationToAppointment(medication, appointment);
+    public void addMedicationToAppointmentAndPatient(Medication medication, Appointment appointment, Patient patient) throws SQLException {
+        medicationDAO.addMedicationToAppointmentAndPatient(medication, appointment, patient);
     }
 
     public List<Medication> listMedicationsByPatientName(String patientName) throws SQLException {
