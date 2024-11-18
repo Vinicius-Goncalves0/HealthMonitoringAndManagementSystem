@@ -6,10 +6,10 @@ import java.util.Scanner;
 import Controller.db_Connections.DoctorDAO;
 import Model.Doctor;
 import View.Create.CreateDoctorMenu;
+import View.Delete.DeleteDoctor;
 import View.Update.UpdateDoctorMenu;
 import View.List.ListDataDoctorMenu;
 import View.List.ListDoctor;
-import View.List.ListPatients;
 
 public class DoctorView {
 
@@ -17,6 +17,7 @@ public class DoctorView {
         Scanner scan = new Scanner(System.in);
         CreateDoctorMenu createDoctorMenu = new CreateDoctorMenu();
         ListDoctor listDoctor = new ListDoctor();
+        DeleteDoctor deleteDoctor = new DeleteDoctor();
         DoctorDAO doctorDAO = new DoctorDAO();
 
         while (true) {
@@ -24,6 +25,7 @@ public class DoctorView {
             System.out.println("1. Access Doctor");
             System.out.println("2. List Doctors");
             System.out.println("3. Create Doctor");
+            System.out.println("4. Delete Doctor");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -57,6 +59,12 @@ public class DoctorView {
                         break;
                     case 3:
                         createDoctorMenu.createDoctorMenu();
+                        break;
+                    case 4:
+                        System.out.println("\nDoctor's ID to delete:");
+                        int doctorId = scan.nextInt();
+                        System.out.println("\nDeleting doctor...");
+                        deleteDoctor.deleteDoctor(doctorId);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

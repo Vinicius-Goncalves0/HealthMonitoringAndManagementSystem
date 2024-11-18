@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import Model.Doctor;
-import Model.Patient;
 
 public class DoctorDAO {
 
@@ -248,4 +246,30 @@ public class DoctorDAO {
     }
 
     // Method to delete a doctor
+    public void deleteDoctor(int doctorId) throws SQLException {
+        String deleteDoctorSql = "DELETE FROM hospital_system.doctors WHERE id = ?";
+
+        Connection conn = null;
+        PreparedStatement deleteDoctorStmt = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Delete doctor
+            deleteDoctorStmt = conn.prepareStatement(deleteDoctorSql);
+            deleteDoctorStmt.setInt(1, doctorId);
+            deleteDoctorStmt.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error deleting doctor: " + e.getMessage());
+        } finally {
+            if (deleteDoctorStmt != null) deleteDoctorStmt.close();
+            if (conn != null) conn.close();
+        }
+    }
 }

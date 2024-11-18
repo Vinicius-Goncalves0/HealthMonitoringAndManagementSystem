@@ -7,6 +7,7 @@ import Model.Patient;
 import View.Create.CreateAppointmentMenu;
 import View.Create.CreateMedicationMenu;
 import View.Create.CreatePatientMenu;
+import View.Delete.DeletePatient;
 import View.Delete.DeletePatientAppointment;
 import View.Delete.DeletePatientMedication;
 import View.List.ListDataPatientMenu;
@@ -20,6 +21,7 @@ public class PatientView {
     public void displayPatientMenu() {
         Scanner scan = new Scanner(System.in);
         CreatePatientMenu createPatientMenu = new CreatePatientMenu();
+        DeletePatient deletePatient = new DeletePatient();
         ListPatients listPatients = new ListPatients();
         PatientDAO patientDAO = new PatientDAO();
 
@@ -28,6 +30,7 @@ public class PatientView {
             System.out.println("1. Access Patient");
             System.out.println("2. List Patients");
             System.out.println("3. Create Patient");
+            System.out.println("4. Delete Patient");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -61,6 +64,13 @@ public class PatientView {
                         break;
                     case 3:
                         createPatientMenu.createPatientMenu();
+                        break;
+                    case 4:
+                        System.out.println("\nPatient's ID to delete:");
+                        int patientId = scan.nextInt();
+                        scan.nextLine(); // Consume newline
+                        System.out.println("\nDeleting patient...");
+                        deletePatient.deletePatient(patientId);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

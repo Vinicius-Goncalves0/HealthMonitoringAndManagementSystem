@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import Model.Patient;
 
@@ -20,10 +22,10 @@ public class PatientDAO {
         try {
             // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-    
+
             // Establish the connection with UTF-8 encoding
             conn = db_Connection.getConnection();
-    
+
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, patient.getName());
             stmt.setString(2, patient.getCPF());
@@ -33,14 +35,14 @@ public class PatientDAO {
             stmt.setString(6, patient.getEmail());
             stmt.setString(7, patient.getHistories());
             stmt.executeUpdate();
-    
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 patient.setId(generatedKeys.getInt(1));
             }
-    
+
             System.out.println("Patient added successfully!");
-    
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new SQLException("Error adding patient: " + e.getMessage());
@@ -96,59 +98,58 @@ public class PatientDAO {
 
     // Method to list patient data by name
     public List<Patient> listPatientsByName(String name) throws SQLException {
-    Connection conn = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    List<Patient> patients = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Patient> patients = new ArrayList<>();
 
-    try {
-        // Load the MySQL JDBC driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-        // Establish the connection
-        conn = db_Connection.getConnection();
+            // Establish the connection
+            conn = db_Connection.getConnection();
 
-        // Prepare the SQL query
-        String sql = "SELECT * FROM patients WHERE name LIKE ?";
-        stmt = conn.prepareStatement(sql);
-        stmt.setString(1, "%" + name + "%");
+            // Prepare the SQL query
+            String sql = "SELECT * FROM patients WHERE name LIKE ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + name + "%");
 
-        // Execute the query
-        rs = stmt.executeQuery();
+            // Execute the query
+            rs = stmt.executeQuery();
 
-        // Iterate through the result set and create Patient objects
-        while (rs.next()) {
-            Patient patient = new Patient(
-                rs.getString("name"),
-                rs.getString("cpf"),
-                rs.getString("birth_date"),
-                rs.getString("address"),
-                rs.getString("phone"),
-                rs.getString("email"),
-                rs.getString("histories")
-            );
-            patient.setId(rs.getInt("id"));
-            patients.add(patient);
+            // Iterate through the result set and create Patient objects
+            while (rs.next()) {
+                Patient patient = new Patient(
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("birth_date"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("histories"));
+                patient.setId(rs.getInt("id"));
+                patients.add(patient);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error listing patients: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
 
-    } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-        throw new SQLException("Error listing patients: " + e.getMessage());
-    } finally {
-        if (rs != null) {
-            rs.close();
-        }
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (conn != null) {
-            conn.close();
-        }
+        return patients;
     }
 
-    return patients;
-}
-    
     // Method to find a patient by name
     public Patient findPatientByName(String name) throws SQLException {
         Connection conn = null;
@@ -174,14 +175,13 @@ public class PatientDAO {
             // Checks if it has found a patient
             if (rs.next()) {
                 patient = new Patient(
-                    rs.getString("name"),
-                    rs.getString("cpf"),
-                    rs.getString("birth_date"),
-                    rs.getString("address"),
-                    rs.getString("phone"),
-                    rs.getString("email"),
-                    rs.getString("histories")
-                );
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("birth_date"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("histories"));
                 patient.setId(rs.getInt("id"));
             }
 
@@ -227,14 +227,13 @@ public class PatientDAO {
             // Iterate through the result set and create Patient objects
             while (rs.next()) {
                 Patient patient = new Patient(
-                    rs.getString("name"),
-                    rs.getString("cpf"),
-                    rs.getString("birth_date"),
-                    rs.getString("address"),
-                    rs.getString("phone"),
-                    rs.getString("email"),
-                    rs.getString("histories")
-                );
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("birth_date"),
+                        rs.getString("address"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("histories"));
                 patient.setId(rs.getInt("id"));
                 patients.add(patient);
             }
@@ -258,5 +257,165 @@ public class PatientDAO {
     }
 
     // Method to delete a patient
-    
+    public void deletePatient(int patientId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Carrega o driver JDBC do MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Estabelece a conexão
+            conn = db_Connection.getConnection();
+            conn.setAutoCommit(false);
+
+            // Obter os IDs das consultas associadas ao paciente
+            String getAppointmentIdsSql = "SELECT appointment_id FROM hospital_system.patient_appointments WHERE patient_id = ?";
+            stmt = conn.prepareStatement(getAppointmentIdsSql);
+            stmt.setInt(1, patientId);
+            rs = stmt.executeQuery();
+
+            List<Integer> appointmentIds = new ArrayList<>();
+            while (rs.next()) {
+                appointmentIds.add(rs.getInt("appointment_id"));
+            }
+            rs.close();
+            stmt.close();
+
+            // Obter os IDs dos medicamentos associados ao paciente
+            String getPatientMedicationIdsSql = "SELECT medication_id FROM hospital_system.patient_medications WHERE patient_id = ?";
+            stmt = conn.prepareStatement(getPatientMedicationIdsSql);
+            stmt.setInt(1, patientId);
+            rs = stmt.executeQuery();
+
+            Set<Integer> medicationIds = new HashSet<>();
+            while (rs.next()) {
+                medicationIds.add(rs.getInt("medication_id"));
+            }
+            rs.close();
+            stmt.close();
+
+            // Obter os IDs dos medicamentos associados às consultas do paciente
+            if (!appointmentIds.isEmpty()) {
+                StringBuilder appointmentIdPlaceholders = new StringBuilder();
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    appointmentIdPlaceholders.append("?");
+                    if (i < appointmentIds.size() - 1) {
+                        appointmentIdPlaceholders.append(",");
+                    }
+                }
+
+                String getAppointmentMedicationIdsSql = "SELECT medication_id FROM hospital_system.appointment_medications WHERE appointment_id IN ("
+                        + appointmentIdPlaceholders.toString() + ")";
+                stmt = conn.prepareStatement(getAppointmentMedicationIdsSql);
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    stmt.setInt(i + 1, appointmentIds.get(i));
+                }
+                rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    medicationIds.add(rs.getInt("medication_id"));
+                }
+                rs.close();
+                stmt.close();
+            }
+
+            // Deletar de appointment_medications
+            if (!appointmentIds.isEmpty()) {
+                StringBuilder appointmentIdPlaceholders = new StringBuilder();
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    appointmentIdPlaceholders.append("?");
+                    if (i < appointmentIds.size() - 1) {
+                        appointmentIdPlaceholders.append(",");
+                    }
+                }
+
+                String deleteAppointmentMedicationsSql = "DELETE FROM hospital_system.appointment_medications WHERE appointment_id IN ("
+                        + appointmentIdPlaceholders.toString() + ")";
+                stmt = conn.prepareStatement(deleteAppointmentMedicationsSql);
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    stmt.setInt(i + 1, appointmentIds.get(i));
+                }
+                stmt.executeUpdate();
+                stmt.close();
+            }
+
+            // Deletar de patient_medications
+            String deletePatientMedicationsSql = "DELETE FROM hospital_system.patient_medications WHERE patient_id = ?";
+            stmt = conn.prepareStatement(deletePatientMedicationsSql);
+            stmt.setInt(1, patientId);
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Deletar de patient_appointments
+            String deletePatientAppointmentsSql = "DELETE FROM hospital_system.patient_appointments WHERE patient_id = ?";
+            stmt = conn.prepareStatement(deletePatientAppointmentsSql);
+            stmt.setInt(1, patientId);
+            stmt.executeUpdate();
+            stmt.close();
+
+            // Deletar medicamentos
+            if (!medicationIds.isEmpty()) {
+                StringBuilder medicationIdPlaceholders = new StringBuilder();
+                for (int i = 0; i < medicationIds.size(); i++) {
+                    medicationIdPlaceholders.append("?");
+                    if (i < medicationIds.size() - 1) {
+                        medicationIdPlaceholders.append(",");
+                    }
+                }
+
+                String deleteMedicationsSql = "DELETE FROM hospital_system.medications WHERE id IN ("
+                        + medicationIdPlaceholders.toString() + ")";
+                stmt = conn.prepareStatement(deleteMedicationsSql);
+                int index = 1;
+                for (Integer medId : medicationIds) {
+                    stmt.setInt(index++, medId);
+                }
+                stmt.executeUpdate();
+                stmt.close();
+            }
+
+            // Deletar consultas
+            if (!appointmentIds.isEmpty()) {
+                StringBuilder appointmentIdPlaceholders = new StringBuilder();
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    appointmentIdPlaceholders.append("?");
+                    if (i < appointmentIds.size() - 1) {
+                        appointmentIdPlaceholders.append(",");
+                    }
+                }
+
+                String deleteAppointmentsSql = "DELETE FROM hospital_system.appointments WHERE id IN ("
+                        + appointmentIdPlaceholders.toString() + ")";
+                stmt = conn.prepareStatement(deleteAppointmentsSql);
+                for (int i = 0; i < appointmentIds.size(); i++) {
+                    stmt.setInt(i + 1, appointmentIds.get(i));
+                }
+                stmt.executeUpdate();
+                stmt.close();
+            }
+
+            // Deletar paciente
+            String deletePatientSql = "DELETE FROM hospital_system.patients WHERE id = ?";
+            stmt = conn.prepareStatement(deletePatientSql);
+            stmt.setInt(1, patientId);
+            stmt.executeUpdate();
+            stmt.close();
+
+            conn.commit();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            if (conn != null) {
+                conn.rollback();
+            }
+            e.printStackTrace();
+            throw new SQLException("Erro ao deletar o paciente: " + e.getMessage());
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            if (conn != null)
+                conn.close();
+        }
+    }
 }
