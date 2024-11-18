@@ -1,4 +1,4 @@
-package View;
+package View.Create;
 
 import java.sql.SQLException;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package View;
+package View.List;
 
 import java.sql.SQLException;
 import java.util.List;

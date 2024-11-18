@@ -4,6 +4,15 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import Controller.db_Connections.PatientDAO;
 import Model.Patient;
+import View.Create.CreateAppointmentMenu;
+import View.Create.CreateMedicationMenu;
+import View.Create.CreatePatientMenu;
+import View.Delete.DeletePatientAppointment;
+import View.Delete.DeletePatientMedication;
+import View.List.ListDataPatientMenu;
+import View.List.ListPatientAppointmentMenu;
+import View.List.ListPatientMedicationMenu;
+import View.Update.UpdatePatientMenu;
 
 public class PatientView {
 
