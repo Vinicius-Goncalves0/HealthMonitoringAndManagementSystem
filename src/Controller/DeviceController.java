@@ -33,4 +33,16 @@ public class DeviceController {
     public void deletePatientDevice(String patientName, int deviceId) throws SQLException {
         deviceDAO.deletePatientDevice(patientName, deviceId);
     }
+
+    public void activateDevice(String patientName, int deviceId) throws SQLException {
+        deviceDAO.activateDevice(patientName, deviceId);
+    }
+
+    public void deactivateDevice(String patientName, int deviceId) throws SQLException {
+        deviceDAO.deactivateDevice(patientName, deviceId);
+    }
+
+    public void accessPatientDevice(String patientName, int deviceId) throws SQLException {
+        deviceDAO.accessPatientDevice(patientName, deviceId);
+    }
 }

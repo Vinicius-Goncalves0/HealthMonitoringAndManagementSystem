@@ -6,7 +6,7 @@ import java.util.Scanner;
 import Controller.PatientController;
 import Model.Patient;
 
-public class ListDataPatientMenu {
+public class ListDataPatient {
     Scanner scan = new Scanner(System.in);
 
     public void displayPatients(List<Patient> patients) {
@@ -27,7 +27,7 @@ public class ListDataPatientMenu {
     }
 
     public void listPatientsByName(String patientName) {
-        ListDataPatientMenu listDataPatientMenu = new ListDataPatientMenu();
+        ListDataPatient listDataPatientMenu = new ListDataPatient();
         PatientController patientController = new PatientController();
 
         try {

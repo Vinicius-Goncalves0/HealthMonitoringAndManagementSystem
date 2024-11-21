@@ -14,7 +14,7 @@ import Model.Patient;
 public class DeviceDAO {
     // add medication to an appointment in the database
     public void addDeviceToPatient(Device device, Patient patient) {
-        String deviceSql = "INSERT INTO devices (type, brand, model, activationStatus) VALUES (?, ?, ?, ?)";
+        String deviceSql = "INSERT INTO devices (type, brand, model, activationStatus, value) VALUES (?, ?, ?, ?, ?)";
         String deviceToPatientSql = "INSERT INTO patient_devices (patient_id, device_id) VALUES (?, ?)";
         
         try (Connection conn = db_Connection.getConnection()) {
@@ -28,6 +28,7 @@ public class DeviceDAO {
                 deviceStmt.setString(2, device.getBrand());
                 deviceStmt.setString(3, device.getModel());
                 deviceStmt.setBoolean(4, device.isActive());
+                deviceStmt.setString(5, device.getValue());
 
                 deviceStmt.executeUpdate();
 
@@ -57,7 +58,7 @@ public class DeviceDAO {
     // List all devices from a patient
     public List<Device> listDevicesByPatientName(String patientName) throws SQLException {
         List<Device> devices = new ArrayList<>();
-        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus " +
+        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value " +
             "FROM hospital_system.patients p " +
             "JOIN hospital_system.patient_devices pd ON p.id = pd.patient_id " +
             "JOIN hospital_system.devices d ON pd.device_id = d.id " +
@@ -73,7 +74,8 @@ public class DeviceDAO {
                             rs.getString("type"),
                             rs.getString("brand"),
                             rs.getString("model"),
-                            rs.getBoolean("activationStatus"));
+                            rs.getBoolean("activationStatus"),
+                            rs.getString("value"));
                     devices.add(device);
                 }
             }
@@ -86,35 +88,54 @@ public class DeviceDAO {
     }
 
     // New method for listing active devices
-    public List<Device> listActiveDevicesByPatientName(String patientName) {
-        try {
-            return listDevicesByPatientName(patientName).stream()
-                    .filter(Device::isActive)
-                    .collect(Collectors.toList());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+    public List<Device> listActiveDevicesByPatientName(String patientName) throws SQLException {
+        return listDevicesByPatientName(patientName).stream()
+                .filter(Device::isActive)
+                .collect(Collectors.toList());
     }
 
     // New method for listing inactive devices
-    public List<Device> listInactiveDevicesByPatientName(String patientName) {
-        try {
-            return listDevicesByPatientName(patientName).stream()
-                    .filter(device -> !device.isActive())
-                    .collect(Collectors.toList());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+    public List<Device> listInactiveDevicesByPatientName(String patientName) throws SQLException {
+        return listDevicesByPatientName(patientName).stream()
+                .filter(device -> !device.isActive())
+                .collect(Collectors.toList());
     }
 
-    // Delete device from a patient
+    // Method to check if a device belongs to a patient
+    public boolean isDeviceOwnedByPatient(String patientName, int deviceId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count " +
+                     "FROM hospital_system.patients p " +
+                     "JOIN hospital_system.patient_devices pd ON p.id = pd.patient_id " +
+                     "WHERE p.name = ? AND pd.device_id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, patientName);
+            stmt.setInt(2, deviceId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error checking device ownership: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    // Modified delete device from a patient method
     public void deletePatientDevice(String patientName, int deviceId) throws SQLException {
+        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
+            System.out.println("Device does not belong to the patient!");
+            return;
+        }
+
         String getPatientIdSql = "SELECT id FROM hospital_system.patients WHERE name = ?";
-        String deletePatientDeviceSql = "DELETE FROM hospital_system.patient_medications WHERE patient_id = ? AND medication_id = ?";
-        String deleteDeviceSql = "DELETE FROM hospital_system.medications WHERE id = ?";
-       
+        String deletePatientDeviceSql = "DELETE FROM hospital_system.patient_devices WHERE patient_id = ? AND device_id = ?";
+        String deleteDeviceSql = "DELETE FROM hospital_system.devices WHERE id = ?";
+
         Connection conn = null;
         PreparedStatement getPatientIdStmt = null;
         PreparedStatement deletePatientDeviceStmt = null;
@@ -142,7 +163,7 @@ public class DeviceDAO {
                 deletePatientDeviceStmt.setInt(2, deviceId);
                 deletePatientDeviceStmt.executeUpdate();
 
-                // Delete device from deices table
+                // Delete device from devices table
                 deleteDeviceStmt = conn.prepareStatement(deleteDeviceSql);
                 deleteDeviceStmt.setInt(1, deviceId);
                 deleteDeviceStmt.executeUpdate();
@@ -173,4 +194,78 @@ public class DeviceDAO {
             }
         }
     }
+
+    // Method to activate a device
+    public void activateDevice(String patientName, int deviceId) throws SQLException {
+        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
+            System.out.println("Device does not belong to the patient!");
+            return;
+        }
+
+        String sql = "UPDATE hospital_system.devices SET activationStatus = TRUE WHERE id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, deviceId);
+            stmt.executeUpdate();
+            System.out.println("Device activated successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error activating device: " + e.getMessage());
+        }
+    }
+
+    // Method to deactivate a device
+    public void deactivateDevice(String patientName, int deviceId) throws SQLException {
+        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
+            System.out.println("Device does not belong to the patient!");
+            return;
+        }
+
+        String sql = "UPDATE hospital_system.devices SET activationStatus = FALSE WHERE id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, deviceId);
+            stmt.executeUpdate();
+            System.out.println("Device deactivated successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error deactivating device: " + e.getMessage());
+        }
+    }
+
+    // Method to access the patient device
+    public Device accessPatientDevice(String patientName, int deviceId) throws SQLException {
+        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
+            System.out.println("Device does not belong to the patient!");
+            return null;
+        }
+
+        String sql = "SELECT id, type, brand, model, activationStatus " +
+                     "FROM hospital_system.devices " +
+                     "WHERE id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, deviceId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Device(
+                            rs.getInt("id"),
+                            rs.getString("type"),
+                            rs.getString("brand"),
+                            rs.getString("model"),
+                            rs.getBoolean("activationStatus"),
+                            rs.getString("value"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error accessing device: " + e.getMessage());
+        }
+
+        return null;
+    }
+    
 }

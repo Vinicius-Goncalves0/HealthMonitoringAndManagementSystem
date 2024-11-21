@@ -8,7 +8,7 @@ import Model.Doctor;
 import View.Create.CreateDoctorMenu;
 import View.Delete.DeleteDoctor;
 import View.Update.UpdateDoctorMenu;
-import View.List.ListDataDoctorMenu;
+import View.List.ListDataDoctor;
 import View.List.ListDoctor;
 
 public class DoctorView {
@@ -108,7 +108,7 @@ public class DoctorView {
     }
 
     public void doctorDataMenu(Doctor doctor, String doctorName, Scanner scan) {
-        ListDataDoctorMenu listDataDoctorMenu = new ListDataDoctorMenu();
+        ListDataDoctor listDataDoctorMenu = new ListDataDoctor();
         UpdateDoctorMenu updateDoctorMenu = new UpdateDoctorMenu();
 
         while (true) {

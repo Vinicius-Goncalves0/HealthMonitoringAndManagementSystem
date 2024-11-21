@@ -27,7 +27,7 @@ public class MedicationController {
         return medicationDAO.listMedicationsByAppointmentId(appointmentId);
     }
 
-    public void deletePatientMedicationByName(String patientName, int medicationId) throws SQLException {
-        medicationDAO.deletePatientMedicationByName(patientName, medicationId);
+    public void deletePatientMedication(String patientName, int medicationId) throws SQLException {
+        medicationDAO.deletePatientMedication(patientName, medicationId);
     }
 }
