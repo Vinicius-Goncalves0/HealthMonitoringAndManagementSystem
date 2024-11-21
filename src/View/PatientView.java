@@ -83,12 +83,14 @@ public class PatientView {
     }
 
     public void patientAccessed(Patient patient, String patientName, Scanner scan) {
+        MonitoringView monitoringView = new MonitoringView();
 
         while (true) {
             System.out.println("\nPatient: " + patient.getName());
             System.out.println("1. Patient Data Menu");
             System.out.println("2. Appointment Menu");
             System.out.println("3. Medication Menu");
+            System.out.println("4. Monitoring Menu");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -112,6 +114,10 @@ public class PatientView {
                     case 3:
                         System.out.println("Medication Menu...");
                         medicationMenu(patient, patientName, scan);
+                        break;
+                    case 4:
+                        System.out.println("Monitoring Menu...");
+                        monitoringView.displayMonitoringMenu(patient, patientName, scan);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

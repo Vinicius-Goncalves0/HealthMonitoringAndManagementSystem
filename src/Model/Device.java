@@ -2,18 +2,32 @@ package Model;
 
 public class Device {
 
+    private int id;
     private String type;
     private String brand;
     private String model;
-    private boolean status;
-    private int value; //Valores de monitoração do dispositivo
+    private boolean activationStatus;
 
-    public Device(String type, String brand, String model, boolean status, int value) {
+    public Device(String type, String brand, String model, boolean activationStatus) {
         this.type = type;
         this.brand = brand;
         this.model = model;
-        this.status = status;
-        this.value = value;
+        this.activationStatus = activationStatus;
+    }
+
+    public Device(int id, String type, String brand, String model, boolean activationStatus) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.model = model;
+        this.activationStatus = activationStatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -40,20 +54,12 @@ public class Device {
         this.model = model;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return activationStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
+    public void setActive(boolean activationStatus) {
+        this.activationStatus = activationStatus;
     }
 
 }

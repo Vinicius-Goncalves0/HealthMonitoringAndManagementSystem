@@ -16,7 +16,6 @@ public class View {
             System.out.println("\nMain Menu: ");
             System.out.println("1. Patient Menu");
             System.out.println("2. Doctor Menu");
-            System.out.println("3. Monitoring menu");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             int choice = scan.nextInt();
@@ -32,9 +31,6 @@ public class View {
                     break;
                 case 2:
                     doctorView.displayDoctorMenu();
-                    break;
-                case 3:
-                    // monitoringView.displayMonitoringMenu();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

@@ -11,7 +11,7 @@ public class ListDataDoctorMenu {
 
     public void displayDoctors(List<Doctor> doctors) {
         if (doctors.isEmpty()) {
-            System.out.println("No patients found with the given name.");
+            System.out.println("No doctors found with the given name.");
         } else {
             for (Doctor doctor : doctors) {
                 System.out.println("ID: " + doctor.getId());
@@ -36,7 +36,7 @@ public class ListDataDoctorMenu {
             System.out.println("\n Press enter to continue...");
             scan.nextLine();
         } catch (SQLException e) {
-            System.out.println("\n--- Error when listing patients: " + e.getMessage() + " ---\n");
+            System.out.println("\n--- Error when listing doctor: " + e.getMessage() + " ---\n");
         }
     }
     
