@@ -285,4 +285,55 @@ public class DeviceDAO {
             throw new SQLException("Error updating device value: " + e.getMessage());
         }
     }
+
+    // Find device by ID
+    public Device findDeviceByID(int deviceId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Device device = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM devices WHERE id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, deviceId);
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Checks if it has found a device
+            if (rs.next()) {
+                device = new Device(
+                    rs.getInt("id"),
+                    rs.getString("type"),
+                    rs.getString("brand"),
+                    rs.getString("model"),
+                    rs.getBoolean("activationStatus")
+                );
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error finding device: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return device;
+    }
 }

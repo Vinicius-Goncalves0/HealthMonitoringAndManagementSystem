@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Controller.db_Connections.DeviceDAO;
 import Model.Device;
 import Model.Patient;
+import View.Create.CreateAlert;
 import View.Create.CreateDeviceMenu;
 import View.Delete.DeleteDevice;
 import View.List.AccessDevice;
@@ -128,6 +129,7 @@ public class MonitoringView {
     }
 
     public void alertsAccessed(Patient patient, String patientName, Scanner scan) {
+        CreateAlert createAlert = new CreateAlert();
 
         while (true) {
             System.out.println("\nAlerts Menu:");
@@ -147,6 +149,8 @@ public class MonitoringView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
+                        System.out.println("\nCreating alert...");
+                        createAlert.createAlert(patientName);
                         break;
                     case 2:
                         break;
