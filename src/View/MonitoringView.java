@@ -84,7 +84,7 @@ public class MonitoringView {
                         try {
                             Device device = deviceDAO.accessPatientDevice(patientName, deviceId);
                             if (device != null) {
-                                accessDevice.displayAccessDeviceMenu(device);
+                                accessDevice.displayAccessDeviceMenu(device, patientName, deviceId);
                             } else {
                                 System.out.println("\n--- Device not find ---\n");
                             }

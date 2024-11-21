@@ -237,18 +237,16 @@ public class DeviceDAO {
 
     // Method to access the patient device
     public Device accessPatientDevice(String patientName, int deviceId) throws SQLException {
-        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
-            System.out.println("Device does not belong to the patient!");
-            return null;
-        }
-
-        String sql = "SELECT id, type, brand, model, activationStatus " +
-                     "FROM hospital_system.devices " +
-                     "WHERE id = ?";
+        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value " +
+                     "FROM hospital_system.patients p " +
+                     "JOIN hospital_system.patient_devices pd ON p.id = pd.patient_id " +
+                     "JOIN hospital_system.devices d ON pd.device_id = d.id " +
+                     "WHERE p.name = ? AND d.id = ?";
 
         try (Connection conn = db_Connection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, deviceId);
+            stmt.setString(1, patientName);
+            stmt.setInt(2, deviceId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Device(
@@ -257,15 +255,34 @@ public class DeviceDAO {
                             rs.getString("brand"),
                             rs.getString("model"),
                             rs.getBoolean("activationStatus"),
-                            rs.getString("value"));
+                            rs.getString("value")); // Ensure 'value' column exists
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new SQLException("Error accessing device: " + e.getMessage());
+            throw new SQLException("Error accessing patient device: " + e.getMessage());
         }
-
         return null;
     }
     
+    // Method to update the patient device value
+    public void updateDeviceValue(String patientName, int deviceId, String value) throws SQLException {
+        if (!isDeviceOwnedByPatient(patientName, deviceId)) {
+            System.out.println("Device does not belong to the patient!");
+            return;
+        }
+
+        String sql = "UPDATE hospital_system.devices SET value = ? WHERE id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, value);
+            stmt.setInt(2, deviceId);
+            stmt.executeUpdate();
+            System.out.println("Device value updated successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error updating device value: " + e.getMessage());
+        }
+    }
 }

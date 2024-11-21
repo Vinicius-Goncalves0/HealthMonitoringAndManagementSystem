@@ -45,4 +45,8 @@ public class DeviceController {
     public void accessPatientDevice(String patientName, int deviceId) throws SQLException {
         deviceDAO.accessPatientDevice(patientName, deviceId);
     }
+
+    public void updateDeviceValue(String patientName, int deviceId, String value) throws SQLException {
+        deviceDAO.updateDeviceValue(patientName, deviceId, value);
+    }
 }

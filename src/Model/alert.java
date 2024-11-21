@@ -1,12 +1,12 @@
 package Model;
 
-public class alert {
+public class Alert {
     private String type;
     private String message;
     private String doctor;
     private String data;
 
-    public alert(String type, String message, String doctor, String data) {
+    public Alert(String type, String message, String doctor, String data) {
         this.type = type;
         this.message = message;
         this.doctor = doctor;
