@@ -143,4 +143,31 @@ public class AlertDAO {
 
         return patientId;
     }
+
+    // list alerts by patient ID
+    public List<Alert> listAlertsByPatientId(int patientId) throws SQLException {
+        String sql = "SELECT a.* FROM alerts a " +
+                     "JOIN patient_alerts pa ON a.id = pa.alert_id " +
+                     "WHERE pa.patient_id = ?";
+        List<Alert> alertas = new ArrayList<>();
+    
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String type = rs.getString("type");
+                    String message = rs.getString("message");
+                    String doctor = rs.getString("doctor");
+                    String data = rs.getString("data");
+    
+                    Alert alert = new Alert(id, type, message, doctor, data);
+                    alertas.add(alert);
+                }
+            }
+        }
+    
+        return alertas;
+    }
 }

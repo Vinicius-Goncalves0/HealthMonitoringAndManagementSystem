@@ -28,4 +28,8 @@ public class AlertController {
         return alertDAO.listarAlertas();
     }
 
+    public List<Alert> listAlertsByPatientId(int patientId) throws SQLException {
+        return alertDAO.listAlertsByPatientId(patientId);
+    }
+
 }

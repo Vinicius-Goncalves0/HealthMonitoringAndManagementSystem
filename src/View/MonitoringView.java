@@ -192,6 +192,7 @@ public class MonitoringView {
     public void alertsAccessed(Patient patient, String patientName, Scanner scan) {
         CreateAlert createAlert = new CreateAlert();
         ListAllAlerts listAllAlerts = new ListAllAlerts();
+        DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
             System.out.println("\nAlerts Menu:");
@@ -214,11 +215,19 @@ public class MonitoringView {
                         System.out.println("\nCreating alert...");
                         System.out.print("Digite o ID do dispositivo a ser criado o alerta: ");
                         int deviceId = scan.nextInt();
-                        createAlert.createAlert(patientName, deviceId);
+                        try {
+                            if (!deviceDAO.isDeviceOwnedByPatient(patientName, deviceId)) {
+                                System.out.println("Device does not belong to the patient!");
+                                break;
+                            }
+                            createAlert.createAlert(patientName, deviceId);
+                        } catch (SQLException e) {
+                            System.out.println("\n--- Error checking device ownership: " + e.getMessage() + " ---\n");
+                        }
                         break;
                     case 2:
                         System.out.println("\nViewing alerts...");
-                        listAllAlerts.displayPatientAlerts();
+                        listAllAlerts.listAlertsByPatientId(patient.getId());
                         break;
                     case 3:
                         // close alerts

@@ -32,6 +32,7 @@ public class CreateAlert {
         this.alertController = new AlertController();
     }
 
+    @SuppressWarnings("resource")
     public void createAlert(String patientName, int deviceId) {
         Scanner scanner = new Scanner(System.in);
 
@@ -44,17 +45,6 @@ public class CreateAlert {
         String doctorAlert = scanner.nextLine();
         System.out.print("Digite a data do alerta: ");
         String data = scanner.nextLine();
-
-        // Alert alert = new Alert(type, message, doctor, data);
-        // try {
-        // Device device = deviceController.findDeviceByID(deviceId);
-        // Patient patient = patientController.findPatientByName(patientName);
-
-        // alertController.gerarAlerta(alert, device, patient);
-        // System.out.println("Alerta criado com sucesso!");
-        // } catch (SQLException e) {
-        // System.out.println("Erro ao criar alerta: " + e.getMessage());
-        // }
 
         try {
             Doctor doctor = doctorDAO.findDoctorByName(doctorAlert);
