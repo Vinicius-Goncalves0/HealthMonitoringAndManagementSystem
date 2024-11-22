@@ -7,13 +7,9 @@ import Controller.AlertController;
 import Controller.PatientController;
 import Controller.DeviceController;
 import Model.Alert;
-import Model.Appointment;
 import Model.Device;
 import Model.Doctor;
-import Model.Medication;
 import Model.Patient;
-import Controller.MedicationController;
-import Controller.AppointmentController;
 import Controller.db_Connections.DoctorDAO;
 import View.List.ListPatientAppointmentMenu;
 
@@ -21,8 +17,6 @@ public class CreateAlert {
     PatientController patientController = new PatientController();
     DeviceController deviceController = new DeviceController();
 
-    private MedicationController medicationController;
-    private AppointmentController appointmentController;
     DoctorDAO doctorDAO = new DoctorDAO();
     ListPatientAppointmentMenu listPatientAppointmentMenu = new ListPatientAppointmentMenu();
 

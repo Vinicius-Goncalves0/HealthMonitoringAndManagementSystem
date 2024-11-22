@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import Controller.AlertController;
-import Controller.MedicationController;
 import Controller.db_Connections.AlertDAO;
 import Controller.db_Connections.PatientDAO;
 import Model.Alert;
-import Model.Medication;
 
 public class ListAllAlerts {
     Scanner scan = new Scanner(System.in);

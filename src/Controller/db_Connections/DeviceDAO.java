@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Model.Device;
-import Model.Doctor;
 import Model.Patient;
 
 public class DeviceDAO {
