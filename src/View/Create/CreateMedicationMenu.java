@@ -71,8 +71,7 @@ public class CreateMedicationMenu {
                 System.out.println("\n--- Doctor " + medicationDoctorName + " not found in system ---\n");
             }
         } catch (SQLException e) {
-            System.out.println("\n--- Error accessing the doctor: " + medicationDoctorName + " " + e.getMessage()
-                    + " ---\n");
+            System.out.println("\n--- Error accessing the doctor: " + medicationDoctorName + " " + e.getMessage() + " ---\n");
         }
     }
 

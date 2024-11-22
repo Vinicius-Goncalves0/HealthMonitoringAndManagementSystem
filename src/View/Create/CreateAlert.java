@@ -7,12 +7,24 @@ import Controller.AlertController;
 import Controller.PatientController;
 import Controller.DeviceController;
 import Model.Alert;
+import Model.Appointment;
 import Model.Device;
+import Model.Doctor;
+import Model.Medication;
 import Model.Patient;
+import Controller.MedicationController;
+import Controller.AppointmentController;
+import Controller.db_Connections.DoctorDAO;
+import View.List.ListPatientAppointmentMenu;
 
 public class CreateAlert {
     PatientController patientController = new PatientController();
     DeviceController deviceController = new DeviceController();
+
+    private MedicationController medicationController;
+    private AppointmentController appointmentController;
+    DoctorDAO doctorDAO = new DoctorDAO();
+    ListPatientAppointmentMenu listPatientAppointmentMenu = new ListPatientAppointmentMenu();
 
     private AlertController alertController;
 
@@ -20,32 +32,55 @@ public class CreateAlert {
         this.alertController = new AlertController();
     }
 
-    public void createAlert(String patientName) {
+    public void createAlert(String patientName, int deviceId) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Criar alerta");
+        System.out.println("\nCriar alerta");
         System.out.print("Digite o tipo de alerta: ");
         String type = scanner.nextLine();
         System.out.print("Digite a mensagem do alerta: ");
         String message = scanner.nextLine();
         System.out.print("Digite o nome do médico: ");
-        String doctor = scanner.nextLine();
+        String doctorAlert = scanner.nextLine();
         System.out.print("Digite a data do alerta: ");
         String data = scanner.nextLine();
-        System.out.print("Digite o ID do dispositivo: ");
-        int deviceId = scanner.nextInt();
 
-        Alert alert = new Alert(type, message, doctor, data);
+        // Alert alert = new Alert(type, message, doctor, data);
+        // try {
+        // Device device = deviceController.findDeviceByID(deviceId);
+        // Patient patient = patientController.findPatientByName(patientName);
+
+        // alertController.gerarAlerta(alert, device, patient);
+        // System.out.println("Alerta criado com sucesso!");
+        // } catch (SQLException e) {
+        // System.out.println("Erro ao criar alerta: " + e.getMessage());
+        // }
+
         try {
-            Device device = deviceController.findDeviceByID(deviceId);
-            Patient patient = patientController.findPatientByName(patientName);
+            Doctor doctor = doctorDAO.findDoctorByName(doctorAlert);
+            if (doctor != null) {
 
-            alertController.gerarAlerta(alert, device, patient);
-            System.out.println("Alerta criado com sucesso!");
+                try {
+                    Patient patient = patientController.findPatientByName(patientName);
+                    Device device = deviceController.findDeviceByID(deviceId);
+
+                    if (patient != null) {
+                        Alert alert = new Alert(type, message, doctorAlert, data);
+                        alertController.gerarAlerta(alert, device, patient);
+
+                        System.out.println("Alert generate successfully.");
+                    } else {
+                        System.out.println("Patient not found.");
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error generating alert: " + e.getMessage());
+                }
+
+            } else {
+                System.out.println("\n--- Doctor " + doctorAlert + " not found in system ---\n");
+            }
         } catch (SQLException e) {
-            System.out.println("Erro ao criar alerta: " + e.getMessage());
+            System.out.println("\n--- Error accessing the doctor: " + doctorAlert + " " + e.getMessage() + " ---\n");
         }
-
-        scanner.close();
     }
 }

@@ -24,34 +24,41 @@ public class AlertDAO {
             conn.setAutoCommit(false);
 
             try (PreparedStatement alertStmt = conn.prepareStatement(insertAlertSQL,
-                    PreparedStatement.RETURN_GENERATED_KEYS);
-                    PreparedStatement deviceAlertStmt = conn.prepareStatement(insertDeviceAlertSQL);
-                    PreparedStatement patientAlertStmt = conn.prepareStatement(insertPatientAlertSQL)) {
-
-                // Insert alert
+                    PreparedStatement.RETURN_GENERATED_KEYS)) {
                 alertStmt.setString(1, alert.getType());
                 alertStmt.setString(2, alert.getMessage());
                 alertStmt.setString(3, alert.getDoctor());
                 alertStmt.setString(4, alert.getData());
                 alertStmt.executeUpdate();
 
-                // Get generated alert ID
-                try (var generatedKeys = alertStmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int alertId = generatedKeys.getInt(1);
-
-                        // Associate alert with device
-                        deviceAlertStmt.setInt(1, device.getId());
-                        deviceAlertStmt.setInt(2, alertId);
-                        deviceAlertStmt.executeUpdate();
-
-                        // Associate alert with patient
-                        patientAlertStmt.setInt(1, patient.getId());
-                        patientAlertStmt.setInt(2, alertId);
-                        patientAlertStmt.executeUpdate();
-                    }
+                // Pega o ID gerado automaticamente para o medicamento
+                ResultSet generatedKeys = alertStmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    alert.setId(generatedKeys.getInt(1));
                 }
             }
+
+            // Cria a relação entre device e alerta
+            try (PreparedStatement relationStmt = conn.prepareStatement(insertDeviceAlertSQL)) {
+                relationStmt.setInt(1, device.getId());
+                relationStmt.setInt(2, alert.getId());
+
+                relationStmt.executeUpdate();
+            }
+
+            // Cria a relação entre paciente e alert
+            try (PreparedStatement relationStmt = conn.prepareStatement(insertPatientAlertSQL)) {
+                relationStmt.setInt(1, patient.getId());
+                relationStmt.setInt(2, alert.getId());
+
+                relationStmt.executeUpdate();
+            }
+
+            // Confirma a transação
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -89,29 +96,51 @@ public class AlertDAO {
                 conn.setAutoCommit(true);
             }
         }
-        
+
     }
-    
+
     // visualizar alertas
     public List<Alert> listarAlertas() throws SQLException {
         String selectAlertsSQL = "SELECT * FROM alerts";
         List<Alert> alertas = new ArrayList<>();
 
         try (Connection conn = db_Connection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(selectAlertsSQL);
-             ResultSet rs = stmt.executeQuery()) {
+                PreparedStatement stmt = conn.prepareStatement(selectAlertsSQL);
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String type = rs.getString("type");
                 String message = rs.getString("message");
                 String doctor = rs.getString("doctor");
                 String data = rs.getString("data");
 
-                Alert alert = new Alert(type, message, doctor, data);
+                Alert alert = new Alert(id, type, message, doctor, data);
                 alertas.add(alert);
             }
         }
 
         return alertas;
+    }
+
+    // get patient ID by alert ID
+    public int getPatientIdByAlertId(int alertId) throws SQLException {
+        String sql = "SELECT patient_id FROM patient_alerts WHERE alert_id = ?";
+        int patientId = 0;
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, alertId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    patientId = rs.getInt("patient_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error finding patient ID: " + e.getMessage());
+        }
+
+        return patientId;
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Model.Device;
+import Model.Doctor;
 import Model.Patient;
 
 public class DeviceDAO {
@@ -335,5 +336,57 @@ public class DeviceDAO {
         }
 
         return device;
+    }
+
+    // List devices by id
+    public List<Device> listDeviceById(int deviceId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Device> devices = new ArrayList<>();
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Prepare the SQL query
+            String sql = "SELECT * FROM devices WHERE id LIKE ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + deviceId + "%");
+
+            // Execute the query
+            rs = stmt.executeQuery();
+
+            // Iterate through the result set and create Patient objects
+            while (rs.next()) {
+                Device device = new Device(
+                        rs.getString("type"),
+                        rs.getString("brand"),
+                        rs.getString("model"),
+                        rs.getBoolean("activationStatus"),
+                        rs.getString("value"));
+                device.setId(rs.getInt("id"));
+                devices.add(device);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error listing device: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return devices;
     }
 }

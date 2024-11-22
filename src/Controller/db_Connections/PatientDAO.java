@@ -418,4 +418,25 @@ public class PatientDAO {
                 conn.close();
         }
     }
+
+    // Method to find a patient's name by ID
+    public String findPatientNameByID(int patientId) throws SQLException {
+        String patientName = null;
+        String sql = "SELECT name FROM patients WHERE id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    patientName = rs.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error finding patient name: " + e.getMessage());
+        }
+
+        return patientName;
+    }
 }

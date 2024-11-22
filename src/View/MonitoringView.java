@@ -10,6 +10,7 @@ import View.Create.CreateAlert;
 import View.Create.CreateDeviceMenu;
 import View.Delete.DeleteDevice;
 import View.List.AccessDevice;
+import View.List.ListAllAlerts;
 import View.List.ListPatientDevices;
 import View.Update.UpdateDeviceStatus;
 
@@ -48,23 +49,19 @@ public class MonitoringView {
     }
 
     public void devicesAccessed(Patient patient, String patientName, Scanner scan) {
-        
+
         CreateDeviceMenu createDeviceMenu = new CreateDeviceMenu();
-        ListPatientDevices listPatientDevices = new ListPatientDevices();
         DeleteDevice deleteDevice = new DeleteDevice();
-        UpdateDeviceStatus updateDeviceStatus = new UpdateDeviceStatus();
         AccessDevice accessDevice = new AccessDevice();
         DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
             System.out.println("\nDevices menu:");
-            System.out.println("1. Access device menu");
-            System.out.println("2. Create device menu");
-            System.out.println("3. List active devices");
-            System.out.println("4. List inactive devices");
-            System.out.println("5. Activate device");
-            System.out.println("6. Disable device");
-            System.out.println("7. Delete device");
+            System.out.println("1. Access Device Menu");
+            System.out.println("2. Create Device Menu");
+            System.out.println("3. List Devices Menu");
+            System.out.println("4. Activate/Disable Device Menu");
+            System.out.println("5. Delete device");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -99,22 +96,12 @@ public class MonitoringView {
                         createDeviceMenu.createDeviceMenu(patientName);
                         break;
                     case 3:
-                        System.out.println("\nListing active devices...");
-                        listPatientDevices.listActiveDevicesByPatientName(patientName);
+                        listDevice(patient, patientName, scan);
                         break;
                     case 4:
-                        System.out.println("\nListing inactive devices...");
-                        listPatientDevices.listInactiveDevicesByPatientName(patientName);
+                        activateDisableDevice(patient, patientName, scan);
                         break;
                     case 5:
-                        System.out.println("\nActivating device...");
-                        updateDeviceStatus.updateDeviceStatusToActive(patientName);
-                        break;
-                    case 6:
-                        System.out.println("\nDisabling device...");
-                        updateDeviceStatus.updateDeviceStatusToInactive(patientName);
-                        break;
-                    case 7:
                         System.out.println("\nDeleting device...");
                         deleteDevice.deleteDevice(patientName);
                         break;
@@ -128,8 +115,83 @@ public class MonitoringView {
         }
     }
 
+    public void listDevice(Patient patient, String patientName, Scanner scan) {
+        ListPatientDevices listPatientDevices = new ListPatientDevices();
+
+        while (true) {
+            System.out.println("\nList Devices menu:");
+            System.out.println("1. List active devices");
+            System.out.println("2. List inactive devices");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            if (scan.hasNextInt()) {
+                int choice = scan.nextInt();
+                scan.nextLine(); // Consume '\n'
+
+                System.out.print("\n");
+                switch (choice) {
+                    case 0:
+                        System.out.println("Exiting...");
+                        return;
+                    case 1:
+                        System.out.println("\nListing active devices...");
+                        listPatientDevices.listActiveDevicesByPatientName(patientName);
+                        break;
+                    case 2:
+                        System.out.println("\nListing inactive devices...");
+                        listPatientDevices.listInactiveDevicesByPatientName(patientName);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scan.nextLine(); // Consume invalid input
+            }
+        }
+    }
+
+    public void activateDisableDevice(Patient patient, String patientName, Scanner scan) {
+        UpdateDeviceStatus updateDeviceStatus = new UpdateDeviceStatus();
+
+        while (true) {
+            System.out.println("\nActivate/Disable Device menu:");
+            System.out.println("1. Activate device");
+            System.out.println("2. Disable device");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            if (scan.hasNextInt()) {
+                int choice = scan.nextInt();
+                scan.nextLine(); // Consume '\n'
+
+                System.out.print("\n");
+                switch (choice) {
+                    case 0:
+                        System.out.println("Exiting...");
+                        return;
+                    case 1:
+                        System.out.println("\nActivating device...");
+                        updateDeviceStatus.updateDeviceStatusToActive(patientName);
+                        break;
+                    case 2:
+                        System.out.println("\nDisabling device...");
+                        updateDeviceStatus.updateDeviceStatusToInactive(patientName);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scan.nextLine(); // Consume invalid input
+            }
+        }
+    }
+
     public void alertsAccessed(Patient patient, String patientName, Scanner scan) {
         CreateAlert createAlert = new CreateAlert();
+        ListAllAlerts listAllAlerts = new ListAllAlerts();
 
         while (true) {
             System.out.println("\nAlerts Menu:");
@@ -150,11 +212,16 @@ public class MonitoringView {
                         return;
                     case 1:
                         System.out.println("\nCreating alert...");
-                        createAlert.createAlert(patientName);
+                        System.out.print("Digite o ID do dispositivo a ser criado o alerta: ");
+                        int deviceId = scan.nextInt();
+                        createAlert.createAlert(patientName, deviceId);
                         break;
                     case 2:
+                        System.out.println("\nViewing alerts...");
+                        listAllAlerts.displayPatientAlerts();
                         break;
                     case 3:
+                        // close alerts
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

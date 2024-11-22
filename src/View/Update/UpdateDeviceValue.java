@@ -26,14 +26,17 @@ public class UpdateDeviceValue {
         }
     }
 
+    @SuppressWarnings("unused")
     public void updateDeviceValueRandom(String patientName, int deviceId) {
-        System.out.println("\n Generating a random value...");
+        System.out.println("\nGenerating a random value...");
         Random random = new Random();
-        String value = random.nextInt(100) < 70 ? "No Warning" : "Warning";
-        System.out.println("Generated value: " + value);
+        int valueInt = random.nextInt(100);
+        String valueString = Integer.toString(valueInt);
+        String warningOrNot = valueInt < 70 ? "No Warning" : "Warning"; // Use to save the data of the alert
+        System.out.println("Generated value: " + valueInt);
 
         try {
-            deviceController.updateDeviceValue(patientName, deviceId, value);
+            deviceController.updateDeviceValue(patientName, deviceId, valueString);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("\nFailed to update device value due to a database error.");

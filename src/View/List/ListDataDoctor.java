@@ -39,6 +39,4 @@ public class ListDataDoctor {
             System.out.println("\n--- Error when listing doctor: " + e.getMessage() + " ---\n");
         }
     }
-    
-
 }

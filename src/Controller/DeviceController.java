@@ -53,4 +53,8 @@ public class DeviceController {
     public Device findDeviceByID(int deviceId) throws SQLException {
         return deviceDAO.findDeviceByID(deviceId);
     }
+
+    public List<Device> listDeviceById(int deviceId) throws SQLException {
+        return deviceDAO.listDeviceById(deviceId);
+    }
 }
