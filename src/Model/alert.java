@@ -1,16 +1,32 @@
 package Model;
 
-public class alert {
+public class Alert {
+    private int id;
     private String type;
     private String message;
     private String doctor;
     private String data;
 
-    public alert(String type, String message, String doctor, String data) {
+    public Alert(String type, String message, String doctor, String data) {
         this.type = type;
         this.message = message;
         this.doctor = doctor;
         this.data = data;
+    }
+
+    public Alert(int id, String type, String message, String doctor, String data) {
+        this.id = id;
+        this.type = type;
+        this.message = message;
+        this.doctor = doctor;
+        this.data = data;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getType() {

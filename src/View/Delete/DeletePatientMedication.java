@@ -15,7 +15,7 @@ public class DeletePatientMedication {
         int medicationId = scan.nextInt();
 
         try {
-            medicationController.deletePatientMedicationByName(patientName, medicationId);
+            medicationController.deletePatientMedication(patientName, medicationId);
         } catch (SQLException e) {
             System.out.println("\n--- Error deleting medicine: " + e.getMessage() + " ---\n");
         }

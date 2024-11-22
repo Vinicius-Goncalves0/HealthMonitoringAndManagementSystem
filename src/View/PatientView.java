@@ -10,7 +10,7 @@ import View.Create.CreatePatientMenu;
 import View.Delete.DeletePatient;
 import View.Delete.DeletePatientAppointment;
 import View.Delete.DeletePatientMedication;
-import View.List.ListDataPatientMenu;
+import View.List.ListDataPatient;
 import View.List.ListPatientAppointmentMenu;
 import View.List.ListPatientMedicationMenu;
 import View.List.ListPatients;
@@ -219,7 +219,7 @@ public class PatientView {
 
     public void patientDataMenu(Patient patient, String patientName, Scanner scan) {
         UpdatePatientMenu updatePatientMenu = new UpdatePatientMenu();
-        ListDataPatientMenu listDataPatientMenu = new ListDataPatientMenu();
+        ListDataPatient listDataPatientMenu = new ListDataPatient();
 
         while (true) {
             System.out.println("\nPatient: " + patient.getName());

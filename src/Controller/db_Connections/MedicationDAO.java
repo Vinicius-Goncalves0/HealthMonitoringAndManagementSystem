@@ -133,17 +133,44 @@ public class MedicationDAO {
         return medications;
     }
 
-    // Delete medication from a patient
-    public void deletePatientMedicationByName(String patientName, int medicationId) throws SQLException {
+    // Method to check if a medication belongs to a patient
+    public boolean isMedicationOwnedByPatient(String patientName, int medicationId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count " +
+                     "FROM hospital_system.patients p " +
+                     "JOIN hospital_system.patient_medications pm ON p.id = pm.patient_id " +
+                     "WHERE p.name = ? AND pm.medication_id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, patientName);
+            stmt.setInt(2, medicationId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error checking medication ownership: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    // Modified delete medication from a patient method
+    public void deletePatientMedication(String patientName, int medicationId) throws SQLException {
+        if (!isMedicationOwnedByPatient(patientName, medicationId)) {
+            System.out.println("Medication does not belong to the patient!");
+            return;
+        }
+
         String getPatientIdSql = "SELECT id FROM hospital_system.patients WHERE name = ?";
-        String deletePatientMedicationsSql = "DELETE FROM hospital_system.patient_medications WHERE patient_id = ? AND medication_id = ?";
-        String deleteAppointmentMedicationsSql = "DELETE FROM hospital_system.appointment_medications WHERE medication_id = ?";
+        String deletePatientMedicationSql = "DELETE FROM hospital_system.patient_medications WHERE patient_id = ? AND medication_id = ?";
         String deleteMedicationSql = "DELETE FROM hospital_system.medications WHERE id = ?";
-       
+
         Connection conn = null;
         PreparedStatement getPatientIdStmt = null;
         PreparedStatement deletePatientMedicationStmt = null;
-        PreparedStatement deleteAppointmentMedicationStmt = null;
         PreparedStatement deleteMedicationStmt = null;
         ResultSet rs = null;
 
@@ -163,22 +190,17 @@ public class MedicationDAO {
                 int patientId = rs.getInt("id");
 
                 // Delete medication from patient
-                deletePatientMedicationStmt = conn.prepareStatement(deletePatientMedicationsSql);
+                deletePatientMedicationStmt = conn.prepareStatement(deletePatientMedicationSql);
                 deletePatientMedicationStmt.setInt(1, patientId);
                 deletePatientMedicationStmt.setInt(2, medicationId);
                 deletePatientMedicationStmt.executeUpdate();
-
-                // Delete medication from appointment
-                deleteAppointmentMedicationStmt = conn.prepareStatement(deleteAppointmentMedicationsSql);
-                deleteAppointmentMedicationStmt.setInt(1, medicationId);
-                deleteAppointmentMedicationStmt.executeUpdate();
 
                 // Delete medication from medications table
                 deleteMedicationStmt = conn.prepareStatement(deleteMedicationSql);
                 deleteMedicationStmt.setInt(1, medicationId);
                 deleteMedicationStmt.executeUpdate();
 
-                System.out.println("Medication deleted successfully for patient and appointment!");
+                System.out.println("Medication deleted successfully for patient!");
             } else {
                 System.out.println("Patient not found!");
             }
@@ -196,9 +218,6 @@ public class MedicationDAO {
             if (deletePatientMedicationStmt != null) {
                 deletePatientMedicationStmt.close();
             }
-            if (deleteAppointmentMedicationStmt != null) {
-                deleteAppointmentMedicationStmt.close();
-            }
             if (deleteMedicationStmt != null) {
                 deleteMedicationStmt.close();
             }
@@ -207,5 +226,4 @@ public class MedicationDAO {
             }
         }
     }
-
 }

@@ -85,17 +85,42 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    // Delete appointment from a patient
+    // Method to check if an appointment belongs to a patient
+    public boolean isAppointmentOwnedByPatient(String patientName, int appointmentId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count " +
+                     "FROM hospital_system.patients p " +
+                     "JOIN hospital_system.appointments a ON p.id = a.patient_id " +
+                     "WHERE p.name = ? AND a.id = ?";
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, patientName);
+            stmt.setInt(2, appointmentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error checking appointment ownership: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    // Modified delete appointment from a patient method
     public void deletePatientAppointmentById(String patientName, int appointmentId) throws SQLException {
+        if (!isAppointmentOwnedByPatient(patientName, appointmentId)) {
+            System.out.println("Appointment does not belong to the patient!");
+            return;
+        }
+
         String getPatientIdSql = "SELECT id FROM hospital_system.patients WHERE name = ?";
-        String deletePatientAppointmentsSql = "DELETE FROM hospital_system.patient_appointments WHERE patient_id = ? AND appointment_id = ?";
-        String deleteAppointmentMedicationsSql = "DELETE FROM hospital_system.appointment_medications WHERE appointment_id = ?";
-        String deleteAppointmentSql = "DELETE FROM hospital_system.appointments WHERE id = ?";
-       
+        String deleteAppointmentSql = "DELETE FROM hospital_system.appointments WHERE id = ? AND patient_id = ?";
+
         Connection conn = null;
         PreparedStatement getPatientIdStmt = null;
-        PreparedStatement deletePatientAppointmentStmt = null;
-        PreparedStatement deleteAppointmentMedicationStmt = null;
         PreparedStatement deleteAppointmentStmt = null;
         ResultSet rs = null;
 
@@ -114,23 +139,13 @@ public class AppointmentDAO {
             if (rs.next()) {
                 int patientId = rs.getInt("id");
 
-                // Delete appointment from patient
-                deletePatientAppointmentStmt = conn.prepareStatement(deletePatientAppointmentsSql);
-                deletePatientAppointmentStmt.setInt(1, patientId);
-                deletePatientAppointmentStmt.setInt(2, appointmentId);
-                deletePatientAppointmentStmt.executeUpdate();
-
-                // Delete medications from appointment
-                deleteAppointmentMedicationStmt = conn.prepareStatement(deleteAppointmentMedicationsSql);
-                deleteAppointmentMedicationStmt.setInt(1, appointmentId);
-                deleteAppointmentMedicationStmt.executeUpdate();
-
-                // Delete appointment from appointments table
+                // Delete appointment
                 deleteAppointmentStmt = conn.prepareStatement(deleteAppointmentSql);
                 deleteAppointmentStmt.setInt(1, appointmentId);
+                deleteAppointmentStmt.setInt(2, patientId);
                 deleteAppointmentStmt.executeUpdate();
 
-                System.out.println("Appointment and related medications deleted successfully for patient!");
+                System.out.println("Appointment deleted successfully for patient!");
             } else {
                 System.out.println("Patient not found!");
             }
@@ -144,12 +159,6 @@ public class AppointmentDAO {
             }
             if (getPatientIdStmt != null) {
                 getPatientIdStmt.close();
-            }
-            if (deletePatientAppointmentStmt != null) {
-                deletePatientAppointmentStmt.close();
-            }
-            if (deleteAppointmentMedicationStmt != null) {
-                deleteAppointmentMedicationStmt.close();
             }
             if (deleteAppointmentStmt != null) {
                 deleteAppointmentStmt.close();

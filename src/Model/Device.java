@@ -7,16 +7,34 @@ public class Device {
     private String brand;
     private String model;
     private boolean activationStatus;
+    private String value;
 
-    public Device(String type, String brand, String model, boolean activationStatus) {
+    public Device(String type, String brand, String model, boolean activationStatus, String value) {
+        this.type = type;
+        this.brand = brand;
+        this.model = model;
+        this.activationStatus = activationStatus;
+        this.value = value;
+    }
+
+    public Device(int id, String type, String brand, String model, boolean activationStatus, String value) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.model = model;
+        this.activationStatus = activationStatus;
+        this.value = value;
+    }
+
+    public Device(int id, String type, String brand, String model, boolean activationStatus) {
+        this.id = id;
         this.type = type;
         this.brand = brand;
         this.model = model;
         this.activationStatus = activationStatus;
     }
 
-    public Device(int id, String type, String brand, String model, boolean activationStatus) {
-        this.id = id;
+    public Device(String type, String brand, String model, boolean activationStatus) {
         this.type = type;
         this.brand = brand;
         this.model = model;
@@ -33,7 +51,6 @@ public class Device {
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
@@ -41,7 +58,6 @@ public class Device {
     public String getBrand() {
         return brand;
     }
-
     public void setBrand(String brand) {
         this.brand = brand;
     }
@@ -49,7 +65,6 @@ public class Device {
     public String getModel() {
         return model;
     }
-
     public void setModel(String model) {
         this.model = model;
     }
@@ -57,9 +72,15 @@ public class Device {
     public boolean isActive() {
         return activationStatus;
     }
-
     public void setActive(boolean activationStatus) {
         this.activationStatus = activationStatus;
+    }
+
+    public String getValue() {
+        return value;
+    }
+    public void setValue(String value) {
+        this.value = value;
     }
 
 }

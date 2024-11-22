@@ -39,7 +39,7 @@ public class ListPatientAppointmentMenu {
     // _____________________________________________________________
 
     public void displayAppointments(List<Appointment> appointments) {
-        ListDataDoctorMenu listDataDoctorMenu = new ListDataDoctorMenu();
+        ListDataDoctor listDataDoctorMenu = new ListDataDoctor();
         ListPatientMedicationMenu listMedicationsByAppointmentID = new ListPatientMedicationMenu();
 
         if (appointments.isEmpty()) {
