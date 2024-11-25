@@ -38,5 +38,4 @@ public class DoctorController {
     public List<Doctor> listAllDoctors() throws SQLException {
         return doctorDAO.listAllDoctors();
     }
-
 }

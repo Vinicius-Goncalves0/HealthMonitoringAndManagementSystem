@@ -1,4 +1,4 @@
-package View;
+package View.DocView;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ import View.List.ListAllAlerts;
 import View.List.ListPatientDevices;
 import View.Update.UpdateDeviceStatus;
 
-public class MonitoringView {
+public class DocMonitoringView {
 
     public void displayMonitoringMenu(Patient patient, String patientName, Scanner scan) {
 

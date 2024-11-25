@@ -2,21 +2,18 @@ package View;
 
 import java.util.Scanner;
 
-import View.List.ListAllAlerts;
+import View.DocView.DoctorView;
 
 public class View {
-
     public void displayMainMenu() {
         Scanner scan = new Scanner(System.in);
         PatientView patientView = new PatientView();
         DoctorView doctorView = new DoctorView();
-        ListAllAlerts listAllAlerts = new ListAllAlerts();
 
         while (true) {
             System.out.println("\nMain Menu: ");
             System.out.println("1. Patient Menu");
             System.out.println("2. Doctor Menu");
-            System.out.println("3. Show all alerts");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -35,10 +32,6 @@ public class View {
                     case 2:
                         doctorView.displayDoctorMenu();
                         break;
-                    case 3:
-                        System.out.println("\n");
-                        listAllAlerts.displayAllAlerts();
-                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
@@ -48,5 +41,4 @@ public class View {
             }
         }
     }
-    
 }

@@ -45,3 +45,9 @@ LIMIT 0, 1000;
 ---- código query para deletar da tabela por id ----
 DELETE FROM hospital_system.patients WHERE id = 19;
 SELECT * FROM hospital_system.patients;
+
+
+
+
+
+implementar função de deletar médico e paciente dentro de cada um, como uma função de deletar sua própria conta

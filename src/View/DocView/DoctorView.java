@@ -1,4 +1,4 @@
-package View;
+package View.DocView;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -6,10 +6,9 @@ import java.util.Scanner;
 import Controller.db_Connections.DoctorDAO;
 import Model.Doctor;
 import View.Create.CreateDoctorMenu;
-import View.Delete.DeleteDoctor;
-import View.Update.UpdateDoctorMenu;
 import View.List.ListDataDoctor;
 import View.List.ListDoctor;
+import View.Update.UpdateDoctorMenu;
 
 public class DoctorView {
 
@@ -17,15 +16,13 @@ public class DoctorView {
         Scanner scan = new Scanner(System.in);
         CreateDoctorMenu createDoctorMenu = new CreateDoctorMenu();
         ListDoctor listDoctor = new ListDoctor();
-        DeleteDoctor deleteDoctor = new DeleteDoctor();
         DoctorDAO doctorDAO = new DoctorDAO();
 
         while (true) {
             System.out.println("\nDoctor Menu:");
-            System.out.println("1. Access Doctor");
-            System.out.println("2. List Doctors");
+            System.out.println("1. List Doctors");
+            System.out.println("2. Access Doctor");
             System.out.println("3. Create Doctor");
-            System.out.println("4. Delete Doctor");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -38,6 +35,10 @@ public class DoctorView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
+                        System.out.println("\nListing doctors...");
+                        listDoctor.listAllDoctors();
+                        break;
+                    case 2:
                         System.out.println("Doctor's Name:");
                         String doctorName = scan.nextLine();
 
@@ -53,18 +54,8 @@ public class DoctorView {
                                     + " ---\n");
                         }
                         break;
-                    case 2:
-                        System.out.println("\nListing doctors...");
-                        listDoctor.listAllDoctors();
-                        break;
                     case 3:
                         createDoctorMenu.createDoctorMenu();
-                        break;
-                    case 4:
-                        System.out.println("\nDoctor's ID to delete:");
-                        int doctorId = scan.nextInt();
-                        System.out.println("\nDeleting doctor...");
-                        deleteDoctor.deleteDoctor(doctorId);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
@@ -77,10 +68,12 @@ public class DoctorView {
     }
 
     public void doctorAccessed(Doctor doctor, String doctorName, Scanner scan) {
+        DocPatientView docPatientView = new DocPatientView();
 
         while (true) {
             System.out.println("\nDoctor: " + doctor.getName());
             System.out.println("1. Doctor Data Menu");
+            System.out.println("2. Patient Secion");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 
@@ -96,6 +89,10 @@ public class DoctorView {
                     case 1:
                         System.out.println("Doctor Data Menu...");
                         doctorDataMenu(doctor, doctorName, scan);
+                        break;
+                    case 2:
+                        System.out.println("Patient Section...");
+                        docPatientView.displayPatientMenu();
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
