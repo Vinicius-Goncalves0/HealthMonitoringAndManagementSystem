@@ -8,6 +8,7 @@ import Model.Device;
 import Model.Patient;
 import View.Create.CreateAlert;
 import View.Create.CreateDeviceMenu;
+import View.Delete.DeleteAlert;
 import View.Delete.DeleteDevice;
 import View.List.AccessDevice;
 import View.List.ListAllAlerts;
@@ -192,6 +193,7 @@ public class MonitoringView {
     public void alertsAccessed(Patient patient, String patientName, Scanner scan) {
         CreateAlert createAlert = new CreateAlert();
         ListAllAlerts listAllAlerts = new ListAllAlerts();
+        DeleteAlert deleteAlert = new DeleteAlert();
         DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
@@ -230,7 +232,7 @@ public class MonitoringView {
                         listAllAlerts.listAlertsByPatientId(patient.getId());
                         break;
                     case 3:
-                        // close alerts
+                        deleteAlert.deleteAlert(patientName);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

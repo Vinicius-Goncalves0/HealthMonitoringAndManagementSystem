@@ -23,7 +23,7 @@ public class PatientDAO {
             // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection with UTF-8 encoding
+            // Establish the connection
             conn = db_Connection.getConnection();
 
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);

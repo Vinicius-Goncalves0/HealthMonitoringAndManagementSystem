@@ -20,8 +20,8 @@ public class AlertController {
         alertDAO.gerarAlerta(alert, device, patient);
     }
 
-    public void encerrarAlerta(int alertId) throws SQLException {
-        alertDAO.encerrarAlerta(alertId);
+    public void deletePatientAlert(String patientName, int alertId) throws SQLException {
+        alertDAO.deletePatientAlert(patientName, alertId);
     }
 
     public List<Alert> listarAlertas() throws SQLException {

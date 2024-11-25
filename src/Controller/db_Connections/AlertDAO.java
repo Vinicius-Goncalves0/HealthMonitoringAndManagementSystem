@@ -62,41 +62,108 @@ public class AlertDAO {
         }
     }
 
-    // encerrar alerta
-    public void encerrarAlerta(int alertId) throws SQLException {
-        String deleteDeviceAlertSQL = "DELETE FROM device_alerts WHERE alert_id = ?";
-        String deletePatientAlertSQL = "DELETE FROM patient_alerts WHERE alert_id = ?";
-        String deleteAlertSQL = "DELETE FROM alerts WHERE id = ?";
+    //Method to check if a alert belongs to a patient
+    public boolean isAlertOwnedByPatient(String patientName, int alertId) throws SQLException {
+        // falta fazer daqui para baixo e eu começei agora ent falta tudo
+        String sql = "SELECT COUNT(*) AS count " +
+                     "FROM hospital_system.patients p " +
+                     "JOIN hospital_system.patient_alerts pd ON p.id = pd.patient_id " +
+                     "WHERE p.name = ? AND pd.alert_id = ?";
 
-        try (Connection conn = db_Connection.getConnection()) {
-            // Disables auto commit for manual transaction control
-            conn.setAutoCommit(false);
-
-            try (PreparedStatement deviceAlertStmt = conn.prepareStatement(deleteDeviceAlertSQL);
-                    PreparedStatement patientAlertStmt = conn.prepareStatement(deletePatientAlertSQL);
-                    PreparedStatement alertStmt = conn.prepareStatement(deleteAlertSQL)) {
-
-                // Remove associations with device
-                deviceAlertStmt.setInt(1, alertId);
-                deviceAlertStmt.executeUpdate();
-
-                // Remove associations with patient
-                patientAlertStmt.setInt(1, alertId);
-                patientAlertStmt.executeUpdate();
-
-                // Remove alert
-                alertStmt.setInt(1, alertId);
-                alertStmt.executeUpdate();
-
-                conn.commit();
-            } catch (SQLException e) {
-                conn.rollback();
-                throw e;
-            } finally {
-                conn.setAutoCommit(true);
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, patientName);
+            stmt.setInt(2, alertId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error checking alert ownership: " + e.getMessage());
         }
 
+        return false;
+    }
+
+    // Modified delete alert from a patient method
+    public void deletePatientAlert(String patientName, int alertId) throws SQLException {
+        if (!isAlertOwnedByPatient(patientName, alertId)) {
+            System.out.println("Alert does not belong to the patient!");
+            return;
+        }
+
+        Connection conn = null;
+        PreparedStatement getPatientIdStmt = null;
+        PreparedStatement deletePatientAlertStmt = null;
+        PreparedStatement deleteAlertStmt = null;
+        PreparedStatement deleteDeviceAlertStmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the connection
+            conn = db_Connection.getConnection();
+
+            // Get patient ID
+            String getPatientIdSql = "SELECT id FROM patients WHERE name = ?";
+            getPatientIdStmt = conn.prepareStatement(getPatientIdSql);
+            getPatientIdStmt.setString(1, patientName);
+            rs = getPatientIdStmt.executeQuery();
+
+            if (rs.next()) {
+                int patientId = rs.getInt("id");
+
+                // Delete alert from patient_alerts
+                String deletePatientAlertSql = "DELETE FROM patient_alerts WHERE patient_id = ? AND alert_id = ?";
+                deletePatientAlertStmt = conn.prepareStatement(deletePatientAlertSql);
+                deletePatientAlertStmt.setInt(1, patientId);
+                deletePatientAlertStmt.setInt(2, alertId);
+                deletePatientAlertStmt.executeUpdate();
+
+                // Delete alert from alerts table
+                String deleteAlertSql = "DELETE FROM alerts WHERE id = ?";
+                deleteAlertStmt = conn.prepareStatement(deleteAlertSql);
+                deleteAlertStmt.setInt(1, alertId);
+                deleteAlertStmt.executeUpdate();
+
+                // Delete alert from device_alerts table
+                String deleteDeviceAlertSql = "DELETE FROM hospital_system.device_alerts WHERE alert_id = ?";
+                deleteDeviceAlertStmt = conn.prepareStatement(deleteDeviceAlertSql);
+                deleteDeviceAlertStmt.setInt(1, alertId);
+                deleteDeviceAlertStmt.executeUpdate();
+
+                System.out.println("Alert deleted successfully for patient!");
+            } else {
+                System.out.println("Patient not found!");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new SQLException("Error deleting alert for patient: " + e.getMessage());
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (getPatientIdStmt != null) {
+                getPatientIdStmt.close();
+            }
+            if (deletePatientAlertStmt != null) {
+                deletePatientAlertStmt.close();
+            }
+            if (deleteAlertStmt != null) {
+                deleteAlertStmt.close();
+            }
+            if (deleteDeviceAlertStmt != null) {
+                deleteDeviceAlertStmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 
     // visualizar alertas

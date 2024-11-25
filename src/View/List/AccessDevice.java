@@ -15,6 +15,7 @@ public class AccessDevice {
     public void displayAccessDeviceMenu(Device device, String patientName, int deviceId) {
 
         while (true) {
+            System.out.println("=========================================");
             System.out.println("\nDEVICE:" + device.getType());
             String status = device.isActive() == true ? "Active" : "Disabled";
             System.out.println("STATUS: " + status);
