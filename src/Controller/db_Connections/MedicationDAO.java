@@ -14,17 +14,16 @@ import Model.Appointment;
 // Class to connect to the database
 public class MedicationDAO {
 
-    // add medication to an appointment in the database
+    // Add a medication to appointment and patient
     public void addMedicationToAppointmentAndPatient(Medication medication, Appointment appointment, Patient patient) {
         String medicationSql = "INSERT INTO medications (name, dosage, frequency, description, doctor, prescription_date) VALUES (?, ?, ?, ?, ?, ?)";
         String medicationToAppointmentSql = "INSERT INTO appointment_medications (appointment_id, medication_id) VALUES (?, ?)";
         String patientToMedicationSql = "INSERT INTO patient_medications (patient_id, medication_id) VALUES (?, ?)";
         
         try (Connection conn = db_Connection.getConnection()) {
-            // Desativa o auto commit para controle manual da transação
+
             conn.setAutoCommit(false);
 
-            // Salva o medicamento
             try (PreparedStatement medicationStmt = conn.prepareStatement(medicationSql,
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
                 medicationStmt.setString(1, medication.getMedicationName());
@@ -36,14 +35,12 @@ public class MedicationDAO {
 
                 medicationStmt.executeUpdate();
 
-                // Pega o ID gerado automaticamente para o medicamento
                 ResultSet generatedKeys = medicationStmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     medication.setId(generatedKeys.getInt(1));
                 }
             }
 
-            // Cria a relação entre paciente e medicamento
             try (PreparedStatement relationStmt = conn.prepareStatement(medicationToAppointmentSql)) {
                 relationStmt.setInt(1, appointment.getId());
                 relationStmt.setInt(2, medication.getId());
@@ -51,7 +48,6 @@ public class MedicationDAO {
                 relationStmt.executeUpdate();
             }
 
-            // Cria a relação entre paciente e medicamento
             try (PreparedStatement relationStmt = conn.prepareStatement(patientToMedicationSql)) {
                 relationStmt.setInt(1, patient.getId());
                 relationStmt.setInt(2, medication.getId());
@@ -59,7 +55,6 @@ public class MedicationDAO {
                 relationStmt.executeUpdate();
             }
 
-            // Confirma a transação
             conn.commit();
 
         } catch (SQLException e) {
@@ -67,7 +62,7 @@ public class MedicationDAO {
         }
     }
 
-    // List all medications from a patient
+    // List medications from a patient
     public List<Medication> listMedicationsByPatientName(String patientName) throws SQLException {
         List<Medication> medications = new ArrayList<>();
         String sql = "SELECT m.id, m.name AS medication_name, m.dosage, m.frequency, m.description, m.doctor, m.prescription_date "
@@ -101,7 +96,7 @@ public class MedicationDAO {
         return medications;
     }
 
-    // List all medications from an appointment
+    // List medications from an appointment
     public List<Medication> listMedicationsByAppointmentId(int appointmentId) throws SQLException {
         List<Medication> medications = new ArrayList<>();
         String sql = "SELECT m.id, m.name AS medication_name, m.dosage, m.frequency, m.description, m.doctor, m.prescription_date "
@@ -133,7 +128,7 @@ public class MedicationDAO {
         return medications;
     }
 
-    // Method to check if a medication belongs to a patient
+    // Check if a medication belongs to a patient
     public boolean isMedicationOwnedByPatient(String patientName, int medicationId) throws SQLException {
         String sql = "SELECT COUNT(*) AS count " +
                      "FROM hospital_system.patients p " +
@@ -157,7 +152,7 @@ public class MedicationDAO {
         return false;
     }
 
-    // Modified delete medication from a patient method
+    // Delete medication from a patient
     public void deletePatientMedication(String patientName, int medicationId) throws SQLException {
         if (!isMedicationOwnedByPatient(patientName, medicationId)) {
             System.out.println("Medication does not belong to the patient!");
@@ -175,13 +170,11 @@ public class MedicationDAO {
         ResultSet rs = null;
 
         try {
-            // Load the MySQL JDBC driver
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Get patient ID
             getPatientIdStmt = conn.prepareStatement(getPatientIdSql);
             getPatientIdStmt.setString(1, patientName);
             rs = getPatientIdStmt.executeQuery();
@@ -189,13 +182,11 @@ public class MedicationDAO {
             if (rs.next()) {
                 int patientId = rs.getInt("id");
 
-                // Delete medication from patient
                 deletePatientMedicationStmt = conn.prepareStatement(deletePatientMedicationSql);
                 deletePatientMedicationStmt.setInt(1, patientId);
                 deletePatientMedicationStmt.setInt(2, medicationId);
                 deletePatientMedicationStmt.executeUpdate();
 
-                // Delete medication from medications table
                 deleteMedicationStmt = conn.prepareStatement(deleteMedicationSql);
                 deleteMedicationStmt.setInt(1, medicationId);
                 deleteMedicationStmt.executeUpdate();

@@ -10,17 +10,16 @@ import Model.Doctor;
 
 public class DoctorDAO {
 
-    // add a doctor to the database
+    // Add a doctor
     public void addDoctor(Doctor doctor) throws SQLException {
 
         String sql = "INSERT INTO doctors (name, specialty, CRM, phone, email) VALUES (?, ?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
-            // Load the MySQL JDBC driver
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection with UTF-8 encoding
             conn = db_Connection.getConnection();
 
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -51,19 +50,17 @@ public class DoctorDAO {
         }
     }
 
-    // Method to update a doctor
+    // Update a doctor
     public void updateDoctor(Doctor doctor) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
         try {
-            // Load the MySQL JDBC driver
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Prepare the SQL query
             String sql = "UPDATE doctors SET name = ?, specialty = ?, CRM = ?, phone = ?, email = ? WHERE id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, doctor.getName());
@@ -73,7 +70,6 @@ public class DoctorDAO {
             stmt.setString(5, doctor.getEmail());
             stmt.setInt(6, doctor.getId());
 
-            // Execute the query
             stmt.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -89,29 +85,25 @@ public class DoctorDAO {
         }
     }
 
-    // Method to list doctors data by name
-    public List<Doctor> listDoctorsByName(String name) throws SQLException {
+    // List doctors data
+    public List<Doctor> listDoctorDataByName(String name) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Doctor> doctors = new ArrayList<>();
 
         try {
-            // Load the MySQL JDBC driver
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Prepare the SQL query
             String sql = "SELECT * FROM doctors WHERE name LIKE ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, "%" + name + "%");
 
-            // Execute the query
             rs = stmt.executeQuery();
 
-            // Iterate through the result set and create Patient objects
             while (rs.next()) {
                 Doctor doctor = new Doctor(
                         rs.getString("name"),
@@ -141,7 +133,7 @@ public class DoctorDAO {
         return doctors;
     }
 
-    // Method to find a doctor by name
+    // Find a doctor by name
     public Doctor findDoctorByName(String name) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -149,21 +141,16 @@ public class DoctorDAO {
         Doctor doctor = null;
 
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Prepare the SQL query
             String sql = "SELECT * FROM doctors WHERE name = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
 
-            // Execute the query
             rs = stmt.executeQuery();
 
-            // Checks if it has found a patient
             if (rs.next()) {
                 doctor = new Doctor(
                     rs.getString("name"),
@@ -193,7 +180,7 @@ public class DoctorDAO {
         return doctor;
     }
 
-    // Method to list all doctors
+    // List all doctors
     public List<Doctor> listAllDoctors() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -201,20 +188,15 @@ public class DoctorDAO {
         List<Doctor> doctors = new ArrayList<>();
 
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Prepare the SQL query
             String sql = "SELECT * FROM doctors";
             stmt = conn.prepareStatement(sql);
 
-            // Execute the query
             rs = stmt.executeQuery();
 
-            // Iterate through the result set and create Patient objects
             while (rs.next()) {
                 Doctor doctor = new Doctor(
                     rs.getString("name"),
@@ -253,13 +235,10 @@ public class DoctorDAO {
         PreparedStatement deleteDoctorStmt = null;
 
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Delete doctor
             deleteDoctorStmt = conn.prepareStatement(deleteDoctorSql);
             deleteDoctorStmt.setInt(1, doctorId);
             deleteDoctorStmt.executeUpdate();

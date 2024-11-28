@@ -11,7 +11,7 @@ public class DeletePatientMedication {
         Scanner scan = new Scanner(System.in);
         MedicationController medicationController = new MedicationController();
 
-        System.out.println("Medication ID:");
+        System.out.println("\nMedication ID:");
         int medicationId = scan.nextInt();
 
         try {

@@ -10,19 +10,16 @@ import java.util.List;
 import Model.Appointment;
 import Model.Patient;
 
-// Class to connect to the database
 public class AppointmentDAO {
 
-    // add appointment to a patient in the database
+    // Add appointment to a patient
     public void addAppointmentToPatient(Appointment appointment, Patient patient) {
         String appointmentSql = "INSERT INTO appointments (appointment_date_time, doctor, diagnosis) VALUES (?, ?, ?)";
-        String patientToAppointmentSql = "INSERT INTO patient_appointments (patient_id, appointment_id) VALUES (?, ?)";
+        String appointmentToPatientSql = "INSERT INTO patient_appointments (patient_id, appointment_id) VALUES (?, ?)";
 
         try (Connection conn = db_Connection.getConnection()) {
-            // Disables auto commit for manual transaction control
             conn.setAutoCommit(false);
 
-            // Salva o medicamento
             try (PreparedStatement appointmentStmt = conn.prepareStatement(appointmentSql,
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
                 appointmentStmt.setString(1, appointment.getAppointmentDateTime());
@@ -31,22 +28,19 @@ public class AppointmentDAO {
 
                 appointmentStmt.executeUpdate();
 
-                // Pega o ID gerado automaticamente para o medicamento
                 ResultSet generatedKeys = appointmentStmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     appointment.setId(generatedKeys.getInt(1));
                 }
             }
 
-            // Cria a relação entre paciente e medicamento
-            try (PreparedStatement relationStmt = conn.prepareStatement(patientToAppointmentSql)) {
+            try (PreparedStatement relationStmt = conn.prepareStatement(appointmentToPatientSql)) {
                 relationStmt.setInt(1, patient.getId());
                 relationStmt.setInt(2, appointment.getId());
 
                 relationStmt.executeUpdate();
             }
 
-            // Confirma a transação
             conn.commit();
 
         } catch (SQLException e) {
@@ -54,7 +48,7 @@ public class AppointmentDAO {
         }
     }
 
-    // List all medications from a patient
+    // List all appointments from a patient
     public List<Appointment> listAppointmentByPatientName(String patientName) throws SQLException {
         List<Appointment> appointments = new ArrayList<>();
         String sql = "SELECT a.id, a.appointment_date_time, a.doctor, a.diagnosis "
@@ -85,7 +79,7 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    // Method to check if an appointment belongs to a patient
+    // Check if an appointment belongs to a patient
     public boolean isAppointmentOwnedByPatient(String patientName, int appointmentId) throws SQLException {
         String sql = "SELECT COUNT(*) AS count " +
                      "FROM hospital_system.patients p " +
@@ -109,7 +103,7 @@ public class AppointmentDAO {
         return false;
     }
 
-    // Modified delete appointment from a patient method
+    // Delete appointment from a patient
     public void deletePatientAppointmentById(String patientName, int appointmentId) throws SQLException {
         if (!isAppointmentOwnedByPatient(patientName, appointmentId)) {
             System.out.println("Appointment does not belong to the patient!");
@@ -125,13 +119,10 @@ public class AppointmentDAO {
         ResultSet rs = null;
 
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Get patient ID
             getPatientIdStmt = conn.prepareStatement(getPatientIdSql);
             getPatientIdStmt.setString(1, patientName);
             rs = getPatientIdStmt.executeQuery();
@@ -139,7 +130,6 @@ public class AppointmentDAO {
             if (rs.next()) {
                 int patientId = rs.getInt("id");
 
-                // Delete appointment
                 deleteAppointmentStmt = conn.prepareStatement(deleteAppointmentSql);
                 deleteAppointmentStmt.setInt(1, appointmentId);
                 deleteAppointmentStmt.setInt(2, patientId);
@@ -177,21 +167,16 @@ public class AppointmentDAO {
         Appointment appointment = null;
 
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Prepare the SQL query
             String sql = "SELECT * FROM appointments WHERE id = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, appointmentId);
 
-            // Execute the query
             rs = stmt.executeQuery();
 
-            // Checks if it has found a patient
             if (rs.next()) {
                 appointment = new Appointment(
                     rs.getString("appointment_date_time"),

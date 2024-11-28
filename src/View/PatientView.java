@@ -21,7 +21,7 @@ public class PatientView {
         PatientDAO patientDAO = new PatientDAO();
 
         while (true) {
-            System.out.println("\nPatient Menu:");
+            System.out.print("\n=== Patient ===\n");
             System.out.println("1. List Patients");
             System.out.println("2. Access Patient");
             System.out.println("3. Create Patient");
@@ -30,14 +30,13 @@ public class PatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume newline
+                scan.nextLine();
 
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nListing patients...");
                         listPatients.listAllPatients();
                         break;
                     case 2:
@@ -64,7 +63,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.next(); // Consume the invalid input
+                scan.next();
             }
         }
     }
@@ -72,7 +71,7 @@ public class PatientView {
     public void patientAccessed(Patient patient, String patientName, Scanner scan) {
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Patient Data Menu");
             System.out.println("2. Appointment Menu");
             System.out.println("0. Exit");
@@ -80,7 +79,7 @@ public class PatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -88,11 +87,9 @@ public class PatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Patient Data Menu...");
                         patientDataMenu(patient, patientName, scan);
                         break;
                     case 2:
-                        System.out.println("Appointment Menu...");
                         appointmentMenu(patient, patientName, scan);
                         break;
                     default:
@@ -100,7 +97,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -111,7 +108,7 @@ public class PatientView {
         DeletePatientAppointment deletePatientAppointment = new DeletePatientAppointment();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Make an appointment");
             System.out.println("2. Consult appointments");
             System.out.println("3. Delete appointment");
@@ -120,7 +117,7 @@ public class PatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -128,15 +125,12 @@ public class PatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Making an appointment...");
                         createAppointmentMenuByPatient.createAppointmentMenuByPatient(patientName);
                         break;
                     case 2:
-                        System.out.println("Viewing appointments...");
                         listPatientAppointmentMenu.listAppointmentsByPatientName(patientName);
                         break;
                     case 3:
-                        System.out.println("Deleting appointment...");
                         deletePatientAppointment.deleteAppointment(patientName);
                         break;
                     default:
@@ -144,7 +138,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -154,7 +148,7 @@ public class PatientView {
         ListDataPatient listDataPatientMenu = new ListDataPatient();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Consult The History");
             System.out.println("2. Consult Data");
             System.out.println("3. Update Data");
@@ -163,7 +157,7 @@ public class PatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -171,17 +165,15 @@ public class PatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Consulting the history...");
+                        System.out.println("\n=== History ===\n");
                         System.out.println("Histories: " + patient.getHistories());
                         System.out.println("Press Enter to continue...");
                         scan.nextLine();
                         break;
                     case 2:
-                        System.out.println("Consulting data...");
                         listDataPatientMenu.listPatientsByName(patientName);
                         break;
                     case 3:
-                        System.out.println("Updating data...");
                         updatePatientMenu.updatePatientMenu(patientName);
                         break;
                     default:
@@ -189,7 +181,7 @@ public class PatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }

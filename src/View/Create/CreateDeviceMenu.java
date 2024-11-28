@@ -19,19 +19,22 @@ public class CreateDeviceMenu {
     }
 
     public void createDeviceMenu(String patientName) {
-        System.out.println("Enter device type: ");
+        System.out.print("\n=== Create Device ===\n");
+        System.out.println("|| Device type: ");
         String type = scan.nextLine();
-        System.out.println("Enter device brand: ");
+        System.out.println("|| Device brand: ");
         String brand = scan.nextLine();
-        System.out.println("Enter device model: ");
+        System.out.println("|| Device model: ");
         String model = scan.nextLine();
-        System.out.println("Is the device active? (true/false): ");
-        boolean isActive = scan.nextBoolean();
-        System.out.println("Enter Alert Value (MAX): ");
+        System.out.println("|| Alert Value (MAX): ");
         int alertValueMax = scan.nextInt();
-        System.out.println("Enter Alert Value (MIN): ");
+        scan.nextLine();
+        System.out.println("|| Alert Value (MIN): ");
         int alertValueMin = scan.nextInt();
-        scan.nextLine(); // Consume newline
+        scan.nextLine();
+        System.out.println("|| Is the device active? (true/false): ");
+        boolean isActive = scan.nextBoolean();
+        scan.nextLine();
 
         try {
             Patient patient = patientController.findPatientByName(patientName);

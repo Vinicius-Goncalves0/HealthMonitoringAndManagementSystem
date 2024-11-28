@@ -30,14 +30,14 @@ public class CreateAlert {
     public void createAlert(String patientName, int deviceId) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nCriar alerta");
-        System.out.print("Digite o tipo de alerta: ");
+        System.out.print("\n=== Create alert ===\n");
+        System.out.println("|| Type of alert: ");
         String type = scanner.nextLine();
-        System.out.print("Digite a mensagem do alerta: ");
+        System.out.println("|| Alert message: ");
         String message = scanner.nextLine();
-        System.out.print("Digite o nome do médico: ");
+        System.out.println("|| Doctor's name: ");
         String doctorAlert = scanner.nextLine();
-        System.out.print("Digite a data do alerta: ");
+        System.out.println("|| Alert date: ");
         String data = scanner.nextLine();
 
         try {
@@ -50,7 +50,7 @@ public class CreateAlert {
 
                     if (patient != null) {
                         Alert alert = new Alert(type, message, doctorAlert, data);
-                        alertController.gerarAlerta(alert, device, patient);
+                        alertController.generateAlert(alert, device, patient);
 
                         System.out.println("Alert generate successfully.");
                     } else {

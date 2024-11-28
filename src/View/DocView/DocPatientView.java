@@ -26,7 +26,7 @@ public class DocPatientView {
         PatientDAO patientDAO = new PatientDAO();
 
         while (true) {
-            System.out.println("\nPatient Menu:");
+            System.out.print("\n=== Patient ===\n");
             System.out.println("1. Access Patient");
             System.out.println("2. List Patients");
             System.out.println("3. Create Patient");
@@ -36,7 +36,7 @@ public class DocPatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume newline
+                scan.nextLine();
 
                 switch (choice) {
                     case 0:
@@ -51,15 +51,14 @@ public class DocPatientView {
                             if (patient != null) {
                                 patientAccessed(patient, patientName, scan);
                             } else {
-                                System.out.println("\n--- Paciente " + patientName + " não encontrado ---\n");
+                                System.out.println("\n--- Patient " + patientName + " not found ---\n");
                             }
                         } catch (SQLException e) {
-                            System.out.println("\n--- Erro ao acessar o paciente: " + patientName + " " + e.getMessage()
+                            System.out.println("\n--- Error accessing the patient: " + patientName + " " + e.getMessage()
                                     + " ---\n");
                         }
                         break;
                     case 2:
-                        System.out.println("\nListing patients...");
                         listPatients.listAllPatients();
                         break;
                     case 3:
@@ -68,8 +67,7 @@ public class DocPatientView {
                     case 4:
                         System.out.println("\nPatient's ID to delete:");
                         int patientId = scan.nextInt();
-                        scan.nextLine(); // Consume newline
-                        System.out.println("\nDeleting patient...");
+                        scan.nextLine();
                         deletePatient.deletePatient(patientId);
                         break;
                     default:
@@ -77,7 +75,7 @@ public class DocPatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.next(); // Consume the invalid input
+                scan.next();
             }
         }
     }
@@ -86,7 +84,7 @@ public class DocPatientView {
         DocMonitoringView monitoringView = new DocMonitoringView();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Patient Data Menu");
             System.out.println("2. Appointment Menu");
             System.out.println("3. Medication Menu");
@@ -96,7 +94,7 @@ public class DocPatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -104,19 +102,15 @@ public class DocPatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Patient Data Menu...");
                         patientDataMenu(patient, patientName, scan);
                         break;
                     case 2:
-                        System.out.println("Appointment Menu...");
                         appointmentMenu(patient, patientName, scan);
                         break;
                     case 3:
-                        System.out.println("Medication Menu...");
                         medicationMenu(patient, patientName, scan);
                         break;
                     case 4:
-                        System.out.println("Monitoring Menu...");
                         monitoringView.displayMonitoringMenu(patient, patientName, scan);
                         break;
                     default:
@@ -124,7 +118,7 @@ public class DocPatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -135,7 +129,7 @@ public class DocPatientView {
         DeletePatientAppointment deletePatientAppointment = new DeletePatientAppointment();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Make an appointment");
             System.out.println("2. Consult appointments");
             System.out.println("3. Delete appointment");
@@ -144,7 +138,7 @@ public class DocPatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -152,15 +146,12 @@ public class DocPatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Making an appointment...");
                         createAppointmentMenu.createAppointmentMenu(patientName);
                         break;
                     case 2:
-                        System.out.println("Viewing appointments...");
                         listPatientAppointmentMenu.listAppointmentsByPatientName(patientName);
                         break;
                     case 3:
-                        System.out.println("Deleting appointment...");
                         deletePatientAppointment.deleteAppointment(patientName);
                         break;
                     default:
@@ -168,7 +159,7 @@ public class DocPatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -179,7 +170,7 @@ public class DocPatientView {
         DeletePatientMedication deletePatientMedication = new DeletePatientMedication();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Add Medication");
             System.out.println("2. Consult Medication");
             System.out.println("3. Delete Medication");
@@ -188,7 +179,7 @@ public class DocPatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -196,15 +187,12 @@ public class DocPatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Adding medication...");
                         createMedicationMenu.createMedicationMenu(patientName);
                         break;
                     case 2:
-                        System.out.println("Viewing medication...");
                         listPatientMedicationMenu.listMedicationsByPatientName(patientName);
                         break;
                     case 3:
-                        System.out.println("Deleting medication...");
                         deletePatientMedication.deleteMedication(patientName);
                         break;
                     default:
@@ -212,7 +200,7 @@ public class DocPatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -222,7 +210,7 @@ public class DocPatientView {
         ListDataPatient listDataPatientMenu = new ListDataPatient();
 
         while (true) {
-            System.out.println("\nPatient: " + patient.getName());
+            System.out.print("\n=== Patient: " + patient.getName() + " ===\n");
             System.out.println("1. Consult The History");
             System.out.println("2. Consult Data");
             System.out.println("3. Update Data");
@@ -231,7 +219,7 @@ public class DocPatientView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -239,17 +227,15 @@ public class DocPatientView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Consulting the history...");
+                        System.out.println("\n=== History ===\n");
                         System.out.println("Histories: " + patient.getHistories());
                         System.out.println("Press Enter to continue...");
                         scan.nextLine();
                         break;
                     case 2:
-                        System.out.println("Consulting data...");
                         listDataPatientMenu.listPatientsByName(patientName);
                         break;
                     case 3:
-                        System.out.println("Updating data...");
                         updatePatientMenu.updatePatientMenu(patientName);
                         break;
                     default:
@@ -257,7 +243,7 @@ public class DocPatientView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }

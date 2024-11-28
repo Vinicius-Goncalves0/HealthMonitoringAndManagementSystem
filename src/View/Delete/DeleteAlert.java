@@ -11,7 +11,7 @@ public class DeleteAlert {
         Scanner scan = new Scanner(System.in);
         AlertController alertController = new AlertController();
 
-        System.out.println("Alert ID:");
+        System.out.println("\nAlert ID:");
         int alertId = scan.nextInt();
 
         try {

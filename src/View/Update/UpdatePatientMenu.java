@@ -15,17 +15,18 @@ public class UpdatePatientMenu {
     }
 
     public void updatePatientMenu(String patientName) {
-        System.out.println("\nEnter patient's new name: ");
+        System.out.println("\n=== Update Patient ===\n");
+        System.out.println("Patient's new name: ");
         String name = scan.nextLine();
-        System.out.println("Enter patient's new CPF: ");
+        System.out.println("Patient's new CPF: ");
         String cpf = scan.nextLine();
-        System.out.println("Enter patient's new birth date: ");
+        System.out.println("Patient's new birth date: ");
         String birthDate = scan.nextLine();
-        System.out.println("Enter patient's new address: ");
+        System.out.println("Patient's new address: ");
         String address = scan.nextLine();
-        System.out.println("Enter patient's new phone: ");
+        System.out.println("Patient's new phone: ");
         String phone = scan.nextLine();
-        System.out.println("Enter patient's new email: ");
+        System.out.println("Patient's new email: ");
         String email = scan.nextLine();
 
         try {

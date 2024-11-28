@@ -13,14 +13,13 @@ import Model.Patient;
 
 public class AlertDAO {
 
-    // gerar alerta
-    public void gerarAlerta(Alert alert, Device device, Patient patient) throws SQLException {
+    // Generate Alert
+    public void generateAlert(Alert alert, Device device, Patient patient) throws SQLException {
         String insertAlertSQL = "INSERT INTO alerts (type, message, doctor, data) VALUES (?, ?, ?, ?)";
         String insertDeviceAlertSQL = "INSERT INTO device_alerts (device_id, alert_id) VALUES (?, ?)";
         String insertPatientAlertSQL = "INSERT INTO patient_alerts (patient_id, alert_id) VALUES (?, ?)";
 
         try (Connection conn = db_Connection.getConnection()) {
-            // Disables auto commit for manual transaction control
             conn.setAutoCommit(false);
 
             try (PreparedStatement alertStmt = conn.prepareStatement(insertAlertSQL,
@@ -31,14 +30,12 @@ public class AlertDAO {
                 alertStmt.setString(4, alert.getData());
                 alertStmt.executeUpdate();
 
-                // Pega o ID gerado automaticamente para o medicamento
                 ResultSet generatedKeys = alertStmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     alert.setId(generatedKeys.getInt(1));
                 }
             }
 
-            // Cria a relação entre device e alerta
             try (PreparedStatement relationStmt = conn.prepareStatement(insertDeviceAlertSQL)) {
                 relationStmt.setInt(1, device.getId());
                 relationStmt.setInt(2, alert.getId());
@@ -46,7 +43,6 @@ public class AlertDAO {
                 relationStmt.executeUpdate();
             }
 
-            // Cria a relação entre paciente e alert
             try (PreparedStatement relationStmt = conn.prepareStatement(insertPatientAlertSQL)) {
                 relationStmt.setInt(1, patient.getId());
                 relationStmt.setInt(2, alert.getId());
@@ -54,7 +50,6 @@ public class AlertDAO {
                 relationStmt.executeUpdate();
             }
 
-            // Confirma a transação
             conn.commit();
 
         } catch (SQLException e) {
@@ -62,9 +57,8 @@ public class AlertDAO {
         }
     }
 
-    //Method to check if a alert belongs to a patient
+    // Method to check if a alert belongs to a patient
     public boolean isAlertOwnedByPatient(String patientName, int alertId) throws SQLException {
-        // falta fazer daqui para baixo e eu começei agora ent falta tudo
         String sql = "SELECT COUNT(*) AS count " +
                      "FROM hospital_system.patients p " +
                      "JOIN hospital_system.patient_alerts pd ON p.id = pd.patient_id " +
@@ -87,7 +81,7 @@ public class AlertDAO {
         return false;
     }
 
-    // Modified delete alert from a patient method
+    // Method to delete a patient alert
     public void deletePatientAlert(String patientName, int alertId) throws SQLException {
         if (!isAlertOwnedByPatient(patientName, alertId)) {
             System.out.println("Alert does not belong to the patient!");
@@ -102,13 +96,11 @@ public class AlertDAO {
         ResultSet rs = null;
 
         try {
-            // Load the MySQL JDBC driver
+
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establish the connection
             conn = db_Connection.getConnection();
 
-            // Get patient ID
             String getPatientIdSql = "SELECT id FROM patients WHERE name = ?";
             getPatientIdStmt = conn.prepareStatement(getPatientIdSql);
             getPatientIdStmt.setString(1, patientName);
@@ -117,20 +109,17 @@ public class AlertDAO {
             if (rs.next()) {
                 int patientId = rs.getInt("id");
 
-                // Delete alert from patient_alerts
                 String deletePatientAlertSql = "DELETE FROM patient_alerts WHERE patient_id = ? AND alert_id = ?";
                 deletePatientAlertStmt = conn.prepareStatement(deletePatientAlertSql);
                 deletePatientAlertStmt.setInt(1, patientId);
                 deletePatientAlertStmt.setInt(2, alertId);
                 deletePatientAlertStmt.executeUpdate();
 
-                // Delete alert from alerts table
                 String deleteAlertSql = "DELETE FROM alerts WHERE id = ?";
                 deleteAlertStmt = conn.prepareStatement(deleteAlertSql);
                 deleteAlertStmt.setInt(1, alertId);
                 deleteAlertStmt.executeUpdate();
 
-                // Delete alert from device_alerts table
                 String deleteDeviceAlertSql = "DELETE FROM hospital_system.device_alerts WHERE alert_id = ?";
                 deleteDeviceAlertStmt = conn.prepareStatement(deleteDeviceAlertSql);
                 deleteDeviceAlertStmt.setInt(1, alertId);
@@ -166,10 +155,10 @@ public class AlertDAO {
         }
     }
 
-    // visualizar alertas
-    public List<Alert> listarAlertas() throws SQLException {
+    // List all alerts
+    public List<Alert> listAllAlerts() throws SQLException {
         String selectAlertsSQL = "SELECT * FROM alerts";
-        List<Alert> alertas = new ArrayList<>();
+        List<Alert> alerts = new ArrayList<>();
 
         try (Connection conn = db_Connection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(selectAlertsSQL);
@@ -183,14 +172,14 @@ public class AlertDAO {
                 String data = rs.getString("data");
 
                 Alert alert = new Alert(id, type, message, doctor, data);
-                alertas.add(alert);
+                alerts.add(alert);
             }
         }
 
-        return alertas;
+        return alerts;
     }
 
-    // get patient ID by alert ID
+    // Get patient ID by alert ID
     public int getPatientIdByAlertId(int alertId) throws SQLException {
         String sql = "SELECT patient_id FROM patient_alerts WHERE alert_id = ?";
         int patientId = 0;
@@ -211,7 +200,7 @@ public class AlertDAO {
         return patientId;
     }
 
-    // list alerts by patient ID
+    // List alerts by patient ID
     public List<Alert> listAlertsByPatientId(int patientId) throws SQLException {
         String sql = "SELECT a.* FROM alerts a " +
                      "JOIN patient_alerts pa ON a.id = pa.alert_id " +

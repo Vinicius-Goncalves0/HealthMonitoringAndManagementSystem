@@ -11,7 +11,7 @@ public class View {
         DoctorView doctorView = new DoctorView();
 
         while (true) {
-            System.out.println("\nMain Menu: ");
+            System.out.print("\n=== Hospital ===\n");
             System.out.println("1. Patient Menu");
             System.out.println("2. Doctor Menu");
             System.out.println("0. Exit");
@@ -19,7 +19,7 @@ public class View {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 switch (choice) {
                     case 0:
@@ -37,7 +37,7 @@ public class View {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }

@@ -14,13 +14,13 @@ public class ListDataDoctor {
             System.out.println("No doctors found with the given name.");
         } else {
             for (Doctor doctor : doctors) {
-                System.out.println("ID: " + doctor.getId());
-                System.out.println("Name: " + doctor.getName());
-                System.out.println("Specialty: " + doctor.getSpecialty());
-                System.out.println("CRM: " + doctor.getCrm());
-                System.out.println("Email: " + doctor.getEmail());
-                System.out.println("Phone: " + doctor.getPhone());
-                System.out.println("-----------------------------");
+                System.out.println("\n=== Doctor Data ===\n");
+                System.out.println("|| ID: " + doctor.getId());
+                System.out.println("|| Name: " + doctor.getName());
+                System.out.println("|| Specialty: " + doctor.getSpecialty());
+                System.out.println("|| CRM: " + doctor.getCrm());
+                System.out.println("|| Email: " + doctor.getEmail());
+                System.out.println("|| Phone: " + doctor.getPhone());
             }
         }
     }
@@ -31,7 +31,7 @@ public class ListDataDoctor {
 
 
         try {
-            List<Doctor> doctors = doctorController.listDoctorsByName(doctorName);
+            List<Doctor> doctors = doctorController.listDoctorDataByName(doctorName);
             listDataDoctorMenu.displayDoctors(doctors);
             System.out.println("\n Press enter to continue...");
             scan.nextLine();

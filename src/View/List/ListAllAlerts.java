@@ -26,16 +26,14 @@ public class ListAllAlerts {
         if (alerts.isEmpty()) {
             System.out.println("No alert found for the given patient.");
         } else {
+            System.out.println("\n=== Alerts ===");
             for (Alert alert : alerts) {
-                System.out.println("");
-                System.out.println("|| Patient: " + patientName);
-                System.out.println("__________________________________________________________");
+                System.out.println("\n=== Patient: " + patientName + " ===");
                 System.out.println("|| Alert ID: " + alert.getId());
                 System.out.println("|| Type: " + alert.getType());
                 System.out.println("|| Message: " + alert.getMessage());
                 System.out.println("|| Doctor: " + alert.getDoctor());
                 System.out.println("|| Date: " + alert.getData());
-                System.out.println("==========================================================");
             }
         }
     }
@@ -47,25 +45,23 @@ public class ListAllAlerts {
             System.out.println("Press enter to continue...");
             scan.nextLine();
         } catch (SQLException e) {
-            System.out.println("\n--- Erro ao listar alertas: " + e.getMessage() + " ---\n");
+            System.out.println("\n--- Error listing alerts: " + e.getMessage() + " ---\n");
         }
     }
 
     public void displayAllAlerts() {
         try {
-            List<Alert> alerts = alertController.listarAlertas();
+            List<Alert> alerts = alertController.listAllAlerts();
+            System.out.println("\n=== Alerts ===");
             for (Alert alert : alerts) {
                 int patientId = alertDAO.getPatientIdByAlertId(alert.getId());
                 String patientName = patientDAO.findPatientNameByID(patientId);
-                System.out.println("");
-                System.out.println("|| Patient: " + patientName);
-                System.out.println("__________________________________________________________");
+                System.out.println("\n=== Patient: " + patientName + " ===");
                 System.out.println("|| Alert ID: " + alert.getId());
                 System.out.println("|| Type: " + alert.getType());
                 System.out.println("|| Message: " + alert.getMessage());
                 System.out.println("|| Doctor: " + alert.getDoctor());
                 System.out.println("|| Date: " + alert.getData());
-                System.out.println("==========================================================");
             }
         } catch (SQLException e) {
             System.out.println("Error displaying alerts: " + e.getMessage());

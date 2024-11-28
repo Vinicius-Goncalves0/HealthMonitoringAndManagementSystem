@@ -11,7 +11,7 @@ public class DeletePatientAppointment {
         Scanner scan = new Scanner(System.in);
         AppointmentController appointmentController = new AppointmentController();
 
-        System.out.println("Appointment ID:");
+        System.out.println("\nAppointment ID:");
         int appointmentId = scan.nextInt();
 
         try {

@@ -12,16 +12,16 @@ import Model.Device;
 import Model.Patient;
 
 public class DeviceDAO {
-    // add medication to an appointment in the database
+
+    // Add Device to patient
     public void addDeviceToPatient(Device device, Patient patient) {
         String deviceSql = "INSERT INTO devices (type, brand, model, activationStatus, value, alertValueMax, alertValueMin) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String deviceToPatientSql = "INSERT INTO patient_devices (patient_id, device_id) VALUES (?, ?)";
         
         try (Connection conn = db_Connection.getConnection()) {
-            // Disables auto commit for manual transaction control
+
             conn.setAutoCommit(false);
 
-            // Save the device
             try (PreparedStatement deviceStmt = conn.prepareStatement(deviceSql,
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
                 deviceStmt.setString(1, device.getType());
@@ -34,14 +34,12 @@ public class DeviceDAO {
 
                 deviceStmt.executeUpdate();
 
-                // Takes the automatically generated ID for the device
                 ResultSet generatedKeys = deviceStmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     device.setId(generatedKeys.getInt(1));
                 }
             }
 
-            // Create the relationship between patient and device
             try (PreparedStatement relationStmt = conn.prepareStatement(deviceToPatientSql)) {
                 relationStmt.setInt(1, patient.getId());
                 relationStmt.setInt(2, device.getId());
@@ -49,7 +47,6 @@ public class DeviceDAO {
                 relationStmt.executeUpdate();
             }
 
-            // Confirm the transaction
             conn.commit();
 
         } catch (SQLException e) {
@@ -91,7 +88,7 @@ public class DeviceDAO {
         return devices;
     }
 
-    // New method for listing active devices
+    // List active devices from a patient
     public List<Device> listActiveDevicesByPatientName(String patientName) throws SQLException {
         return listDevicesByPatientName(patientName).stream()
                 .filter(Device::isActive)
@@ -99,9 +96,9 @@ public class DeviceDAO {
     }
 
     // List all active devices
-    public List<Device> listarDispositivosAtivos() throws SQLException {
+    public List<Device> listActiveDevices() throws SQLException {
         String sql = "SELECT * FROM devices WHERE activationStatus = true";
-        List<Device> dispositivos = new ArrayList<>();
+        List<Device> devices = new ArrayList<>();
 
         try (Connection conn = db_Connection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -118,24 +115,24 @@ public class DeviceDAO {
                         rs.getInt("alertValueMax"),
                         rs.getInt("alertValueMin")
                 );
-                dispositivos.add(device);
+                devices.add(device);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new SQLException("Erro ao listar dispositivos ativos: " + e.getMessage());
+            throw new SQLException("Error listing active devices: " + e.getMessage());
         }
 
-        return dispositivos;
+        return devices;
     }
 
-    // New method for listing inactive devices
+    // List inactive devices from a patient
     public List<Device> listInactiveDevicesByPatientName(String patientName) throws SQLException {
         return listDevicesByPatientName(patientName).stream()
                 .filter(device -> !device.isActive())
                 .collect(Collectors.toList());
     }
 
-    // Method to check if a device belongs to a patient
+    // Check if a device belongs to a patient
     public boolean isDeviceOwnedByPatient(String patientName, int deviceId) throws SQLException {
         String sql = "SELECT COUNT(*) AS count " +
                      "FROM hospital_system.patients p " +
@@ -159,7 +156,7 @@ public class DeviceDAO {
         return false;
     }
 
-    // Modified delete device from a patient method
+    // Delete device from a patient
     public void deletePatientDevice(String patientName, int deviceId) throws SQLException {
         if (!isDeviceOwnedByPatient(patientName, deviceId)) {
             System.out.println("Device does not belong to the patient!");
@@ -229,7 +226,7 @@ public class DeviceDAO {
         }
     }
 
-    // Method to activate a device
+    // Activate a device
     public void activateDevice(String patientName, int deviceId) throws SQLException {
         if (!isDeviceOwnedByPatient(patientName, deviceId)) {
             System.out.println("Device does not belong to the patient!");
@@ -249,7 +246,7 @@ public class DeviceDAO {
         }
     }
 
-    // Method to deactivate a device
+    // Deactivate a device
     public void deactivateDevice(String patientName, int deviceId) throws SQLException {
         if (!isDeviceOwnedByPatient(patientName, deviceId)) {
             System.out.println("Device does not belong to the patient!");
@@ -269,7 +266,7 @@ public class DeviceDAO {
         }
     }
 
-    // Method to access the patient device
+    // Access the patient device
     public Device accessPatientDevice(String patientName, int deviceId) throws SQLException {
         String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value, d.alertValueMax, d.alertValueMin " +
                      "FROM hospital_system.patients p " +
@@ -301,7 +298,7 @@ public class DeviceDAO {
         return null;
     }
     
-    // Method to update the patient device value
+    // Update the patient device value
     public void updateDeviceValue(String patientName, int deviceId, int value) throws SQLException {
         if (!isDeviceOwnedByPatient(patientName, deviceId)) {
             System.out.println("Device does not belong to the patient!");
@@ -428,7 +425,7 @@ public class DeviceDAO {
         return devices;
     }
 
-    // Método para obter o ID do paciente pelo ID do dispositivo
+    // Get patient ID by device ID
     public int getPatientIdByDeviceId(int deviceId) throws SQLException {
         String sql = "SELECT patient_id FROM patient_devices WHERE device_id = ?";
         int patientId = 0;
@@ -443,7 +440,7 @@ public class DeviceDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new SQLException("Erro ao obter ID do paciente pelo ID do dispositivo: " + e.getMessage());
+            throw new SQLException("Error getting patient ID from device ID: " + e.getMessage());
         }
 
         return patientId;

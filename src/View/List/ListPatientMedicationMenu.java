@@ -19,11 +19,11 @@ public class ListPatientMedicationMenu {
                 System.out.println("\nNo medications found for the given appointment.");
             }
 
-            System.out.println("\nPrescription:");
+            System.out.println("\n=== Prescription ===\n");
             for (Medication medication : medications) {
-                System.out.println("Medication Name: " + medication.getMedicationName());
-                System.out.println("Dosage: " + medication.getDosage());
-                System.out.println("Frequency: " + medication.getFrequency());
+                System.out.println("|| Medication Name: " + medication.getMedicationName());
+                System.out.println("|| Dosage: " + medication.getDosage());
+                System.out.println("|| Frequency: " + medication.getFrequency());
                 System.out.println();
             }
         } catch (SQLException e) {
@@ -35,15 +35,15 @@ public class ListPatientMedicationMenu {
         if (medications.isEmpty()) {
             System.out.println("No medications found for the given patient.");
         } else {
+            System.out.println("\n=== Medications ===");
             for (Medication medication : medications) {
-                System.out.println("Medication ID: " + medication.getId());
-                System.out.println("Medication Name: " + medication.getMedicationName());
-                System.out.println("Dosage: " + medication.getDosage());
-                System.out.println("Frequency: " + medication.getFrequency());
-                System.out.println("Description: " + medication.getDescription());
-                System.out.println("Doctor: " + medication.getDoctor());
-                System.out.println("Prescription Date: " + medication.getPrescriptionDate());
-                System.out.println("-----------------------------");
+                System.out.println("\n|| ID: " + medication.getId());
+                System.out.println("|| Name: " + medication.getMedicationName());
+                System.out.println("|| Dosage: " + medication.getDosage());
+                System.out.println("|| Frequency: " + medication.getFrequency());
+                System.out.println("|| Description: " + medication.getDescription());
+                System.out.println("|| Doctor: " + medication.getDoctor());
+                System.out.println("|| Prescription Date: " + medication.getPrescriptionDate());
             }
         }
     }
@@ -58,7 +58,7 @@ public class ListPatientMedicationMenu {
             System.out.println("Press enter to continue...");
             scan.nextLine();
         } catch (SQLException e) {
-            System.out.println("\n--- Erro ao listar medicamentos: " + e.getMessage() + " ---\n");
+            System.out.println("\n--- Error when listing medicines: " + e.getMessage() + " ---\n");
         }
     }
 }

@@ -13,7 +13,7 @@ public class DeleteDevice {
         Scanner scan = new Scanner(System.in);
         DeviceController deviceController = new DeviceController();
 
-        System.out.println("Device ID:");
+        System.out.println("\nDevice ID:");
         int deviceId = scan.nextInt();
 
         try {

@@ -15,15 +15,16 @@ public class UpdateDoctorMenu {
     }
 
     public void updateDoctorMenu(String doctorName) {
-        System.out.println("\nEnter doctor's new name: ");
+        System.out.println("\n=== Update Doctor ===\n");
+        System.out.println("|| Doctor's new name: ");
         String name = scan.nextLine();
-        System.out.println("Enter doctor's new specialty: ");
+        System.out.println("|| Doctor's new specialty: ");
         String specialty = scan.nextLine();
-        System.out.println("Enter doctor's new CRM: ");
+        System.out.println("|| Doctor's new CRM: ");
         String crm = scan.nextLine();
-        System.out.println("Enter doctor's new phone: ");
+        System.out.println("|| Doctor's new phone: ");
         String phone = scan.nextLine();
-        System.out.println("Enter doctor's new email: ");
+        System.out.println("|| Doctor's new email: ");
         String email = scan.nextLine();
 
         try {

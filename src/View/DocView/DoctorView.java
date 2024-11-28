@@ -21,7 +21,7 @@ public class DoctorView {
         Monitoring monitoring = new Monitoring();
 
         while (true) {
-            System.out.println("\nDoctor Menu:");
+            System.out.print("\n=== Doctor ===\n");
             System.out.println("1. List Doctors");
             System.out.println("2. Access Doctor");
             System.out.println("3. Create Doctor");
@@ -31,14 +31,13 @@ public class DoctorView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume newline
+                scan.nextLine();
 
                 switch (choice) {
                     case 0:
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nListing doctors...");
                         listDoctor.listAllDoctors();
                         break;
                     case 2:
@@ -61,15 +60,14 @@ public class DoctorView {
                         createDoctorMenu.createDoctorMenu();
                         break;
                     case 4:
-                        System.out.println("Alerts...");
-                        monitoring.gerarAlertByDeviceValue();
+                        monitoring.generatePatientAlert();
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.next(); // Consume the invalid input
+                scan.next();
             }
         }
     }
@@ -78,7 +76,7 @@ public class DoctorView {
         DocPatientView docPatientView = new DocPatientView();
 
         while (true) {
-            System.out.println("\nDoctor: " + doctor.getName());
+            System.out.print("\n=== Doctor: " + doctor.getName() + " ===\n");
             System.out.println("1. Doctor Data Menu");
             System.out.println("2. Patient Secion");
             System.out.println("0. Exit");
@@ -86,7 +84,7 @@ public class DoctorView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -94,11 +92,9 @@ public class DoctorView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Doctor Data Menu...");
                         doctorDataMenu(doctor, doctorName, scan);
                         break;
                     case 2:
-                        System.out.println("Patient Section...");
                         docPatientView.displayPatientMenu();
                         break;
                     default:
@@ -106,7 +102,7 @@ public class DoctorView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -116,7 +112,7 @@ public class DoctorView {
         UpdateDoctorMenu updateDoctorMenu = new UpdateDoctorMenu();
 
         while (true) {
-            System.out.println("\nDoctor: " + doctor.getName());
+            System.out.print("\n=== Doctor: " + doctor.getName() + " ===\n");
             System.out.println("1. Consult Data");
             System.out.println("2. Update Data");
             System.out.println("0. Exit");
@@ -124,7 +120,7 @@ public class DoctorView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -132,11 +128,9 @@ public class DoctorView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("Consulting data...");
                         listDataDoctorMenu.listDoctorsByName(doctorName);
                         break;
                     case 2:
-                        System.out.println("Updating data...");
                         updateDoctorMenu.updateDoctorMenu(doctorName);
                         break;
                     default:
@@ -144,7 +138,7 @@ public class DoctorView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }

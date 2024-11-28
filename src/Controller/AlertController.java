@@ -16,16 +16,16 @@ public class AlertController {
         this.alertDAO = new AlertDAO();
     }
 
-    public void gerarAlerta(Alert alert, Device device, Patient patient)  throws SQLException {
-        alertDAO.gerarAlerta(alert, device, patient);
+    public void generateAlert(Alert alert, Device device, Patient patient)  throws SQLException {
+        alertDAO.generateAlert(alert, device, patient);
     }
 
     public void deletePatientAlert(String patientName, int alertId) throws SQLException {
         alertDAO.deletePatientAlert(patientName, alertId);
     }
 
-    public List<Alert> listarAlertas() throws SQLException {
-        return alertDAO.listarAlertas();
+    public List<Alert> listAllAlerts() throws SQLException {
+        return alertDAO.listAllAlerts();
     }
 
     public List<Alert> listAlertsByPatientId(int patientId) throws SQLException {

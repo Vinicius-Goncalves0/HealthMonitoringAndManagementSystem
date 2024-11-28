@@ -31,20 +31,21 @@ public class CreateMedicationMenu {
     public void createMedicationMenu(String patientName) {
         System.out.println("For which appointment do you want to add the prescription?");
         listPatientAppointmentMenu.listShortAppointmentsByPatientName(patientName);
-        System.out.println("Enter appointment ID: ");
+        System.out.print("\n=== Create Medication ===\n");
+        System.out.println("|| Appointment ID: ");
         int appointmentID = scan.nextInt();
         scan.nextLine();
-        System.out.println("Enter medication name: ");
+        System.out.println("|| Medication name: ");
         String medicationName = scan.nextLine();
-        System.out.println("Enter medication dosage: ");
+        System.out.println("|| Medication dosage: ");
         String dosage = scan.nextLine();
-        System.out.println("Enter medication frequency: ");
+        System.out.println("|| Mdication frequency: ");
         String frequency = scan.nextLine();
-        System.out.println("Enter medication description: ");
+        System.out.println("|| Medication description: ");
         String description = scan.nextLine();
-        System.out.println("Enter doctor name: ");
+        System.out.println("|| Doctor name: ");
         String medicationDoctorName = scan.nextLine();
-        System.out.println("Enter prescription date: ");
+        System.out.println("|| Prescription date: ");
         String prescriptionDate = scan.nextLine();
 
         try {
@@ -76,17 +77,18 @@ public class CreateMedicationMenu {
     }
 
     public void createMedicationMenuForAppointment(String patientName, int appointmentID) {
-        System.out.println("Enter medication name: ");
+        System.out.print("\n=== Create Medication ===\n");
+        System.out.println("|| Medication name: ");
         String medicationName = scan.nextLine();
-        System.out.println("Enter medication dosage: ");
+        System.out.println("|| Medication dosage: ");
         String dosage = scan.nextLine();
-        System.out.println("Enter medication frequency: ");
+        System.out.println("|| Medication frequency: ");
         String frequency = scan.nextLine();
-        System.out.println("Enter medication description: ");
+        System.out.println("|| Medication description: ");
         String description = scan.nextLine();
-        System.out.println("Enter doctor name: ");
+        System.out.println("|| Doctor name: ");
         String medicationDoctorName = scan.nextLine();
-        System.out.println("Enter prescription date: ");
+        System.out.println("|| Prescription date: ");
         String prescriptionDate = scan.nextLine();
 
         try {

@@ -15,11 +15,11 @@ public class ListPatientAppointmentMenu {
         if (appointments.isEmpty()) {
             System.out.println("No appointments found for the given patient.");
         } else {
+            System.out.println("\n=== Appointments ===\n");
             for (Appointment appointment : appointments) {
-                System.out.println("\nAppointment ID: " + appointment.getId());
-                System.out.println("Appointment Data and Time: " + appointment.getAppointmentDateTime());
-                System.out.println("Doctor responsible: " + appointment.getDoctor());
-                System.out.println("-----------------------------");
+                System.out.println("\n|| Appointment ID: " + appointment.getId());
+                System.out.println("|| Appointment Data and Time: " + appointment.getAppointmentDateTime());
+                System.out.println("|| Doctor responsible: " + appointment.getDoctor());
             }
         }
     }
@@ -29,7 +29,7 @@ public class ListPatientAppointmentMenu {
         AppointmentController appointmentController = new AppointmentController();
 
         try {
-            List<Appointment> appointments = appointmentController.listAppointmentsByPatientName(patientName);
+            List<Appointment> appointments = appointmentController.listAppointmentByPatientName(patientName);
             listPatientAppointmentMenu.displayShortAppointments(appointments);
         } catch (SQLException e) {
             System.out.println("\n--- Error when listing appointments: " + e.getMessage() + " ---\n");
@@ -45,12 +45,12 @@ public class ListPatientAppointmentMenu {
         if (appointments.isEmpty()) {
             System.out.println("No appointments found for the given patient.");
         } else {
+            System.out.println("\n=== Appointments ===\n");
             for (Appointment appointment : appointments) {
-                System.out.println("\nAppointment ID: " + appointment.getId());
-                System.out.println("Appointment Data and Time: " + appointment.getAppointmentDateTime());
-                System.out.println("Doctor responsible: " + appointment.getDoctor());
-                System.out.println("Diagnosis: " + appointment.getDiagnosis());
-                System.out.println("-----------------------------");
+                System.out.println("\n|| Appointment ID: " + appointment.getId());
+                System.out.println("|| Appointment Data and Time: " + appointment.getAppointmentDateTime());
+                System.out.println("|| Doctor responsible: " + appointment.getDoctor());
+                System.out.println("|| Diagnosis: " + appointment.getDiagnosis());
 
                 System.out.println("\n Would like to see the doctor's prescription for this consultation? (Y/N)");
                 String choiceP = scan.nextLine();
@@ -73,7 +73,7 @@ public class ListPatientAppointmentMenu {
         AppointmentController appointmentController = new AppointmentController();
 
         try {
-            List<Appointment> appointments = appointmentController.listAppointmentsByPatientName(patientName);
+            List<Appointment> appointments = appointmentController.listAppointmentByPatientName(patientName);
             listPatientAppointmentMenu.displayAppointments(appointments);
         } catch (SQLException e) {
             System.out.println("\n--- Error when listing appointments: " + e.getMessage() + " ---\n");

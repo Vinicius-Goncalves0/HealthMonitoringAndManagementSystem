@@ -12,7 +12,7 @@ import View.Delete.DeleteAlert;
 import View.Delete.DeleteDevice;
 import View.List.AccessDevice;
 import View.List.ListAllAlerts;
-import View.List.ListPatientDevices;
+import View.List.ListDevicesPatientAndDetails;
 import View.Update.UpdateDeviceStatus;
 
 public class DocMonitoringView {
@@ -20,7 +20,7 @@ public class DocMonitoringView {
     public void displayMonitoringMenu(Patient patient, String patientName, Scanner scan) {
 
         while (true) {
-            System.out.println("\nMonitoring Menu:");
+            System.out.print("\n=== Monitoring ===");
             System.out.println("1. Access Devices");
             System.out.println("2. Access Alerts");
             System.out.println("0. Exit");
@@ -28,7 +28,7 @@ public class DocMonitoringView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume newline
+                scan.nextLine();
 
                 switch (choice) {
                     case 0:
@@ -44,7 +44,7 @@ public class DocMonitoringView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.next(); // Consume the invalid input
+                scan.next();
             }
         }
     }
@@ -57,7 +57,7 @@ public class DocMonitoringView {
         DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
-            System.out.println("\nDevices menu:");
+            System.out.print("\n=== Devices ===");
             System.out.println("1. Access Device Menu");
             System.out.println("2. Create Device Menu");
             System.out.println("3. List Devices Menu");
@@ -68,7 +68,7 @@ public class DocMonitoringView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -76,8 +76,7 @@ public class DocMonitoringView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nAccessing device menu...");
-                        System.out.println("Enter the device ID: ");
+                        System.out.println("\nEnter the device ID: ");
                         int deviceId = scan.nextInt();
 
                         try {
@@ -93,7 +92,6 @@ public class DocMonitoringView {
                         }
                         break;
                     case 2:
-                        System.out.println("\nCreating device...");
                         createDeviceMenu.createDeviceMenu(patientName);
                         break;
                     case 3:
@@ -103,7 +101,6 @@ public class DocMonitoringView {
                         activateDisableDevice(patient, patientName, scan);
                         break;
                     case 5:
-                        System.out.println("\nDeleting device...");
                         deleteDevice.deleteDevice(patientName);
                         break;
                     default:
@@ -111,16 +108,16 @@ public class DocMonitoringView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
 
     public void listDevice(Patient patient, String patientName, Scanner scan) {
-        ListPatientDevices listPatientDevices = new ListPatientDevices();
+        ListDevicesPatientAndDetails listPatientDevices = new ListDevicesPatientAndDetails();
 
         while (true) {
-            System.out.println("\nList Devices menu:");
+            System.out.print("\n=== List Devices ===\n");
             System.out.println("1. List active devices");
             System.out.println("2. List inactive devices");
             System.out.println("0. Exit");
@@ -128,7 +125,7 @@ public class DocMonitoringView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -136,11 +133,9 @@ public class DocMonitoringView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nListing active devices...");
                         listPatientDevices.listActiveDevicesByPatientName(patientName);
                         break;
                     case 2:
-                        System.out.println("\nListing inactive devices...");
                         listPatientDevices.listInactiveDevicesByPatientName(patientName);
                         break;
                     default:
@@ -148,7 +143,7 @@ public class DocMonitoringView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -157,7 +152,7 @@ public class DocMonitoringView {
         UpdateDeviceStatus updateDeviceStatus = new UpdateDeviceStatus();
 
         while (true) {
-            System.out.println("\nActivate/Disable Device menu:");
+            System.out.print("\n=== Device ===\n");
             System.out.println("1. Activate device");
             System.out.println("2. Disable device");
             System.out.println("0. Exit");
@@ -165,7 +160,7 @@ public class DocMonitoringView {
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -173,11 +168,9 @@ public class DocMonitoringView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nActivating device...");
                         updateDeviceStatus.updateDeviceStatusToActive(patientName);
                         break;
                     case 2:
-                        System.out.println("\nDisabling device...");
                         updateDeviceStatus.updateDeviceStatusToInactive(patientName);
                         break;
                     default:
@@ -185,7 +178,7 @@ public class DocMonitoringView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }
@@ -197,16 +190,16 @@ public class DocMonitoringView {
         DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
-            System.out.println("\nAlerts Menu:");
+            System.out.print("\n=== Alerts Menu ===\n");
             System.out.println("1. Create alert");
             System.out.println("2. View alerts");
             System.out.println("3. Close alerts");
             System.out.println("0. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("Enter your choice: ");
 
             if (scan.hasNextInt()) {
                 int choice = scan.nextInt();
-                scan.nextLine(); // Consume '\n'
+                scan.nextLine();
 
                 System.out.print("\n");
                 switch (choice) {
@@ -214,8 +207,7 @@ public class DocMonitoringView {
                         System.out.println("Exiting...");
                         return;
                     case 1:
-                        System.out.println("\nCreating alert...");
-                        System.out.print("Digite o ID do dispositivo a ser criado o alerta: ");
+                        System.out.print("\nEnter the ID of the device to create the alert for: ");
                         int deviceId = scan.nextInt();
                         try {
                             if (!deviceDAO.isDeviceOwnedByPatient(patientName, deviceId)) {
@@ -228,7 +220,6 @@ public class DocMonitoringView {
                         }
                         break;
                     case 2:
-                        System.out.println("\nViewing alerts...");
                         listAllAlerts.listAlertsByPatientId(patient.getId());
                         break;
                     case 3:
@@ -239,7 +230,7 @@ public class DocMonitoringView {
                 }
             } else {
                 System.out.println("Invalid input. Please enter a number.");
-                scan.nextLine(); // Consume invalid input
+                scan.nextLine();
             }
         }
     }

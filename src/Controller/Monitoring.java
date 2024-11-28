@@ -22,11 +22,12 @@ public class Monitoring {
         this.alertDAO = new AlertDAO();
     }
 
-    public void gerarAlertByDeviceValue() {
+    // Generates an alert based on the value of the device
+    public void generatePatientAlert() {
         try {
-            List<Device> dispositivosAtivos = deviceDAO.listarDispositivosAtivos();
+            List<Device> activeDevices = deviceDAO.listActiveDevices();
 
-            for (Device device : dispositivosAtivos) {
+            for (Device device : activeDevices) {
                 int value = device.getValue();
                 int alertValueMax = device.getAlertValueMax();
                 int alertValueMin = device.getAlertValueMin();
@@ -36,21 +37,21 @@ public class Monitoring {
                     Patient patient = patientDAO.findPatientById(patientId);
 
                     String mensagem = String.format(
-                            "Paciente %s, está com um registro de %d que está %s do %s recomendado de %d.",
+                            "Patient %s, has a record of %d which is %s of the recommended %s of %d.",
                             patient.getName(), value,
-                            (value > alertValueMax ? "acima" : "abaixo"),
-                            (value > alertValueMax ? "valor máximo" : "valor mínimo"),
+                            (value > alertValueMax ? "above" : "below"),
+                            (value > alertValueMax ? "maximum value" : "minimum value"),
                             (value > alertValueMax ? alertValueMax : alertValueMin));
 
-                    Alert alert = new Alert("Alerta de Dispositivo", mensagem, "Sistema", "Data Atual");
-                    alertDAO.gerarAlerta(alert, device, patient);
+                    Alert alert = new Alert("Device Alert", mensagem, "Doctor", "Data");
+                    alertDAO.generateAlert(alert, device, patient);
 
-                    System.out.println("Alerta gerado: " + mensagem);
+                    System.out.println("Alert generated: " + mensagem);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erro ao verificar dispositivos ativos: " + e.getMessage());
+            System.out.println("Error checking active devices: " + e.getMessage());
         }
     }
 

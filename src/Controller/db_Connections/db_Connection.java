@@ -9,7 +9,6 @@ public class db_Connection {
 
     // Connection to the database
     private static final String URL = "jdbc:mysql://localhost:3306/hospital_system";
-    // ?useUnicode=true&characterEncoding=utf8mb4
     private static final String USER = "root";
     private static final String PASSWORD = "Hj2vZuCL*<7DX#c/";
 

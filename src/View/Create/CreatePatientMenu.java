@@ -9,25 +9,24 @@ public class CreatePatientMenu {
     Scanner scan = new Scanner(System.in);
 
     public void createPatientMenu() {
-        System.out.println("\nEnter patient's name: ");
+        System.out.print("\n=== Create Patient ===\n");
+        System.out.println("Patient's name: ");
         String name = scan.nextLine();
-        System.out.println("Enter patient's CPF: ");
+        System.out.println("Patient's CPF: ");
         String cpf = scan.nextLine();
-        System.out.println("Enter patient's birth date: ");
+        System.out.println("Patient's birth date: ");
         String birthDate = scan.nextLine();
-        System.out.println("Enter patient's medical history: ");
+        System.out.println("Patient's medical history: ");
         String histories = scan.nextLine();
-        System.out.println("Enter patient's address: ");
+        System.out.println("Patient's address: ");
         String address = scan.nextLine();
-        System.out.println("Enter patient's phone: ");
+        System.out.println("Patient's phone: ");
         String phone = scan.nextLine();
-        System.out.println("Enter patient's email: ");
+        System.out.println("Patient's email: ");
         String email = scan.nextLine();
 
-        // Create a new Patient object
         Patient patient = new Patient(name, cpf, birthDate, address, phone, email, histories);
 
-        // Add the patient to the database
         PatientDAO patientDAO = new PatientDAO();
         try {
             patientDAO.addPatient(patient);

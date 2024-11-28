@@ -22,11 +22,12 @@ public class CreateAppointmentMenu {
     }
 
     public void createAppointmentMenu(String patientName) {
-        System.out.println("\nEnter appointment data and time: ");
+        System.out.print("\n=== Create Appointment ===\n");
+        System.out.println("|| Appointment data and time: ");
         String appointmentDataTime = scan.nextLine();
-        System.out.println("Enter the appointment's doctor name: ");
+        System.out.println("|| Appointment's doctor name: ");
         String appointmentDoctorName = scan.nextLine();
-        System.out.println("Enter the diagnosis: ");
+        System.out.println("|| Diagnosis: ");
         String diagnosis = scan.nextLine();
 
         try {

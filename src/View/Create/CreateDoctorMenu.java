@@ -9,21 +9,20 @@ public class CreateDoctorMenu {
     Scanner scan = new Scanner(System.in);
 
     public void createDoctorMenu() {
-        System.out.println("\nEnter doctor's name: ");
+        System.out.print("\n=== Create Doctor ===\n");
+        System.out.println("|| Doctor's name: ");
         String name = scan.nextLine();
-        System.out.println("Enter doctor's specialty: ");
+        System.out.println("|| Doctor's specialty: ");
         String specialty = scan.nextLine();
-        System.out.println("Enter doctor's CRM: ");
+        System.out.println("|| Doctor's CRM: ");
         String crm = scan.nextLine();
-        System.out.println("Enter doctor's phone: ");
+        System.out.println("|| Doctor's phone: ");
         String phone = scan.nextLine();
-        System.out.println("Enter doctor's email: ");
+        System.out.println("|| Doctor's email: ");
         String email = scan.nextLine();
 
-        // Create a new Doctor object
         Doctor doctor = new Doctor(name, specialty, crm, phone, email);
 
-        // Add the doctor to the database
         DoctorDAO doctorDAO = new DoctorDAO();
         try {
             doctorDAO.addDoctor(doctor);

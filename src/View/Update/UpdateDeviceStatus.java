@@ -11,7 +11,7 @@ public class UpdateDeviceStatus {
     DeviceController deviceController = new DeviceController();
 
     public void updateDeviceStatusToActive(String patientName) {
-        System.out.println("Enter the devices ID to update: ");
+        System.out.println("\nEnter the devices ID to update: ");
         int id = scan.nextInt();
 
         try {
@@ -23,7 +23,7 @@ public class UpdateDeviceStatus {
     }
 
     public void updateDeviceStatusToInactive(String patientName) {
-        System.out.println("Enter the devices ID to update: ");
+        System.out.println("\nEnter the devices ID to update: ");
         int id = scan.nextInt();
 
         try {

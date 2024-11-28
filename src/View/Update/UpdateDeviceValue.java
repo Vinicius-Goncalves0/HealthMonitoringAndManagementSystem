@@ -22,7 +22,7 @@ public class UpdateDeviceValue {
             deviceController.updateDeviceValue(patientName, deviceId, value);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("\nFailed to update device value due to a database error.");
+            System.out.println("Failed to update device value due to a database error.");
         }
     }
 
