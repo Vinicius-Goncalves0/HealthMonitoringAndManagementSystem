@@ -25,15 +25,19 @@ public class CreateDeviceMenu {
         String brand = scan.nextLine();
         System.out.println("Enter device model: ");
         String model = scan.nextLine();
-        System.out.print("Is the device active? (true/false): ");
+        System.out.println("Is the device active? (true/false): ");
         boolean isActive = scan.nextBoolean();
+        System.out.println("Enter Alert Value (MAX): ");
+        int alertValueMax = scan.nextInt();
+        System.out.println("Enter Alert Value (MIN): ");
+        int alertValueMin = scan.nextInt();
         scan.nextLine(); // Consume newline
 
         try {
             Patient patient = patientController.findPatientByName(patientName);
 
             if (patient != null) {
-                Device device = new Device(type, brand, model, isActive);
+                Device device = new Device(type, brand, model, isActive, alertValueMax, alertValueMin);
                 deviceController.addDeviceToPatient(device, patient);
 
                 System.out.println("Device added successfully.");

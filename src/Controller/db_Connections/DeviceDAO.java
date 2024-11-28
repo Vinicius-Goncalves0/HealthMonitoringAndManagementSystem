@@ -14,7 +14,7 @@ import Model.Patient;
 public class DeviceDAO {
     // add medication to an appointment in the database
     public void addDeviceToPatient(Device device, Patient patient) {
-        String deviceSql = "INSERT INTO devices (type, brand, model, activationStatus, value) VALUES (?, ?, ?, ?, ?)";
+        String deviceSql = "INSERT INTO devices (type, brand, model, activationStatus, value, alertValueMax, alertValueMin) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String deviceToPatientSql = "INSERT INTO patient_devices (patient_id, device_id) VALUES (?, ?)";
         
         try (Connection conn = db_Connection.getConnection()) {
@@ -28,7 +28,9 @@ public class DeviceDAO {
                 deviceStmt.setString(2, device.getBrand());
                 deviceStmt.setString(3, device.getModel());
                 deviceStmt.setBoolean(4, device.isActive());
-                deviceStmt.setString(5, device.getValue());
+                deviceStmt.setInt(5, device.getValue());
+                deviceStmt.setInt(6, device.getAlertValueMax());
+                deviceStmt.setInt(7, device.getAlertValueMin());
 
                 deviceStmt.executeUpdate();
 
@@ -58,7 +60,7 @@ public class DeviceDAO {
     // List all devices from a patient
     public List<Device> listDevicesByPatientName(String patientName) throws SQLException {
         List<Device> devices = new ArrayList<>();
-        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value " +
+        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value, d.alertValueMax, d.alertValueMin " +
             "FROM hospital_system.patients p " +
             "JOIN hospital_system.patient_devices pd ON p.id = pd.patient_id " +
             "JOIN hospital_system.devices d ON pd.device_id = d.id " +
@@ -75,7 +77,9 @@ public class DeviceDAO {
                             rs.getString("brand"),
                             rs.getString("model"),
                             rs.getBoolean("activationStatus"),
-                            rs.getString("value"));
+                            rs.getInt("value"),
+                            rs.getInt("alertValueMax"),
+                            rs.getInt("alertValueMin"));
                     devices.add(device);
                 }
             }
@@ -92,6 +96,36 @@ public class DeviceDAO {
         return listDevicesByPatientName(patientName).stream()
                 .filter(Device::isActive)
                 .collect(Collectors.toList());
+    }
+
+    // List all active devices
+    public List<Device> listarDispositivosAtivos() throws SQLException {
+        String sql = "SELECT * FROM devices WHERE activationStatus = true";
+        List<Device> dispositivos = new ArrayList<>();
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Device device = new Device(
+                        rs.getInt("id"),
+                        rs.getString("type"),
+                        rs.getString("brand"),
+                        rs.getString("model"),
+                        rs.getBoolean("activationStatus"),
+                        rs.getInt("value"),
+                        rs.getInt("alertValueMax"),
+                        rs.getInt("alertValueMin")
+                );
+                dispositivos.add(device);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao listar dispositivos ativos: " + e.getMessage());
+        }
+
+        return dispositivos;
     }
 
     // New method for listing inactive devices
@@ -237,7 +271,7 @@ public class DeviceDAO {
 
     // Method to access the patient device
     public Device accessPatientDevice(String patientName, int deviceId) throws SQLException {
-        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value " +
+        String sql = "SELECT d.id, d.type, d.brand, d.model, d.activationStatus, d.value, d.alertValueMax, d.alertValueMin " +
                      "FROM hospital_system.patients p " +
                      "JOIN hospital_system.patient_devices pd ON p.id = pd.patient_id " +
                      "JOIN hospital_system.devices d ON pd.device_id = d.id " +
@@ -255,7 +289,9 @@ public class DeviceDAO {
                             rs.getString("brand"),
                             rs.getString("model"),
                             rs.getBoolean("activationStatus"),
-                            rs.getString("value")); // Ensure 'value' column exists
+                            rs.getInt("value"),
+                            rs.getInt("alertValueMax"),
+                            rs.getInt("alertValueMin"));
                 }
             }
         } catch (SQLException e) {
@@ -266,7 +302,7 @@ public class DeviceDAO {
     }
     
     // Method to update the patient device value
-    public void updateDeviceValue(String patientName, int deviceId, String value) throws SQLException {
+    public void updateDeviceValue(String patientName, int deviceId, int value) throws SQLException {
         if (!isDeviceOwnedByPatient(patientName, deviceId)) {
             System.out.println("Device does not belong to the patient!");
             return;
@@ -276,7 +312,7 @@ public class DeviceDAO {
 
         try (Connection conn = db_Connection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, value);
+            stmt.setInt(1, value);
             stmt.setInt(2, deviceId);
             stmt.executeUpdate();
             System.out.println("Device value updated successfully!");
@@ -315,8 +351,9 @@ public class DeviceDAO {
                     rs.getString("type"),
                     rs.getString("brand"),
                     rs.getString("model"),
-                    rs.getBoolean("activationStatus")
-                );
+                    rs.getBoolean("activationStatus"),
+                    rs.getInt("alertValueMax"),
+                    rs.getInt("alertValueMin"));
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -366,7 +403,9 @@ public class DeviceDAO {
                         rs.getString("brand"),
                         rs.getString("model"),
                         rs.getBoolean("activationStatus"),
-                        rs.getString("value"));
+                        rs.getInt("value"),
+                        rs.getInt("alertValueMax"),
+                        rs.getInt("alertValueMin"));
                 device.setId(rs.getInt("id"));
                 devices.add(device);
             }
@@ -387,5 +426,26 @@ public class DeviceDAO {
         }
 
         return devices;
+    }
+
+    // Método para obter o ID do paciente pelo ID do dispositivo
+    public int getPatientIdByDeviceId(int deviceId) throws SQLException {
+        String sql = "SELECT patient_id FROM patient_devices WHERE device_id = ?";
+        int patientId = 0;
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, deviceId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    patientId = rs.getInt("patient_id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao obter ID do paciente pelo ID do dispositivo: " + e.getMessage());
+        }
+
+        return patientId;
     }
 }

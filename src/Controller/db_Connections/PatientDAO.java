@@ -439,4 +439,34 @@ public class PatientDAO {
 
         return patientName;
     }
+
+    // Method to find a patient by ID
+    public Patient findPatientById(int id) throws SQLException {
+        String sql = "SELECT * FROM patients WHERE id = ?";
+        Patient patient = null;
+
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    patient = new Patient(
+                            rs.getString("name"),
+                            rs.getString("cpf"),
+                            rs.getString("birth_date"),
+                            rs.getString("address"),
+                            rs.getString("phone"),
+                            rs.getString("email"),
+                            rs.getString("histories")
+                    );
+                    patient.setId(rs.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao encontrar paciente pelo ID: " + e.getMessage());
+        }
+
+        return patient;
+    }
 }

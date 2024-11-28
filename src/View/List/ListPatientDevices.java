@@ -22,6 +22,8 @@ public class ListPatientDevices {
                 System.out.println("Model: " + device.getModel());
                 System.out.println("Status: " + device.isActive());
                 System.out.println("Device Value: " + device.getValue());
+                System.out.println("Alert Value Max: " + device.getAlertValueMax());
+                System.out.println("Alert Value Min: " + device.getAlertValueMin());
                 System.out.println("_____________________________________________________________________________________");
             }
         }

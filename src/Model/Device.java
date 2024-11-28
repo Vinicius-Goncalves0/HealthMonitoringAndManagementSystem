@@ -7,38 +7,48 @@ public class Device {
     private String brand;
     private String model;
     private boolean activationStatus;
-    private String value;
+    private int value;
+    private int alertValueMax;
+    private int alertValueMin;
 
-    public Device(String type, String brand, String model, boolean activationStatus, String value) {
+    public Device(String type, String brand, String model, boolean activationStatus, int value, int alertValueMax, int alertValueMin) {
         this.type = type;
         this.brand = brand;
         this.model = model;
         this.activationStatus = activationStatus;
         this.value = value;
+        this.alertValueMax = alertValueMax;
+        this.alertValueMin = alertValueMin;
     }
 
-    public Device(int id, String type, String brand, String model, boolean activationStatus, String value) {
+    public Device(int id, String type, String brand, String model, boolean activationStatus, int value, int alertValueMax, int alertValueMin) {
         this.id = id;
         this.type = type;
         this.brand = brand;
         this.model = model;
         this.activationStatus = activationStatus;
         this.value = value;
+        this.alertValueMax = alertValueMax;
+        this.alertValueMin = alertValueMin;
     }
 
-    public Device(int id, String type, String brand, String model, boolean activationStatus) {
+    public Device(int id, String type, String brand, String model, boolean activationStatus, int alertValueMax, int alertValueMin) {
         this.id = id;
         this.type = type;
         this.brand = brand;
         this.model = model;
         this.activationStatus = activationStatus;
+        this.alertValueMax = alertValueMax;
+        this.alertValueMin = alertValueMin;
     }
 
-    public Device(String type, String brand, String model, boolean activationStatus) {
+    public Device(String type, String brand, String model, boolean activationStatus,  int alertValueMax, int alertValueMin) {
         this.type = type;
         this.brand = brand;
         this.model = model;
         this.activationStatus = activationStatus;
+        this.alertValueMax = alertValueMax;
+        this.alertValueMin = alertValueMin;
     }
 
     public int getId() {
@@ -76,11 +86,25 @@ public class Device {
         this.activationStatus = activationStatus;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
+    }
+
+    public int getAlertValueMax() {
+        return alertValueMax;
+    }
+    public void setAlertValueMax(int alertValueMax) {
+        this.alertValueMax = alertValueMax;
+    }
+
+    public int getAlertValueMin() {
+        return alertValueMin;
+    }
+    public void setAlertValueMin(int alertValueMin) {
+        this.alertValueMin = alertValueMin;
     }
 
 }

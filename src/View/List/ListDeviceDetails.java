@@ -22,6 +22,8 @@ public class ListDeviceDetails {
                 System.out.println("Device model: " + device.getModel());
                 System.out.println("Device Status: " + device.isActive());
                 System.out.println("Device Value: " + device.getValue());
+                System.out.println("Device Alert Value: " + device.getAlertValueMax());
+                System.out.println("Device Alert Value: " + device.getAlertValueMin());
                 System.out.println("__________________________________________________");
             }
         }
