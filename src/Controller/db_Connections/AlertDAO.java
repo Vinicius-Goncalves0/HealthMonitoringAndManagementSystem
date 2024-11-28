@@ -27,7 +27,7 @@ public class AlertDAO {
                 alertStmt.setString(1, alert.getType());
                 alertStmt.setString(2, alert.getMessage());
                 alertStmt.setString(3, alert.getDoctor());
-                alertStmt.setString(4, alert.getData());
+                alertStmt.setString(4, alert.getDate());
                 alertStmt.executeUpdate();
 
                 ResultSet generatedKeys = alertStmt.getGeneratedKeys();
@@ -57,7 +57,7 @@ public class AlertDAO {
         }
     }
 
-    // Method to check if a alert belongs to a patient
+    // Check if a alert belongs to a patient
     public boolean isAlertOwnedByPatient(String patientName, int alertId) throws SQLException {
         String sql = "SELECT COUNT(*) AS count " +
                      "FROM hospital_system.patients p " +
@@ -81,7 +81,7 @@ public class AlertDAO {
         return false;
     }
 
-    // Method to delete a patient alert
+    // Delete a patient alert
     public void deletePatientAlert(String patientName, int alertId) throws SQLException {
         if (!isAlertOwnedByPatient(patientName, alertId)) {
             System.out.println("Alert does not belong to the patient!");
@@ -155,6 +155,39 @@ public class AlertDAO {
         }
     }
 
+    // Deleting an alert by ID
+    public void deleteAlertById(int alertId) throws SQLException {
+        String deleteAlertSQL = "DELETE FROM alerts WHERE id = ?";
+        String deleteDeviceAlertSQL = "DELETE FROM device_alerts WHERE alert_id = ?";
+        String deletePatientAlertSQL = "DELETE FROM patient_alerts WHERE alert_id = ?";
+
+        try (Connection conn = db_Connection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement deleteDeviceAlertStmt = conn.prepareStatement(deleteDeviceAlertSQL)) {
+                deleteDeviceAlertStmt.setInt(1, alertId);
+                deleteDeviceAlertStmt.executeUpdate();
+            }
+
+            try (PreparedStatement deletePatientAlertStmt = conn.prepareStatement(deletePatientAlertSQL)) {
+                deletePatientAlertStmt.setInt(1, alertId);
+                deletePatientAlertStmt.executeUpdate();
+            }
+
+            try (PreparedStatement deleteAlertStmt = conn.prepareStatement(deleteAlertSQL)) {
+                deleteAlertStmt.setInt(1, alertId);
+                deleteAlertStmt.executeUpdate();
+            }
+
+            conn.commit();
+            System.out.println("Alert deleted successfully!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error deleting alert: " + e.getMessage());
+        }
+    }
+
     // List all alerts
     public List<Alert> listAllAlerts() throws SQLException {
         String selectAlertsSQL = "SELECT * FROM alerts";
@@ -225,5 +258,21 @@ public class AlertDAO {
         }
     
         return alertas;
+    }
+
+    // Check if alert exists
+    public boolean alertExists(String mensagem, String deviceType) throws SQLException {
+        String query = "SELECT COUNT(*) FROM alerts WHERE message = ? AND type = ?";
+        try (Connection conn = db_Connection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, mensagem);
+            stmt.setString(2, deviceType);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -32,4 +32,8 @@ public class AlertController {
         return alertDAO.listAlertsByPatientId(patientId);
     }
 
+    public void deleteAlertById(int alertId) throws SQLException {
+        alertDAO.deleteAlertById(alertId);
+    }
+
 }

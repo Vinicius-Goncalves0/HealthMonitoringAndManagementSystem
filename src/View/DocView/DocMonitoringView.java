@@ -20,7 +20,7 @@ public class DocMonitoringView {
     public void displayMonitoringMenu(Patient patient, String patientName, Scanner scan) {
 
         while (true) {
-            System.out.print("\n=== Monitoring ===");
+            System.out.print("\n=== Monitoring ===\n");
             System.out.println("1. Access Devices");
             System.out.println("2. Access Alerts");
             System.out.println("0. Exit");
@@ -57,7 +57,7 @@ public class DocMonitoringView {
         DeviceDAO deviceDAO = new DeviceDAO();
 
         while (true) {
-            System.out.print("\n=== Devices ===");
+            System.out.print("\n=== Devices ===\n");
             System.out.println("1. Access Device Menu");
             System.out.println("2. Create Device Menu");
             System.out.println("3. List Devices Menu");

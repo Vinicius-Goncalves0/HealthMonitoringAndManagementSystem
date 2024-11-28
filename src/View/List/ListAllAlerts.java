@@ -33,7 +33,7 @@ public class ListAllAlerts {
                 System.out.println("|| Type: " + alert.getType());
                 System.out.println("|| Message: " + alert.getMessage());
                 System.out.println("|| Doctor: " + alert.getDoctor());
-                System.out.println("|| Date: " + alert.getData());
+                System.out.println("|| Date: " + alert.getDate());
             }
         }
     }
@@ -42,7 +42,7 @@ public class ListAllAlerts {
         try {
             List<Alert> alerts = alertController.listAlertsByPatientId(patientId);
             displayAlerts(alerts, patientDAO.findPatientNameByID(patientId));
-            System.out.println("Press enter to continue...");
+            System.out.println("\nPress enter to continue...");
             scan.nextLine();
         } catch (SQLException e) {
             System.out.println("\n--- Error listing alerts: " + e.getMessage() + " ---\n");
@@ -61,12 +61,12 @@ public class ListAllAlerts {
                 System.out.println("|| Type: " + alert.getType());
                 System.out.println("|| Message: " + alert.getMessage());
                 System.out.println("|| Doctor: " + alert.getDoctor());
-                System.out.println("|| Date: " + alert.getData());
+                System.out.println("|| Date: " + alert.getDate());
             }
         } catch (SQLException e) {
             System.out.println("Error displaying alerts: " + e.getMessage());
         }
-        System.out.println("Press enter to continue...");
+        System.out.println("\nPress enter to continue...");
         scan.nextLine();
     }
 }

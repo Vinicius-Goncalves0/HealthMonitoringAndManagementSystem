@@ -3,10 +3,12 @@ package View.DocView;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Controller.AlertController;
 import Controller.Monitoring;
 import Controller.db_Connections.DoctorDAO;
 import Model.Doctor;
 import View.Create.CreateDoctorMenu;
+import View.List.ListAllAlerts;
 import View.List.ListDataDoctor;
 import View.List.ListDoctor;
 import View.Update.UpdateDoctorMenu;
@@ -18,7 +20,6 @@ public class DoctorView {
         CreateDoctorMenu createDoctorMenu = new CreateDoctorMenu();
         ListDoctor listDoctor = new ListDoctor();
         DoctorDAO doctorDAO = new DoctorDAO();
-        Monitoring monitoring = new Monitoring();
 
         while (true) {
             System.out.print("\n=== Doctor ===\n");
@@ -60,7 +61,7 @@ public class DoctorView {
                         createDoctorMenu.createDoctorMenu();
                         break;
                     case 4:
-                        monitoring.generatePatientAlert();
+                        alertMenu(scan);
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
@@ -132,6 +133,50 @@ public class DoctorView {
                         break;
                     case 2:
                         updateDoctorMenu.updateDoctorMenu(doctorName);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scan.nextLine();
+            }
+        }
+    }
+
+    public void alertMenu(Scanner scan) {
+        AlertController alertController = new AlertController();
+        Monitoring monitoring = new Monitoring();
+        ListAllAlerts listAllAlerts = new ListAllAlerts();
+
+        while (true) {
+            System.out.print("\n=== Alert ===\n");
+            System.out.println("1. View Alerts");
+            System.out.println("2. Delete Alerts");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            if (scan.hasNextInt()) {
+                int choice = scan.nextInt();
+                scan.nextLine();
+
+                System.out.print("\n");
+                switch (choice) {
+                    case 0:
+                        System.out.println("Exiting...");
+                        return;
+                    case 1:
+                        monitoring.generatePatientAlert();
+                        listAllAlerts.displayAllAlerts();
+                        break;
+                    case 2:
+                        System.out.print("Enter the alert ID to delete: ");
+                        int alertId = scan.nextInt();
+                        try {
+                            alertController.deleteAlertById(alertId);
+                        } catch (SQLException e) {
+                            System.out.println("Error deleting alert: " + e.getMessage());
+                        }
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");

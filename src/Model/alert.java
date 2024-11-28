@@ -50,10 +50,10 @@ public class Alert {
         this.doctor = doctor;
     }
 
-    public String getData() {
+    public String getDate() {
         return data;
     }
-    public void setData(String data) {
+    public void setDate(String data) {
         this.data = data;
     }
 }

@@ -25,8 +25,8 @@ public class AccessDevice {
             System.out.println("1. View device details");
             System.out.println("2. Monitoring Alerts");
             System.out.println("3. Create Alerts");
-            System.out.println("4. Reference Values");
-            System.out.println("5. Reference Values (For test: Random)");
+            System.out.println("4. Update Reference Values");
+            System.out.println("5. Update Reference Values (For test: Random)");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
 

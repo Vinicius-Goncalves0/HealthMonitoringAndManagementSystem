@@ -13,7 +13,7 @@ public class ListPatients {
         // List all patients
         try {
             List<Patient> patients = patientController.listAllPatients();
-            System.out.println("\n=== Patients ===");
+            System.out.println("\n=== Registered patients ===");
             for (Patient patient : patients) {
                 System.out.println("|| ID: " + patient.getId() + " // " + "Name: " + patient.getName());
             }
