@@ -1,0 +1,865 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Cambria Math;}{\f2\fnil\fcharset0 Cambria Math;}}
+{\colortbl ;\red255\green0\blue0;}
+{\*\generator Riched20 10.0.22621}{\*\mmathPr\mmathFont1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\cf1\b\f0\fs52\lang22 CEN\'c1RIO DE TESTES \cf0\b0\fs28\par
+\b\i\fs40 Paciente\i0\fs28\par
+\ul\fs36 1.Registrar Paciente \ulnone\fs28\par
+Fluxo Principal\par
+\b0 Acessar a tela "Registro de Paciente".\par
+Preencher todos os campos obrigat\'f3rios com dados v\'e1lidos:\par
+Nome: "Vitor Rech"\par
+CPF: "30250688921"\par
+Data de Nascimento: "17/05/2003"\par
+Endere\'e7o: "Rua Luiza Mazetto Baggio, 127"\par
+Telefone: "51912345678"\par
+E-mail: "vinicius.goncalves@gmail.com"\par
+Hist\'f3rico: "Nenhum"\par
+Medicamentos: "Nenhum"\par
+Dispositivos: "Nenhum"\par
+Clicar no bot\'e3o "Salvar" ou pressionar "Enter" no teclado.\par
+O sistema exibe a mensagem de sucesso: "Paciente registrado com sucesso".\par
+Validar que os dados do paciente aparecem na lista de pacientes registrados.\par
+\b Fluxo Alternativo\b0\par
+Preencher todos os campos obrigat\'f3rios e clicar no bot\'e3o "Salvar" sem preencher os campos opcionais (Hist\'f3rico, Medicamentos, Dispositivos).\par
+O sistema deve registrar o paciente corretamente, com os campos opcionais em branco.\par
+Consultar o paciente registrado, verificando se os dados obrigat\'f3rios est\'e3o preenchidos e os campos opcionais est\'e3o vazios.\par
+\b Fluxo Negativo\b0\par
+Tentar registrar um paciente com um CPF j\'e1 existente no sistema e verificar se o sistema exibe a mensagem de erro: "CPF j\'e1 registrado".\par
+Deixar um ou mais campos obrigat\'f3rios em branco e tentar registrar o paciente, verificando se o sistema exibe as mensagens de erro apropriadas (ex.: "Campo obrigat\'f3rio").\par
+Inserir dados inv\'e1lidos (ex.: CPF com letras, e-mail sem "@" ou ".com") e tentar registrar o paciente, validando se o sistema exibe as mensagens de erro: "Formato inv\'e1lido".\par
+Tentar registrar o paciente sem a devida permiss\'e3o (caso a funcionalidade exija permiss\'f5es espec\'edficas) e verificar se o sistema exibe a mensagem de erro: "Acesso n\'e3o autorizado".\b\par
+\cf1 ------------------------------------------------------------------------------------------------------\cf0\par
+\ul\fs36 2. Consultar Hist\'f3rico de Paciente \ulnone\fs28\par
+Fluxo Principal\b0\par
+Acessar a tela "Consulta de Paciente".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "30250688921".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter" no teclado.\par
+O sistema exibe as informa\'e7\'f5es do paciente, incluindo o hist\'f3rico e os medicamentos restritos:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a medicamentos".\par
+Medicamentos restritos:\par
+"Dipirona".\par
+"Paracetamol".\par
+Verificar que o hist\'f3rico e a lista de medicamentos restritos s\'e3o exibidos corretamente na tela de consulta.\par
+\b Fluxo Alternativo\b0\par
+Digitar apenas o nome completo do paciente no campo de busca:\par
+Nome: "Vitor Rech".\par
+Clicar no bot\'e3o "Pesquisar".\par
+O sistema exibe os dados do paciente correspondente, incluindo o hist\'f3rico e os medicamentos restritos.\par
+Consultar um paciente com m\'faltiplos medicamentos restritos e validar a apresenta\'e7\'e3o correta de cada um deles.\par
+\b Fluxo Negativo\b0\par
+Inserir um CPF inexistente no sistema e clicar no bot\'e3o "Pesquisar".\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem de erro: "Paciente n\'e3o encontrado".\par
+Digitar um CPF em formato inv\'e1lido (ex.: "CPF inv\'e1lido123") e pressionar "Enter".\par
+Validar que o sistema exibe a mensagem de erro: "Formato de CPF inv\'e1lido".\par
+Deixar o campo de busca vazio e tentar realizar a pesquisa.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha pelo menos um campo para realizar a consulta".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 3. Atualizar Dados do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Atualiza\'e7\'e3o de Dados do Paciente".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe os dados atuais do paciente:\par
+Nome: "Vitor Rech".\par
+Endere\'e7o: "Avenida Central, 500".\par
+Telefone: "51923456789".\par
+Hist\'f3rico: "Nenhum".\par
+Atualizar os campos necess\'e1rios:\par
+Endere\'e7o: "Rua das Flores, 789".\par
+Telefone: "51987654321".\par
+Clicar no bot\'e3o "Salvar".\par
+O sistema exibe a mensagem: "Dados atualizados com sucesso".\par
+Confirmar que os dados atualizados aparecem corretamente no sistema ao realizar uma nova consulta.\par
+\b Fluxo Alternativo\b0\par
+Alterar apenas o campo "Hist\'f3rico" para incluir uma nova entrada:\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Atualizar m\'faltiplos campos (ex.: endere\'e7o, telefone e hist\'f3rico) de uma \'fanica vez e validar as mudan\'e7as.\par
+Atualizar um campo opcional (ex.: "Medicamentos") sem alterar os dados obrigat\'f3rios e verificar que o sistema salva as altera\'e7\'f5es corretamente:\par
+Medicamentos: "N\'e3o pode usar Ibuprofeno".\par
+\b Fluxo Negativo\b0\par
+Tentar atualizar os dados de um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar campos obrigat\'f3rios em branco (ex.: apagar o endere\'e7o) e clicar no bot\'e3o "Salvar".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir dados inv\'e1lidos em um campo (ex.: "Telefone: 519abc123") e tentar salvar.\par
+Validar que o sistema exibe a mensagem: "Formato de telefone inv\'e1lido".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 4. Consultar Dados do Paciente\ulnone\fs28\par
+Fluxo Principal\b0\par
+Acessar a tela "Consulta de Paciente".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+CPF: "12345678901".\par
+Data de Nascimento: "15/03/1995".\par
+Endere\'e7o: "Rua das Flores, 789".\par
+Telefone: "51987654321".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Medicamentos restritos: "Ibuprofeno".\par
+Validar que todas as informa\'e7\'f5es est\'e3o corretas e vis\'edveis na tela.\par
+\b Fluxo Alternativo\b0\par
+Digitar apenas o nome completo do paciente no campo de busca:\par
+Nome: "Vitor Rech".\par
+Clicar no bot\'e3o "Pesquisar".\par
+O sistema exibe os dados completos do paciente correspondente.\par
+Consultar um paciente com m\'faltiplos registros no hist\'f3rico e validar a apresenta\'e7\'e3o correta de cada entrada.\par
+\b Fluxo Negativo\b0\par
+Inserir um CPF inexistente no sistema e clicar no bot\'e3o "Pesquisar":\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem de erro: "Paciente n\'e3o encontrado".\par
+Digitar um CPF em formato inv\'e1lido (ex.: "CPF inv\'e1lido123") e pressionar "Enter".\par
+Validar que o sistema exibe a mensagem: "Formato de CPF inv\'e1lido".\par
+Deixar o campo de busca vazio e tentar realizar a pesquisa.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha pelo menos um campo para realizar a consulta".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 5. Agendar Consulta M\'e9dica\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Agendamento de Consultas".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe os dados do paciente:\par
+Nome: "Vitor Rech".\par
+Selecionar as informa\'e7\'f5es da consulta:\par
+Especialidade: "Cardiologia".\par
+Data: "20/11/2024".\par
+Hor\'e1rio: "14:30".\par
+M\'e9dico: "Dr. Ricardo Silva".\par
+Clicar no bot\'e3o "Agendar".\par
+O sistema exibe a mensagem: "Consulta agendada com sucesso".\par
+Validar que o agendamento aparece na lista de consultas do paciente.\par
+\b Fluxo Alternativo\b0\par
+Realizar o agendamento para um paciente sem consultar o CPF, preenchendo apenas o nome completo:\par
+Nome: "Vitor Rech".\par
+Selecionar um hor\'e1rio alternativo quando o hor\'e1rio escolhido j\'e1 estiver ocupado:\par
+Sistema sugere novo hor\'e1rio: "15:00".\par
+Validar que a consulta aparece na agenda do m\'e9dico correspondente.\par
+\b Fluxo Negativo\b0\par
+Tentar agendar uma consulta para um CPF inexistente:\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem de erro: "Paciente n\'e3o encontrado".\par
+Selecionar uma data ou hor\'e1rio j\'e1 preenchido na agenda do m\'e9dico.\par
+Validar que o sistema exibe a mensagem de erro: "Hor\'e1rio indispon\'edvel, selecione outro hor\'e1rio".\par
+Deixar campos obrigat\'f3rios (ex.: especialidade ou hor\'e1rio) em branco e clicar no bot\'e3o "Agendar".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Tentar agendar uma consulta para uma data anterior \'e0 atual.\par
+Validar que o sistema exibe a mensagem: "Data inv\'e1lida. Selecione uma data futura".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\cf1\b\fs40 M\'c9DICO\cf0\b0\fs28\par
+\ul\b\fs36 1. Registrar M\'e9dico\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Registro de M\'e9dico".\par
+Preencher todos os campos obrigat\'f3rios com dados v\'e1lidos:\par
+Nome: "Dr. Ricardo Silva".\par
+CRM: "123456-SP".\par
+Especialidade: "Cardiologia".\par
+Telefone: "11987654321".\par
+E-mail: "ricardo.silva@hospital.com".\par
+Endere\'e7o: "Avenida Paulista, 1000".\par
+Clicar no bot\'e3o "Registrar".\par
+O sistema exibe a mensagem: "M\'e9dico registrado com sucesso".\par
+Validar que o m\'e9dico aparece na lista de m\'e9dicos registrados.\par
+\b Fluxo Alternativo\b0\par
+Registrar o m\'e9dico sem preencher campos opcionais (ex.: endere\'e7o).\par
+Verificar que o sistema registra o m\'e9dico com sucesso.\par
+Preencher o campo "Especialidade" com m\'faltiplas especialidades (ex.: "Cardiologia, Cl\'ednica Geral") e verificar que o sistema registra corretamente.\par
+\b Fluxo Negativo\b0\par
+Tentar registrar um m\'e9dico com um CRM j\'e1 existente no sistema.\par
+Validar que o sistema exibe a mensagem de erro: "CRM j\'e1 cadastrado".\par
+Deixar um ou mais campos obrigat\'f3rios em branco e clicar no bot\'e3o "Registrar".\par
+Validar que o sistema exibe mensagens de erro para cada campo obrigat\'f3rio ausente.\par
+Inserir dados inv\'e1lidos nos campos:\par
+CRM em formato errado (ex.: "123ABC").\par
+E-mail inv\'e1lido (ex.: "ricardohospital").\par
+Telefone com menos d\'edgitos (ex.: "11987").\par
+Validar que o sistema exibe mensagens de erro apropriadas para cada caso.\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 2. Alterar Dados do M\'e9dico\ulnone\b0\par
+\b\fs28 Fluxo Principal\b0\par
+Acessar a tela "Alterar Dados do M\'e9dico".\par
+Digitar o CRM do m\'e9dico no campo de busca:\par
+CRM: "123456-SP".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe os dados atuais do m\'e9dico:\par
+Nome: "Dr. Ricardo Silva".\par
+Especialidade: "Cardiologia".\par
+Telefone: "11987654321".\par
+E-mail: "ricardo.silva@hospital.com".\par
+Endere\'e7o: "Avenida Paulista, 1000".\par
+Atualizar os campos necess\'e1rios:\par
+Telefone: "11912345678".\par
+Endere\'e7o: "Rua da Sa\'fade, 500".\par
+Clicar no bot\'e3o "Salvar".\par
+O sistema exibe a mensagem: "Dados do m\'e9dico atualizados com sucesso".\par
+Validar que as altera\'e7\'f5es aparecem corretamente no sistema ao realizar uma nova consulta.\par
+\b Fluxo Alternativo\b0\par
+Alterar apenas um campo opcional (ex.: "Endere\'e7o") e verificar se o sistema salva as mudan\'e7as corretamente.\par
+Atualizar m\'faltiplos campos de uma \'fanica vez, como especialidade e telefone, e validar as altera\'e7\'f5es.\par
+Deixar campos n\'e3o editados (ex.: nome e CRM) e verificar que o sistema salva apenas os campos alterados.\par
+\b Fluxo Negativo\b0\par
+Tentar alterar os dados de um m\'e9dico inexistente no sistema:\par
+CRM: "000000-SP".\par
+Validar que o sistema exibe a mensagem: "M\'e9dico n\'e3o encontrado".\par
+Apagar um campo obrigat\'f3rio (ex.: "Especialidade") e clicar no bot\'e3o "Salvar".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir dados inv\'e1lidos em algum campo (ex.: telefone com menos d\'edgitos, e-mail sem formato v\'e1lido) e clicar em "Salvar".\par
+Validar que o sistema exibe mensagens de erro apropriadas para cada campo.\par
+Tentar alterar o CRM do m\'e9dico para um j\'e1 existente no sistema.\par
+Validar que o sistema exibe a mensagem: "CRM j\'e1 cadastrado".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 3. Consultar Dados do M\'e9dico\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Consulta de M\'e9dico".\par
+Digitar o CRM do m\'e9dico no campo de busca:\par
+CRM: "123456-SP".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do m\'e9dico:\par
+Nome: "Dr. Ricardo Silva".\par
+CRM: "123456-SP".\par
+Especialidade: "Cardiologia".\par
+Telefone: "11912345678".\par
+E-mail: "ricardo.silva@hospital.com".\par
+Endere\'e7o: "Rua da Sa\'fade, 500".\par
+Validar que todas as informa\'e7\'f5es est\'e3o corretas e vis\'edveis na tela.\par
+\b Fluxo Alternativo\b0\par
+Digitar apenas o nome completo do m\'e9dico no campo de busca:\par
+Nome: "Dr. Ricardo Silva".\par
+Clicar no bot\'e3o "Pesquisar".\par
+O sistema exibe os dados completos do m\'e9dico correspondente.\par
+Consultar um m\'e9dico com m\'faltiplas especialidades e validar a apresenta\'e7\'e3o correta de cada especialidade na lista.\par
+\b Fluxo Negativo\b0\par
+Inserir um CRM inexistente no sistema e clicar no bot\'e3o "Pesquisar":\par
+CRM: "000000-SP".\par
+Validar que o sistema exibe a mensagem de erro: "M\'e9dico n\'e3o encontrado".\par
+Digitar um CRM em formato inv\'e1lido (ex.: "CRM inv\'e1lido123") e pressionar "Enter".\par
+Validar que o sistema exibe a mensagem: "Formato de CRM inv\'e1lido".\par
+Deixar o campo de busca vazio e tentar realizar a pesquisa.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha pelo menos um campo para realizar a consulta".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 4. Ajustar Plano de Tratamento do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Ajuste de Plano de Tratamento".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Plano de Tratamento Atual: "Uso de medicamentos para controle de hipertens\'e3o".\par
+Atualizar os dados do plano de tratamento:\par
+Novo Plano de Tratamento: "Tratamento para controle de diabetes tipo 2".\par
+Incluir novos medicamentos: "Metformina".\par
+Alterar frequ\'eancia de consultas: "Consultas mensais".\par
+Clicar no bot\'e3o "Salvar".\par
+O sistema exibe a mensagem: "Plano de tratamento ajustado com sucesso".\par
+Validar que as altera\'e7\'f5es aparecem corretamente no sistema ao realizar uma nova consulta ao paciente.\par
+\b Fluxo Alternativo\b0\par
+Atualizar apenas a medica\'e7\'e3o do plano de tratamento, sem alterar a frequ\'eancia das consultas.\par
+Novo Plano de Tratamento: "Uso de Insulina".\par
+Ajustar a frequ\'eancia de consultas sem alterar o plano de tratamento.\par
+Novo Plano de Tratamento: "Controle de press\'e3o arterial".\par
+Frequ\'eancia: "Consultas trimestrais".\par
+Deixar campos n\'e3o editados (ex.: hist\'f3rico) e salvar as altera\'e7\'f5es do plano de tratamento.\par
+\b Fluxo Negativo\b0\par
+Tentar ajustar o plano de tratamento para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar campos obrigat\'f3rios (ex.: plano de tratamento) em branco e clicar no bot\'e3o "Salvar".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir dados inv\'e1lidos no campo de medicamentos (ex.: nome do medicamento com n\'fameros ou caracteres especiais) e clicar em "Salvar".\par
+Validar que o sistema exibe a mensagem: "Nome de medicamento inv\'e1lido".\par
+Tentar atualizar um plano de tratamento com informa\'e7\'f5es conflitantes (ex.: medicamentos incompat\'edveis) e verificar se o sistema gera uma mensagem de alerta.\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 5. Criar Prescri\'e7\'e3o M\'e9dica do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Criar Prescri\'e7\'e3o M\'e9dica".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Plano de Tratamento: "Tratamento para controle de diabetes tipo 2".\par
+Selecionar os medicamentos a serem prescritos:\par
+Medicamento 1: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Medicamento 2: "Insulina 30UI", 2 vezes por dia.\par
+Incluir orienta\'e7\'f5es sobre o tratamento:\par
+Orienta\'e7\'e3o: "Manter a dieta recomendada, realizar exames de controle a cada 3 meses."\par
+Definir a dura\'e7\'e3o do tratamento:\par
+Dura\'e7\'e3o: "6 meses".\par
+Clicar no bot\'e3o "Prescrever".\par
+O sistema exibe a mensagem: "Prescri\'e7\'e3o m\'e9dica criada com sucesso".\par
+Validar que a prescri\'e7\'e3o criada aparece na lista de prescri\'e7\'f5es do paciente.\par
+\b Fluxo Alternativo\b0\par
+Criar uma prescri\'e7\'e3o com apenas um medicamento, sem incluir orienta\'e7\'f5es sobre o tratamento.\par
+Medicamento: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Incluir uma observa\'e7\'e3o adicional na prescri\'e7\'e3o, como "Ajustar dosagem conforme necessidade m\'e9dica".\par
+Criar prescri\'e7\'e3o para um tratamento com dura\'e7\'e3o superior a 6 meses (ex.: "12 meses").\par
+\b Fluxo Negativo\b0\par
+Tentar criar uma prescri\'e7\'e3o para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar um campo obrigat\'f3rio (ex.: medicamento ou dura\'e7\'e3o) em branco e clicar no bot\'e3o "Prescrever".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir um nome de medicamento inv\'e1lido (ex.: "Medicamento123") e tentar prescrever.\par
+Validar que o sistema exibe a mensagem de erro: "Nome do medicamento inv\'e1lido".\par
+Tentar prescrever medicamentos em doses incompat\'edveis ou n\'e3o autorizadas (ex.: "500mg de insulina") e verificar se o sistema exibe um alerta sobre a dosagem.\par
+Inserir uma dura\'e7\'e3o de tratamento negativa ou muito longa (ex.: "0 meses" ou "500 meses") e tentar salvar a prescri\'e7\'e3o.\par
+Validar que o sistema exibe a mensagem de erro: "Dura\'e7\'e3o inv\'e1lida".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\par
+\cf0\ul\fs36 6. Ajustar Medica\'e7\'f5es do Paciente\ulnone\fs28\par
+Fluxo Principal\b0\par
+Acessar a tela "Ajustar Medica\'e7\'f5es do Paciente".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Plano de Tratamento: "Tratamento para controle de diabetes tipo 2".\par
+Medica\'e7\'f5es atuais:\par
+Metformina 500mg, 1 comprimido di\'e1rio.\par
+Insulina 30UI, 2 vezes por dia.\par
+Selecionar as medica\'e7\'f5es a serem ajustadas:\par
+Medicamento a ser removido: "Insulina 30UI".\par
+Novo medicamento a ser adicionado: "Glimepirida 4mg", 1 comprimido di\'e1rio.\par
+Clicar no bot\'e3o "Salvar".\par
+O sistema exibe a mensagem: "Medica\'e7\'f5es do paciente ajustadas com sucesso".\par
+Validar que as medica\'e7\'f5es aparecem corretamente no sistema ao realizar uma nova consulta ao paciente.\par
+\b Fluxo Alternativo\b0\par
+Ajustar a dosagem de uma medica\'e7\'e3o existente:\par
+Dosagem de Metformina alterada para "500mg, 2 vezes ao dia".\par
+Adicionar um novo medicamento sem remover nenhum existente.\par
+Novo medicamento: "Atorvastatina 20mg", 1 comprimido di\'e1rio.\par
+Remover todas as medica\'e7\'f5es atuais e adicionar novas.\par
+Novo tratamento:\par
+Glimepirida 4mg, 1 comprimido di\'e1rio.\par
+Atorvastatina 20mg, 1 comprimido di\'e1rio.\par
+\b Fluxo Negativo\b0\par
+Tentar ajustar as medica\'e7\'f5es de um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar campos obrigat\'f3rios (ex.: dosagem) em branco e clicar no bot\'e3o "Salvar".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir uma dosagem inv\'e1lida para um medicamento (ex.: "Glimepirida 100mg") e tentar salvar.\par
+Validar que o sistema exibe a mensagem de erro: "Dosagem inv\'e1lida".\par
+Tentar remover todas as medica\'e7\'f5es e n\'e3o adicionar novas, e verificar se o sistema gera um alerta sobre a necessidade de um plano de tratamento cont\'ednuo.\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\par
+\cf1\fs40 CONSULTA\fs28\par
+\cf0\ul\fs36 1. Gerar Consulta M\'e9dica com Data, Hora, M\'e9dico, Paciente, Diagn\'f3stico e Prescri\'e7\'e3o de Medicamentos\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Gerar Consulta M\'e9dica".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Plano de Tratamento: "Tratamento para controle de diabetes tipo 2".\par
+Selecionar as informa\'e7\'f5es da consulta:\par
+Data: "20/11/2024".\par
+Hora: "10:00".\par
+M\'e9dico: "Dr. Ricardo Silva".\par
+Diagn\'f3stico: "Controle de diabetes tipo 2, sem complica\'e7\'f5es".\par
+Prescri\'e7\'e3o de medicamentos:\par
+Medicamento 1: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Medicamento 2: "Glimepirida 4mg", 1 comprimido di\'e1rio.\par
+Clicar no bot\'e3o "Gerar Consulta".\par
+O sistema exibe a mensagem: "Consulta gerada com sucesso".\par
+Validar que a consulta aparece corretamente na agenda do m\'e9dico e na lista de consultas do paciente.\par
+\b Fluxo Alternativo\b0\par
+Gerar uma consulta m\'e9dica para um paciente sem diagn\'f3stico, deixando o campo diagn\'f3stico em branco.\par
+Validar que o sistema aceita a consulta, mas avisa que o campo diagn\'f3stico est\'e1 em branco.\par
+Gerar uma consulta com uma data ou hor\'e1rio j\'e1 preenchido, e o sistema sugere um novo hor\'e1rio.\par
+Hora alternativa sugerida: "11:00".\par
+Incluir uma observa\'e7\'e3o adicional sobre a consulta, como "Recomendar exames laboratoriais".\par
+\b Fluxo Negativo\b0\par
+Tentar gerar uma consulta para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar um ou mais campos obrigat\'f3rios (ex.: data, hora, m\'e9dico ou diagn\'f3stico) em branco e clicar em "Gerar Consulta".\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir um diagn\'f3stico inv\'e1lido (ex.: "XYZ123") e tentar salvar a consulta.\par
+Validar que o sistema exibe a mensagem: "Diagn\'f3stico inv\'e1lido".\par
+Tentar gerar uma consulta em uma data passada (ex.: "01/01/2024") e verificar se o sistema exibe a mensagem de erro: "Data inv\'e1lida, escolha uma data futura".\par
+Inserir um hor\'e1rio de consulta fora do hor\'e1rio permitido (ex.: "23:00") e verificar se o sistema exibe um alerta sobre hor\'e1rios de atendimento.\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 2. Registrar Diagn\'f3stico do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Registrar Diagn\'f3stico".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Plano de Tratamento: "Tratamento para controle de diabetes tipo 2".\par
+Digitar o diagn\'f3stico no campo correspondente:\par
+Diagn\'f3stico: "Controle de diabetes tipo 2, sem complica\'e7\'f5es".\par
+Clicar no bot\'e3o "Registrar Diagn\'f3stico".\par
+O sistema exibe a mensagem: "Diagn\'f3stico registrado com sucesso".\par
+Validar que o diagn\'f3stico aparece corretamente na ficha do paciente.\par
+\b Fluxo Alternativo\b0\par
+Registrar um diagn\'f3stico adicional para o paciente (ex.: "Hipertens\'e3o leve associada ao diabetes").\par
+Incluir uma observa\'e7\'e3o adicional sobre o diagn\'f3stico (ex.: "Ajustar tratamento conforme evolu\'e7\'e3o cl\'ednica").\par
+Registrar um diagn\'f3stico sem adicionar uma observa\'e7\'e3o.\par
+Registrar um diagn\'f3stico com uma nova recomenda\'e7\'e3o de tratamento (ex.: "Introduzir medica\'e7\'e3o adicional para controle da press\'e3o").\par
+\b Fluxo Negativo\b0\par
+Tentar registrar um diagn\'f3stico para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar o campo de diagn\'f3stico em branco e clicar em "Registrar Diagn\'f3stico".\par
+Validar que o sistema exibe a mensagem de erro: "O diagn\'f3stico \'e9 obrigat\'f3rio".\par
+Inserir um diagn\'f3stico inv\'e1lido (ex.: "XYZ123") e tentar salvar.\par
+Validar que o sistema exibe a mensagem: "Diagn\'f3stico inv\'e1lido".\par
+Tentar registrar um diagn\'f3stico com caracteres especiais ou n\'fameros (ex.: "Tratamento #$% de diabetes") e verificar se o sistema gera um alerta de erro.\par
+Tentar registrar um diagn\'f3stico sem selecionar o m\'e9dico respons\'e1vel e validar se o sistema exibe a mensagem de erro: "Selecione o m\'e9dico respons\'e1vel pela consulta".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 3. Registrar Prescri\'e7\'e3o de Medicamentos para o Paciente\ulnone\fs28\par
+Fluxo Principal\b0\par
+Acessar a tela "Registrar Prescri\'e7\'e3o de Medicamentos".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Diagn\'f3stico: "Controle de diabetes tipo 2, sem complica\'e7\'f5es".\par
+Selecionar os medicamentos a serem prescritos:\par
+Medicamento 1: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Medicamento 2: "Glimepirida 4mg", 1 comprimido di\'e1rio.\par
+Definir as orienta\'e7\'f5es sobre o uso dos medicamentos:\par
+Orienta\'e7\'e3o 1: "Tomar com alimentos".\par
+Orienta\'e7\'e3o 2: "Manter em local fresco e seco".\par
+Clicar no bot\'e3o "Registrar Prescri\'e7\'e3o".\par
+O sistema exibe a mensagem: "Prescri\'e7\'e3o de medicamentos registrada com sucesso".\par
+Validar que a prescri\'e7\'e3o aparece corretamente na ficha do paciente e que as orienta\'e7\'f5es est\'e3o vis\'edveis.\par
+\b Fluxo Alternativo\b0\par
+Registrar a prescri\'e7\'e3o de apenas um medicamento, sem incluir as orienta\'e7\'f5es.\par
+Medicamento: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Incluir uma observa\'e7\'e3o adicional sobre o medicamento, como "Ajustar dosagem se houver efeitos colaterais".\par
+Registrar medicamentos para um tratamento de longo prazo, com dura\'e7\'e3o de "12 meses".\par
+Adicionar medicamentos para mais de um diagn\'f3stico (ex.: diabetes e hipertens\'e3o).\par
+\b Fluxo Negativo\b0\par
+Tentar registrar a prescri\'e7\'e3o de medicamentos para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar o campo de medicamentos em branco e clicar no bot\'e3o "Registrar Prescri\'e7\'e3o".\par
+Validar que o sistema exibe a mensagem de erro: "Informe pelo menos um medicamento".\par
+Inserir um nome de medicamento inv\'e1lido (ex.: "Medicamento123") e tentar salvar.\par
+Validar que o sistema exibe a mensagem de erro: "Nome do medicamento inv\'e1lido".\par
+Tentar registrar medicamentos com dosagens incompat\'edveis (ex.: "Insulina 100mg") e verificar se o sistema exibe uma mensagem de erro: "Dosagem inv\'e1lida".\par
+Tentar registrar uma prescri\'e7\'e3o sem selecionar um m\'e9dico respons\'e1vel e validar que o sistema exibe a mensagem de erro: "Selecione o m\'e9dico respons\'e1vel pela prescri\'e7\'e3o".\par
+Inserir uma orienta\'e7\'e3o inv\'e1lida (ex.: "Tomar de qualquer maneira") e verificar se o sistema exibe a mensagem de erro: "Orienta\'e7\'e3o inv\'e1lida".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\cf1\b\fs40 MEDICA\'c7\'c3O \cf0\b0\fs28\par
+\ul\b\fs36 1. Prescrever Medicamento para o Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Prescrever Medicamento".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Hist\'f3rico: "Alergia a antibi\'f3ticos".\par
+Diagn\'f3stico: "Controle de diabetes tipo 2, sem complica\'e7\'f5es".\par
+Selecionar o medicamento a ser prescrito:\par
+Medicamento: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Definir a dosagem e a frequ\'eancia do medicamento:\par
+Dosagem: "500mg".\par
+Frequ\'eancia: "1 comprimido por dia".\par
+Incluir orienta\'e7\'f5es de uso do medicamento:\par
+Orienta\'e7\'e3o: "Tomar com alimentos, de preferencia depois do almo\'e7o".\par
+Clicar no bot\'e3o "Prescrever Medicamento".\par
+O sistema exibe a mensagem: "Medicamento prescrito com sucesso".\par
+Validar que o medicamento aparece na lista de prescri\'e7\'f5es do paciente.\par
+\b Fluxo Alternativo\b0\par
+Prescrever mais de um medicamento para o paciente:\par
+Medicamento 1: "Metformina 500mg", 1 comprimido di\'e1rio.\par
+Medicamento 2: "Insulina 30UI", 2 vezes ao dia.\par
+Prescrever um medicamento com um hor\'e1rio espec\'edfico (ex.: "Tomar 1 comprimido \'e0s 8:00 AM e 1 comprimido \'e0s 8:00 PM").\par
+Prescrever um medicamento com uma observa\'e7\'e3o adicional, como "Reavaliar dose ap\'f3s 30 dias".\par
+\b Fluxo Negativo\b0\par
+Tentar prescrever um medicamento para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar o campo de medicamento em branco e clicar em "Prescrever Medicamento".\par
+Validar que o sistema exibe a mensagem de erro: "Informe o medicamento a ser prescrito".\par
+Inserir um nome de medicamento inv\'e1lido (ex.: "MedicamentoXYZ") e tentar prescrever.\par
+Validar que o sistema exibe a mensagem de erro: "Medicamento inv\'e1lido".\par
+Tentar prescrever uma dosagem incompat\'edvel ou incorreta (ex.: "1000mg de Metformina" quando a dosagem recomendada \'e9 500mg).\par
+Validar que o sistema exibe a mensagem de erro: "Dosagem inv\'e1lida".\par
+Tentar prescrever um medicamento sem adicionar as orienta\'e7\'f5es e verificar se o sistema exibe a mensagem de aviso: "Adicione orienta\'e7\'f5es de uso".\par
+Tentar prescrever um medicamento para um paciente com contraindica\'e7\'e3o (ex.: paciente al\'e9rgico a um medicamento) e verificar se o sistema exibe um alerta de contraindica\'e7\'e3o.\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 2. Ajustar Dosagem do Medicamento do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Ajustar Dosagem do Medicamento".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e suas prescri\'e7\'f5es atuais:\par
+Nome: "Vitor Rech".\par
+Medicamentos prescritos:\par
+"Losartana 50mg", 1 comprimido di\'e1rio.\par
+Selecionar o medicamento a ser ajustado:\par
+Medicamento: "Losartana 50mg".\par
+Alterar a dosagem do medicamento:\par
+Nova dosagem: "Losartana 100mg", 1 comprimido di\'e1rio.\par
+Clicar no bot\'e3o "Ajustar Dosagem".\par
+O sistema exibe a mensagem: "Dosagem ajustada com sucesso".\par
+Validar que a nova dosagem aparece corretamente na lista de medicamentos prescritos do paciente.\par
+\b Fluxo Alternativo\b0\par
+Ajustar a dosagem para mais de um medicamento, se o paciente tiver mais de uma prescri\'e7\'e3o:\par
+Medicamento 1: "Losartana 50mg", 1 comprimido di\'e1rio \f1\u8594?\f0  Ajustado para "Losartana 100mg".\par
+Medicamento 2: "Atenolol 25mg", 1 comprimido di\'e1rio \f1\u8594?\f0  Ajustado para "Atenolol 50mg".\par
+Ajustar a dosagem de um medicamento para um n\'famero diferente de comprimidos por dia (ex.: de "1 comprimido por dia" para "2 comprimidos por dia").\par
+Ajustar a dosagem com uma observa\'e7\'e3o adicional sobre a mudan\'e7a de dose, como "Ajuste devido ao controle da press\'e3o arterial".\par
+\b Fluxo Negativo\b0\par
+Tentar ajustar a dosagem de um medicamento para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar o campo de dosagem em branco e clicar em "Ajustar Dosagem".\par
+Validar que o sistema exibe a mensagem de erro: "Informe a nova dosagem".\par
+Inserir uma dosagem inv\'e1lida ou incompat\'edvel (ex.: "Losartana 200mg" quando a dosagem recomendada \'e9 50mg) e tentar ajustar.\par
+Validar que o sistema exibe a mensagem de erro: "Dosagem inv\'e1lida".\par
+Tentar ajustar a dosagem de um medicamento sem selecionar o medicamento a ser ajustado e verificar se o sistema exibe a mensagem: "Selecione o medicamento".\par
+Ajustar a dosagem para um valor que contraria as orienta\'e7\'f5es m\'e9dicas ou a contraindica\'e7\'e3o (ex.: aumentar a dose de um medicamento que o paciente tem hist\'f3rico de efeitos adversos).\par
+Validar que o sistema exibe um alerta de contraindica\'e7\'e3o.\par
+Ajustar a dosagem para um valor sem registrar a mudan\'e7a e verificar se o sistema n\'e3o realiza a altera\'e7\'e3o.\par
+\cf1\b\lang22 ------------------------------------------------------------------------------------------------------\par
+\cf0\b0\fs36\par
+\ul\b 3. Cancelar\f2  \f0 Prescri\'e7\'e3o\f2  \f0 de\f2  \f0 Medicamento\f2  \f0 do\f2  \f0 Paciente\ulnone\b0\par
+\b\fs28 Fluxo\f2  \f0 Principal\b0\fs36\par
+\fs28 Acessar\f2  \f0 a\f2  \f0 tela\f2  \f0 "Cancelar\f2  \f0 Prescri\'e7\'e3o\f2  \f0 de\f2  \f0 Medicamento"\f2 .\f0\par
+Digitar\f2  \f0 o\f2  \f0 CPF\f2  \f0 do\f2  \f0 paciente\f2  \f0 no\f2  \f0 campo\f2  \f0 de\f2  \f0 busca\f2 :\f0\par
+CPF\f2 : \f0 "12345678901"\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Pesquisar"\f2  \f0 ou\f2  \f0 pressionar\f2  \f0 "Enter"\f2 .\f0\par
+O\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 as\f2  \f0 informa\'e7\'f5es\f2  \f0 do\f2  \f0 paciente\f2  \f0 e\f2  \f0 suas\f2  \f0 prescri\'e7\'f5es\f2  \f0 atuais\f2 :\f0\par
+Nome\f2 : \f0 "Vitor\f2  \f0 Rech"\f2 .\f0\par
+Medicamentos\f2  \f0 prescritos\f2 :\f0\par
+"Losartana\f2  \f0 50mg"\f2 , \f0 1\f2  \f0 comprimido\f2  \f0 di\'e1rio\f2 .\f0\par
+Selecionar\f2  \f0 o\f2  \f0 medicamento\f2  \f0 a\f2  \f0 ser\f2  \f0 cancelado\f2 :\f0\par
+Medicamento\f2 : \f0 "Losartana\f2  \f0 50mg"\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Cancelar\f2  \f0 Prescri\'e7\'e3o"\f2 .\f0\par
+O\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Prescri\'e7\'e3o\f2  \f0 de\f2  \f0 medicamento\f2  \f0 cancelada\f2  \f0 com\f2  \f0 sucesso"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 medicamento\f2  \f0 foi\f2  \f0 removido\f2  \f0 da\f2  \f0 lista\f2  \f0 de\f2  \f0 prescri\'e7\'f5es\f2  \f0 do\f2  \f0 paciente\f2 .\f0\par
+\b Fluxo\f2  \f0 Alternativo\b0\par
+Cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 de\f2  \f0 mais\f2  \f0 de\f2  \f0 um\f2  \f0 medicamento\f2 , \f0 se\f2  \f0 o\f2  \f0 paciente\f2  \f0 tiver\f2  \f0 mais\f2  \f0 de\f2  \f0 uma\f2  \f0 prescri\'e7\'e3o\f2 :\f0\par
+Medicamento\f2  \f0 1\f2 : \f0 "Losartana\f2  \f0 50mg"\f2  \f1\u8594?\f2  \f0 Cancelado\f2 .\f0\par
+Medicamento\f2  \f0 2\f2 : \f0 "Atenolol\f2  \f0 25mg"\f2  \f1\u8594?\f2  \f0 Cancelado\f2 .\f0\par
+Cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 de\f2  \f0 um\f2  \f0 medicamento\f2  \f0 e\f2  \f0 registrar\f2  \f0 a\f2  \f0 necessidade\f2  \f0 de\f2  \f0 substitui\'e7\'e3o\f2  \f0 por\f2  \f0 outro\f2  (\f0 ex\f2 .: \f0 "Cancelar\f2  \f0 Losartana\f2  \f0 50mg\f2  \f0 e\f2  \f0 prescrever\f2  \f0 Losartana\f2  \f0 25mg"\f2 ).\f0\par
+Cancelar\f2  \f0 uma\f2  \f0 prescri\'e7\'e3o\f2  \f0 e\f2  \f0 adicionar\f2  \f0 uma\f2  \f0 observa\'e7\'e3o\f2  \f0 explicando\f2  \f0 a\f2  \f0 altera\'e7\'e3o\f2 , \f0 como\f2  \f0 "Cancelado\f2  \f0 devido\f2  \f0 a\f2  \f0 efeitos\f2  \f0 adversos"\f2 .\f0\par
+\b Fluxo\f2  \f0 Negativo\b0\par
+Tentar\f2  \f0 cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 de\f2  \f0 um\f2  \f0 medicamento\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 inexistente\f2  (\f0 CPF\f2  \f0 n\'e3o\f2  \f0 cadastrado\f2 ):\f0\par
+CPF\f2 : \f0 "00000000000"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Paciente\f2  \f0 n\'e3o\f2  \f0 encontrado"\f2 .\f0\par
+Deixar\f2  \f0 o\f2  \f0 campo\f2  \f0 de\f2  \f0 medicamento\f2  \f0 em\f2  \f0 branco\f2  \f0 e\f2  \f0 clicar\f2  \f0 em\f2  \f0 "Cancelar\f2  \f0 Prescri\'e7\'e3o"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Selecione\f2  \f0 o\f2  \f0 medicamento\f2  \f0 a\f2  \f0 ser\f2  \f0 cancelado"\f2 .\f0\par
+Tentar\f2  \f0 cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 de\f2  \f0 um\f2  \f0 medicamento\f2  \f0 que\f2  \f0 j\'e1\f2  \f0 tenha\f2  \f0 sido\f2  \f0 cancelado\f2  \f0 e\f2  \f0 validar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Prescri\'e7\'e3o\f2  \f0 j\'e1\f2  \f0 cancelada"\f2 .\f0\par
+Tentar\f2  \f0 cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 sem\f2  \f0 as\f2  \f0 permiss\'f5es\f2  \f0 necess\'e1rias\f2  (\f0 ex\f2 .: \f0 se\f2  \f0 o\f2  \f0 m\'e9dico\f2  \f0 n\'e3o\f2  \f0 tem\f2  \f0 autoriza\'e7\'e3o\f2  \f0 para\f2  \f0 cancelar\f2  \f0 prescri\'e7\'f5es\f2 ) \f0 e\f2  \f0 verificar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "A\'e7\'e3o\f2  \f0 n\'e3o\f2  \f0 permitida"\f2 .\f0\par
+Cancelar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2  \f0 de\f2  \f0 um\f2  \f0 medicamento\f2  \f0 e\f2  \f0 verificar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 mant\'e9m\f2  \f0 o\f2  \f0 hist\'f3rico\f2  \f0 de\f2  \f0 cancelamentos\f2 , \f0 para\f2  \f0 auditoria\f2 , \f0 na\f2  \f0 ficha\f2  \f0 do\f2  \f0 paciente\f2 .\f0\par
+\cf1\b\lang22 ------------------------------------------------------------------------------------------------------\par
+\cf0\par
+\ul\fs36 4. Consultar\f2  \f0 Medicamento\f2  \f0 Prescrito\f2  \f0 ao\f2  \f0 Paciente\ulnone\par
+\fs28 Fluxo\f2  \f0 Principal\b0\fs36\par
+\fs28 Acessar\f2  \f0 a\f2  \f0 tela\f2  \f0 "Consultar\f2  \f0 Medicamento"\f2 .\f0\par
+Digitar\f2  \f0 o\f2  \f0 CPF\f2  \f0 do\f2  \f0 paciente\f2  \f0 no\f2  \f0 campo\f2  \f0 de\f2  \f0 busca\f2 :\f0\par
+CPF\f2 : \f0 "12345678901"\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Pesquisar"\f2  \f0 ou\f2  \f0 pressionar\f2  \f0 "Enter"\f2 .\f0\par
+O\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 as\f2  \f0 informa\'e7\'f5es\f2  \f0 do\f2  \f0 paciente\f2  \f0 e\f2  \f0 suas\f2  \f0 prescri\'e7\'f5es\f2  \f0 atuais\f2 :\f0\par
+Nome\f2 : \f0 "Vitor\f2  \f0 Rech"\f2 .\f0\par
+Medicamentos\f2  \f0 prescritos\f2 :\f0\par
+"Losartana\f2  \f0 50mg"\f2 , \f0 1\f2  \f0 comprimido\f2  \f0 di\'e1rio\f2 .\f0\par
+"Atenolol\f2  \f0 25mg"\f2 , \f0 1\f2  \f0 comprimido\f2  \f0 di\'e1rio\f2 .\f0\par
+Consultar\f2  \f0 os\f2  \f0 detalhes\f2  \f0 do\f2  \f0 medicamento\f2  \f0 prescrito\f2 :\f0\par
+Medicamento\f2 : \f0 "Losartana\f2  \f0 50mg"\f2 .\f0\par
+Dosagem\f2 : \f0 "1\f2  \f0 comprimido\f2  \f0 di\'e1rio"\f2 .\f0\par
+Frequ\'eancia\f2 : \f0 "Di\'e1ria"\f2 .\f0\par
+Orienta\'e7\'f5es\f2 : \f0 "Tomar\f2  \f0 com\f2  \f0 alimentos"\f2 .\f0\par
+Validar\f2  \f0 se\f2  \f0 os\f2  \f0 dados\f2  \f0 sobre\f2  \f0 o\f2  \f0 medicamento\f2  \f0 est\'e3o\f2  \f0 corretos\f2  \f0 e\f2  \f0 completos\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Voltar"\f2  \f0 para\f2  \f0 retornar\f2  \f0\'e0\f2  \f0 tela\f2  \f0 inicial\f2 .\f0\par
+\b Fluxo\f2  \f0 Alternativo\b0\par
+Consultar\f2  \f0 medicamentos\f2  \f0 prescritos\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 com\f2  \f0 mais\f2  \f0 de\f2  \f0 uma\f2  \f0 prescri\'e7\'e3o\f2 :\f0\par
+Medicamento\f2  \f0 1\f2 : \f0 "Losartana\f2  \f0 50mg"\f2 .\f0\par
+Medicamento\f2  \f0 2\f2 : \f0 "Atenolol\f2  \f0 25mg"\f2 .\f0\par
+Consultar\f2  \f0 medicamentos\f2  \f0 prescritos\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 com\f2  \f0 hist\'f3rico\f2  \f0 de\f2  \f0 alergias\f2 , \f0 e\f2  \f0 validar\f2  \f0 que\f2  \f0 a\f2  \f0 lista\f2  \f0 n\'e3o\f2  \f0 inclui\f2  \f0 medicamentos\f2  \f0 contraindicados\f2 .\f0\par
+Consultar\f2  \f0 medicamentos\f2  \f0 prescritos\f2  \f0 em\f2  \f0 uma\f2  \f0 data\f2  \f0 espec\'edfica\f2 , \f0 por\f2  \f0 exemplo\f2 , \f0 para\f2  \f0 verificar\f2  \f0 se\f2  \f0 a\f2  \f0 medica\'e7\'e3o\f2  \f0 foi\f2  \f0 alterada\f2  \f0 recentemente\f2 .\f0\par
+\b Fluxo\f2  \f0 Negativo\b0\par
+Tentar\f2  \f0 consultar\f2  \f0 medicamentos\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 inexistente\f2  (\f0 CPF\f2  \f0 n\'e3o\f2  \f0 cadastrado\f2 ):\f0\par
+CPF\f2 : \f0 "00000000000"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Paciente\f2  \f0 n\'e3o\f2  \f0 encontrado"\f2 .\f0\par
+Deixar\f2  \f0 o\f2  \f0 campo\f2  \f0 de\f2  \f0 CPF\f2  \f0 em\f2  \f0 branco\f2  \f0 e\f2  \f0 clicar\f2  \f0 em\f2  \f0 "Pesquisar"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Informe\f2  \f0 o\f2  \f0 CPF\f2  \f0 do\f2  \f0 paciente"\f2 .\f0\par
+Consultar\f2  \f0 medicamentos\f2  \f0 de\f2  \f0 um\f2  \f0 paciente\f2  \f0 que\f2  \f0 n\'e3o\f2  \f0 tenha\f2  \f0 prescri\'e7\'e3o\f2  \f0 registrada\f2  \f0 e\f2  \f0 validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Nenhum\f2  \f0 medicamento\f2  \f0 prescrito"\f2 .\f0\par
+Consultar\f2  \f0 medicamentos\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 sem\f2  \f0 as\f2  \f0 permiss\'f5es\f2  \f0 adequadas\f2  (\f0 ex\f2 .: \f0 um\f2  \f0 usu\'e1rio\f2  \f0 sem\f2  \f0 permiss\'e3o\f2  \f0 para\f2  \f0 visualizar\f2  \f0 a\f2  \f0 prescri\'e7\'e3o\f2 ) \f0 e\f2  \f0 verificar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Acesso\f2  \f0 n\'e3o\f2  \f0 autorizado"\f2 .\f0\par
+Tentar\f2  \f0 consultar\f2  \f0 medicamentos\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 cujo\f2  \f0 hist\'f3rico\f2  \f0 de\f2  \f0 medica\'e7\'e3o\f2  \f0 foi\f2  \f0 apagado\f2  \f0 e\f2  \f0 verificar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Hist\'f3rico\f2  \f0 de\f2  \f0 medica\'e7\'e3o\f2  \f0 n\'e3o\f2  \f0 encontrado"\f2 .\f0\par
+\cf1\b ------------------------------------------------------------------------------------------------------\b0\par
+\b\fs40 DISPOSITIVO DE MONITORAMENTO \b0\fs28\par
+\cf0\ul\b\fs36 1. Cadastrar dispositivo\ulnone\b0\fs28\par
+\b Fluxo\f2  \f0 Principal\b0\par
+Acessar\f2  \f0 a\f2  \f0 tela\f2  \f0 "Cadastrar\f2  \f0 Dispositivo"\f2 .\f0\par
+Digitar\f2  \f0 o\f2  \f0 CPF\f2  \f0 do\f2  \f0 paciente\f2  \f0 no\f2  \f0 campo\f2  \f0 de\f2  \f0 busca\f2 :\f0\par
+CPF\f2 : \f0 "12345678901"\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Pesquisar"\f2  \f0 ou\f2  \f0 pressionar\f2  \f0 "Enter"\f2 .\f0\par
+O\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 as\f2  \f0 informa\'e7\'f5es\f2  \f0 do\f2  \f0 paciente\f2 :\f0\par
+Nome\f2 : \f0 "Vitor\f2  \f0 Rech"\f2 .\f0\par
+Selecionar\f2  \f0 a\f2  \f0 op\'e7\'e3o\f2  \f0 para\f2  \f0 adicionar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 de\f2  \f0 monitoramento\f2 .\f0\par
+Preencher\f2  \f0 os\f2  \f0 dados\f2  \f0 do\f2  \f0 dispositivo\f2  \f0 a\f2  \f0 ser\f2  \f0 cadastrado\f2 :\f0\par
+Tipo\f2  \f0 de\f2  \f0 dispositivo\f2 : \f0 "Monitore\f2  \f0 de\f2  \f0 glicemia"\f2 .\f0\par
+Modelo\f2 : \f0 "Glucometer\f2  \f0 Plus"\f2 .\f0\par
+Data\f2  \f0 de\f2  \f0 instala\'e7\'e3o\f2 : \f0 "17\f2 /\f0 11\f2 /\f0 2024"\f2 .\f0\par
+Frequ\'eancia\f2  \f0 de\f2  \f0 uso\f2 : \f0 "2\f2  \f0 vezes\f2  \f0 ao\f2  \f0 dia"\f2 .\f0\par
+Clicar\f2  \f0 no\f2  \f0 bot\'e3o\f2  \f0 "Cadastrar\f2  \f0 Dispositivo"\f2 .\f0\par
+O\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Dispositivo\f2  \f0 cadastrado\f2  \f0 com\f2  \f0 sucesso"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 dispositivo\f2  \f0 aparece\f2  \f0 na\f2  \f0 lista\f2  \f0 de\f2  \f0 dispositivos\f2  \f0 associados\f2  \f0 ao\f2  \f0 paciente\f2 .\f0\par
+\b Fluxo\f2  \f0 Alternativo\b0\par
+Cadastrar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 diferente\f2  (\f0 ex\f2 .: \f0 "Monitor\f2  \f0 de\f2  \f0 press\'e3o\f2  \f0 arterial"\f2 ).\f0\par
+Cadastrar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 com\f2  \f0 uma\f2  \f0 frequ\'eancia\f2  \f0 de\f2  \f0 uso\f2  \f0 maior\f2 , \f0 como\f2  \f0 "4\f2  \f0 vezes\f2  \f0 ao\f2  \f0 dia"\f2 .\f0\par
+Cadastrar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 e\f2  \f0 adicionar\f2  \f0 uma\f2  \f0 observa\'e7\'e3o\f2  \f0 sobre\f2  \f0 o\f2  \f0 uso\f2 , \f0 como\f2  \f0 "Uso\f2  \f0 recomendado\f2  \f0 ap\'f3s\f2  \f0 as\f2  \f0 refei\'e7\'f5es"\f2 .\f0\par
+\b Fluxo\f2  \f0 Negativo\b0\par
+Tentar\f2  \f0 cadastrar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 inexistente\f2  (\f0 CPF\f2  \f0 n\'e3o\f2  \f0 cadastrado\f2 ):\f0\par
+CPF\f2 : \f0 "00000000000"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Paciente\f2  \f0 n\'e3o\f2  \f0 encontrado"\f2 .\f0\par
+Deixar\f2  \f0 os\f2  \f0 campos\f2  \f0 obrigat\'f3rios\f2  \f0 em\f2  \f0 branco\f2  \f0 e\f2  \f0 clicar\f2  \f0 em\f2  \f0 "Cadastrar\f2  \f0 Dispositivo"\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Preencha\f2  \f0 todos\f2  \f0 os\f2  \f0 campos\f2  \f0 obrigat\'f3rios"\f2 .\f0\par
+Inserir\f2  \f0 um\f2  \f0 tipo\f2  \f0 de\f2  \f0 dispositivo\f2  \f0 inv\'e1lido\f2  (\f0 ex\f2 .: \f0 "DispositivoXYZ"\f2 ) \f0 e\f2  \f0 tentar\f2  \f0 cadastrar\f2 .\f0\par
+Validar\f2  \f0 que\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2  \f0 de\f2  \f0 erro\f2 : \f0 "Dispositivo\f2  \f0 inv\'e1lido"\f2 .\f0\par
+Tentar\f2  \f0 cadastrar\f2  \f0 um\f2  \f0 dispositivo\f2  \f0 para\f2  \f0 um\f2  \f0 paciente\f2  \f0 sem\f2  \f0 a\f2  \f0 permiss\'e3o\f2  \f0 necess\'e1ria\f2  \f0 e\f2  \f0 verificar\f2  \f0 se\f2  \f0 o\f2  \f0 sistema\f2  \f0 exibe\f2  \f0 a\f2  \f0 mensagem\f2 : \f0 "Acesso\f2  \f0 n\'e3o\f2  \f0 autorizado"\f2 .\f0\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\b\fs36  2. \ul Visualizar Dispositivo\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Visualizar Dispositivo".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e seus dispositivos cadastrados:\par
+Nome: "Vitor Rech".\par
+Dispositivos:\par
+"Monitore de glicemia", modelo "Glucometer Plus", frequ\'eancia "2 vezes ao dia".\par
+Selecionar o dispositivo desejado para visualizar detalhes:\par
+Tipo de dispositivo: "Monitore de glicemia".\par
+Frequ\'eancia de uso: "2 vezes ao dia".\par
+Validar se as informa\'e7\'f5es do dispositivo est\'e3o corretas.\par
+\b Fluxo Alternativo\b0\par
+Visualizar dispositivos de pacientes com m\'faltiplos dispositivos cadastrados (ex.: "Monitore de glicemia" e "Monitor de press\'e3o arterial").\par
+Visualizar um dispositivo e adicionar um hist\'f3rico de monitoramento (ex.: "\'daltima leitura de glicemia: 120 mg/dL").\par
+\b Fluxo Negativo\b0\par
+Tentar visualizar dispositivos para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar visualizar dispositivos sem ter cadastro de dispositivos no sistema e verificar se o sistema exibe a mensagem: "Nenhum dispositivo cadastrado".\par
+Tentar visualizar dispositivos de um paciente sem a permiss\'e3o necess\'e1ria e verificar se o sistema exibe a mensagem: "Acesso n\'e3o autorizado".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\par
+\cf0\ul\fs36 3. Remover Dispositivo\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Remover Dispositivo".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e seus dispositivos cadastrados:\par
+Nome: "Vitor Rech".\par
+Dispositivos:\par
+"Monitore de glicemia", modelo "Glucometer Plus", frequ\'eancia "2 vezes ao dia".\par
+Selecionar o dispositivo a ser removido:\par
+Dispositivo: "Monitore de glicemia".\par
+Clicar no bot\'e3o "Remover Dispositivo".\par
+O sistema exibe a mensagem: "Dispositivo removido com sucesso".\par
+Validar que o dispositivo foi removido da lista de dispositivos associados ao paciente.\par
+\b Fluxo Alternativo\b0\par
+Remover mais de um dispositivo para o paciente, caso haja mais de um dispositivo cadastrado.\par
+Remover um dispositivo e registrar a raz\'e3o, como "Dispositivo danificado".\par
+\b Fluxo Negativo\b0\par
+Tentar remover um dispositivo para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar remover um dispositivo que n\'e3o est\'e1 cadastrado e verificar se o sistema exibe a mensagem: "Dispositivo n\'e3o encontrado".\par
+Tentar remover um dispositivo sem as permiss\'f5es adequadas e verificar se o sistema exibe a mensagem: "A\'e7\'e3o n\'e3o permitida".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\cf1\b\fs40 MONITORA\'c7\'c3O\cf0\b0\fs28\par
+ \ul\b\fs36 1. Monitorar Dados de Sa\'fade do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Monitorar Dados de Sa\'fade".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Selecionar o tipo de dado de sa\'fade a ser monitorado (ex.: "Press\'e3o arterial", "N\'edvel de glicemia", "Frequ\'eancia card\'edaca").\par
+Preencher os dados monitorados:\par
+Press\'e3o arterial: "120/80 mmHg".\par
+Glicemia: "100 mg/dL".\par
+Frequ\'eancia card\'edaca: "75 bpm".\par
+Clicar no bot\'e3o "Salvar Monitoramento".\par
+O sistema exibe a mensagem: "Dados de sa\'fade monitorados com sucesso".\par
+Validar que os dados monitorados foram registrados corretamente no sistema.\par
+\b Fluxo Alternativo\b0\par
+Monitorar dados de sa\'fade para mais de um tipo de par\'e2metro (ex.: monitorar glicemia e press\'e3o arterial no mesmo momento).\par
+Monitorar dados para pacientes com dispositivos de monitoramento conectados e registrar os dados automaticamente.\par
+\b Fluxo Negativo\b0\par
+Tentar monitorar dados para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar os campos obrigat\'f3rios em branco e tentar salvar o monitoramento.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir dados inv\'e1lidos (ex.: pressionar "0" para a glicemia ou "999" para a press\'e3o arterial) e tentar salvar.\par
+Validar que o sistema exibe a mensagem de erro: "Valor inv\'e1lido".\par
+Monitorar dados sem as permiss\'f5es necess\'e1rias e verificar se o sistema exibe a mensagem: "Acesso n\'e3o autorizado".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36  2. Visualizar Dados Monitorados do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Visualizar Dados Monitorados".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e os dados de sa\'fade monitorados:\par
+Nome: "Vitor Rech".\par
+Dados monitorados:\par
+Press\'e3o arterial: "120/80 mmHg".\par
+Glicemia: "100 mg/dL".\par
+Frequ\'eancia card\'edaca: "75 bpm".\par
+Validar que os dados est\'e3o corretos e completos.\par
+\b Fluxo Alternativo\b0\par
+Visualizar dados de sa\'fade de um paciente com m\'faltiplos tipos de monitoramento (ex.: glicemia, press\'e3o arterial, etc.).\par
+Visualizar dados monitorados para um per\'edodo espec\'edfico (ex.: "\'faltimos 7 dias").\par
+\b Fluxo Negativo\b0\par
+Tentar visualizar dados de sa\'fade de um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar visualizar dados monitorados de um paciente sem permiss\'f5es necess\'e1rias e verificar se o sistema exibe a mensagem: "Acesso n\'e3o autorizado".\par
+Tentar visualizar dados monitorados de um paciente que n\'e3o tem registros e validar se o sistema exibe a mensagem: "Nenhum dado monitorado registrado".\cf1\par
+\b ------------------------------------------------------------------------------------------------------\par
+\cf0\ul\fs36  3\b0 . \b Gerar Alerta do Paciente\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Gerar Alerta".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Selecionar o tipo de alerta a ser gerado (ex.: "Glicemia elevada", "Press\'e3o arterial alta", "Frequ\'eancia card\'edaca irregular").\par
+Informar a raz\'e3o do alerta:\par
+"Glicemia de 180 mg/dL", superior ao limite recomendado.\par
+Clicar no bot\'e3o "Gerar Alerta".\par
+O sistema exibe a mensagem: "Alerta gerado com sucesso".\par
+Validar que o alerta foi gerado corretamente no hist\'f3rico de alertas do paciente.\par
+\b Fluxo Alternativo\b0\par
+Gerar m\'faltiplos alertas para o mesmo paciente, caso haja mais de um dado monitorado fora do limite.\par
+Gerar um alerta de forma preventiva, por exemplo, "Risco de hipoglicemia" baseado no hist\'f3rico de glicemia.\par
+\b Fluxo Negativo\b0\par
+Tentar gerar um alerta para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar os campos obrigat\'f3rios em branco e tentar gerar o alerta.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir um valor inv\'e1lido para um dado monitorado (ex.: glicemia "500 mg/dL") e tentar gerar o alerta.\par
+Validar que o sistema exibe a mensagem de erro: "Valor inv\'e1lido para alerta".\par
+Tentar gerar um alerta sem a permiss\'e3o necess\'e1ria e verificar se o sistema exibe a mensagem: "A\'e7\'e3o n\'e3o permitida".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 4. Analisar Monitora\'e7\'e3o do Paciente\ulnone\fs28\par
+Fluxo Principal\b0\par
+Acessar a tela "Analisar Monitora\'e7\'e3o".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e os dados monitorados.\par
+Analisar os dados de sa\'fade monitorados ao longo do tempo:\par
+Press\'e3o arterial: Hist\'f3rico de varia\'e7\'f5es, como "120/80", "130/85", etc.\par
+Glicemia: Hist\'f3rico de varia\'e7\'f5es de glicemia, como "100 mg/dL", "180 mg/dL".\par
+Validar que o sistema apresenta gr\'e1ficos ou tabelas com as informa\'e7\'f5es de forma clara e acess\'edvel para o m\'e9dico.\par
+Clicar no bot\'e3o "Gerar Relat\'f3rio" para gerar um relat\'f3rio de monitora\'e7\'e3o do paciente.\par
+O sistema exibe a mensagem: "Relat\'f3rio gerado com sucesso".\par
+Validar que o relat\'f3rio est\'e1 correto e completo, com dados hist\'f3ricos e an\'e1lise de tend\'eancias.\par
+\b Fluxo Alternativo\b0\par
+Analisar dados de sa\'fade de um paciente com m\'faltiplos par\'e2metros monitorados e gerar um relat\'f3rio detalhado com todas as informa\'e7\'f5es.\par
+Analisar dados por per\'edodos espec\'edficos, como "\'faltimos 30 dias" ou "\'faltima semana".\par
+\b Fluxo Negativo\b0\par
+Tentar analisar dados de sa\'fade para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar analisar dados monitorados de um paciente sem permiss\'f5es e verificar se o sistema exibe a mensagem: "Acesso n\'e3o autorizado".\par
+Tentar gerar um relat\'f3rio de monitora\'e7\'e3o sem dados suficientes e validar se o sistema exibe a mensagem: "Dados insuficientes para an\'e1lise".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\par
+\cf1\b\fs40 ALERTA\cf0\b0\fs28\par
+\ul\b\fs36 1. Gerar Alerta\ulnone\b0\fs28\par
+\b Fluxo Principal\b0\par
+Acessar a tela "Gerar Alerta".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente:\par
+Nome: "Vitor Rech".\par
+Selecionar o tipo de alerta a ser gerado:\par
+Tipo de alerta: "Press\'e3o arterial elevada", "Glicemia alta", "Frequ\'eancia card\'edaca irregular".\par
+Informar a raz\'e3o do alerta:\par
+Exemplo: "Glicemia de 250 mg/dL, acima do limite recomendado".\par
+Definir a prioridade do alerta:\par
+Prioridade: "Alta".\par
+Clicar no bot\'e3o "Gerar Alerta".\par
+O sistema exibe a mensagem: "Alerta gerado com sucesso".\par
+Validar que o alerta foi gerado e associado corretamente ao paciente.\par
+\b Fluxo Alternativo\b0\par
+Gerar alertas para m\'faltiplos par\'e2metros de sa\'fade (ex.: glicemia alta e press\'e3o arterial elevada ao mesmo tempo).\par
+Gerar um alerta com uma descri\'e7\'e3o adicional, como: "Paciente com hist\'f3rico de hipoglicemia".\par
+\b Fluxo Negativo\b0\par
+Tentar gerar um alerta para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Deixar os campos obrigat\'f3rios em branco e tentar gerar o alerta.\par
+Validar que o sistema exibe a mensagem de erro: "Preencha todos os campos obrigat\'f3rios".\par
+Inserir dados inv\'e1lidos (ex.: glicemia "500 mg/dL" ou press\'e3o "1000 mmHg") e tentar gerar o alerta.\par
+Validar que o sistema exibe a mensagem de erro: "Valor inv\'e1lido para alerta".\par
+Tentar gerar um alerta sem as permiss\'f5es necess\'e1rias e verificar se o sistema exibe a mensagem: "A\'e7\'e3o n\'e3o permitida".Gerar Alerta\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36 2. Encerrar Alerta\ulnone\b0\fs28\par
+\ul\b Fluxo Principal\ulnone\b0\par
+Acessar a tela "Alertas do Paciente".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e seus alertas gerados.\par
+Selecionar o alerta a ser encerrado.\par
+Clicar no bot\'e3o "Encerrar Alerta".\par
+O sistema exibe a mensagem: "Alerta encerrado com sucesso".\par
+Validar que o alerta foi encerrado e n\'e3o aparece mais na lista de alertas ativos do paciente.\par
+\b Fluxo Alternativo\b0\par
+Encerrar m\'faltiplos alertas ao mesmo tempo, caso o paciente tenha v\'e1rios alertas gerados.\par
+Encerrar um alerta e adicionar uma observa\'e7\'e3o de encerramento, como "Ajuste de medica\'e7\'e3o realizado".\par
+\b Fluxo Negativo\b0\par
+Tentar encerrar um alerta para um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar encerrar um alerta que j\'e1 foi encerrado e verificar se o sistema exibe a mensagem: "Este alerta j\'e1 foi encerrado".\par
+Tentar encerrar um alerta sem as permiss\'f5es necess\'e1rias e verificar se o sistema exibe a mensagem: "A\'e7\'e3o n\'e3o permitida".\par
+\cf1\b ------------------------------------------------------------------------------------------------------\cf0\b0\par
+\ul\b\fs36  3. Visualizar Alertas\b0\fs28\par
+\b Fluxo Principal\ulnone\b0\par
+Acessar a tela "Visualizar Alertas".\par
+Digitar o CPF do paciente no campo de busca:\par
+CPF: "12345678901".\par
+Clicar no bot\'e3o "Pesquisar" ou pressionar "Enter".\par
+O sistema exibe as informa\'e7\'f5es do paciente e os alertas gerados para o paciente.\par
+Verificar que os alertas est\'e3o listados corretamente, com as seguintes informa\'e7\'f5es:\par
+Tipo de alerta: "Press\'e3o arterial elevada", "Glicemia alta", etc.\par
+Data e hora do alerta.\par
+Prioridade do alerta: "Alta", "M\'e9dia", etc.\par
+Validar que os alertas podem ser filtrados por status (ex.: "Ativos", "Encerrados").\par
+\b Fluxo Alternativo\b0\par
+Visualizar alertas de um paciente com m\'faltiplos alertas (ex.: glicemia alta e press\'e3o arterial elevada).\par
+Visualizar alertas de um paciente dentro de um per\'edodo espec\'edfico (ex.: "\'daltimos 30 dias").\par
+\b Fluxo Negativo\b0\par
+Tentar visualizar alertas de um paciente inexistente (CPF n\'e3o cadastrado):\par
+CPF: "00000000000".\par
+Validar que o sistema exibe a mensagem: "Paciente n\'e3o encontrado".\par
+Tentar visualizar alertas de um paciente sem permiss\'f5es necess\'e1rias e verificar se o sistema exibe a mensagem: "Acesso n\'e3o autorizado".\par
+Tentar visualizar alertas de um paciente sem alertas registrados e verificar se o sistema exibe a mensagem: "Nenhum alerta registrado".\par
+}
+ 
