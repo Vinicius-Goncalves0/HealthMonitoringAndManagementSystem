@@ -8,5 +8,11 @@
     ],
     "cSpell.enabledFileTypes": {
         "java": false
-    }
+    },
+    "cSpell.words": [
+        "jupiter"
+    ],
+    "terminal.integrated.env.windows": {
+    "LANG": "pt_BR.UTF-8",
+},
 }
